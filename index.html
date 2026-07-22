@@ -691,7 +691,7 @@
                     <span>Secure Access</span>
                 </div>
                 <h2>Selamat datang di DLPK E.</h2>
-                <p>Platform cerdas untuk pendidik profesional dalam mengelola administrasi kelas secara terstruktur, efisien, dan eksklusif — semua dalam satu kendali.</p>
+                <p>Platform cerdas untuk pendidik profesional dalam mengelola administrasi kelas secara terstruktur, efisien, dan eksklusif Â— semua dalam satu kendali.</p>
                 
                 <div class="mt-auto opacity-40 text-[10px] font-bold uppercase tracking-[0.2em]">
                     DAFTAR LAPORAN PERKEMBANGAN KELAS
@@ -829,7 +829,7 @@
             
             <div id="page-dashboard" class="space-y-5 page-transition">
 
-                <!-- Hero Banner — foto guru + sapaan -->
+                <!-- Hero Banner Â— foto guru + sapaan -->
                 <div class="relative overflow-hidden rounded-3xl p-7 md:p-10" style="background:linear-gradient(135deg,#0d1829 0%,#0a1628 50%,#0f1f3d 100%);border:1px solid rgba(0,212,255,0.15);">
                     <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse at 70% 30%,rgba(0,212,255,0.1),transparent 55%),radial-gradient(ellipse at 10% 90%,rgba(124,58,237,0.08),transparent 50%);"></div>
                     <div class="absolute inset-0 pointer-events-none" style="background-image:linear-gradient(rgba(0,212,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.04) 1px,transparent 1px);background-size:40px 40px;"></div>
@@ -876,7 +876,7 @@
                     <!-- Glow -->
                     <div style="position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(0,212,255,0.05),transparent 65%);top:-100px;right:-80px;pointer-events:none;z-index:0;"></div>
 
-                    <!-- Jam digital 7-segment — memotong border atas, tengah -->
+                    <!-- Jam digital 7-segment Â— memotong border atas, tengah -->
                     <div style="position:absolute;top:-22px;left:50%;transform:translateX(-50%);z-index:10;display:flex;flex-direction:column;align-items:center;">
                         <div style="position:relative;display:inline-flex;align-items:center;gap:0;padding:8px 14px 7px;border-radius:10px;background:#060D1F;border:1px solid rgba(0,212,255,0.25);box-shadow:0 0 20px rgba(0,212,255,0.1),0 4px 16px rgba(0,0,0,0.7);">
                             <div style="position:absolute;inset:0;border-radius:10px;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.1) 3px,rgba(0,0,0,0.1) 4px);pointer-events:none;"></div>
@@ -910,7 +910,7 @@
                             </div>
                             <div>
                                 <div style="font-size:7px;font-weight:900;text-transform:uppercase;letter-spacing:.3em;color:rgba(0,212,255,0.4);margin-bottom:1px;">Jadwal Hari Ini</div>
-                                <div id="dash-jadwal-hari" style="font-size:14px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;color:#E5E7EB;">—</div>
+                                <div id="dash-jadwal-hari" style="font-size:14px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;color:#E5E7EB;">Â—</div>
                             </div>
                         </div>
                         <div id="dash-jadwal-now-badge" style="display:none;align-items:center;gap:6px;padding:5px 12px;border-radius:100px;background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.3);color:#00D4FF;font-size:7px;font-weight:900;text-transform:uppercase;letter-spacing:.2em;">
@@ -918,7 +918,7 @@
                         </div>
                     </div>
 
-                    <!-- Active headline — hanya muncul saat jam berlaku -->
+                    <!-- Active headline Â— hanya muncul saat jam berlaku -->
                     <div id="dash-jadwal-active-block" style="display:none;position:relative;z-index:2;margin:0 14px 10px;border-radius:14px;overflow:hidden;background:linear-gradient(135deg,rgba(0,212,255,0.09),rgba(124,58,237,0.07));border:1px solid rgba(0,212,255,0.18);">
                         <div style="position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(180deg,#00D4FF,#7C3AED);"></div>
                         <div style="padding:12px 14px 10px 18px;">
@@ -1362,7 +1362,7 @@
                 </div>
             </div>
 
-            <!-- Modal Preview Bahan Ajar — sebagai halaman penuh -->
+            <!-- Modal Preview Bahan Ajar Â— sebagai halaman penuh -->
             <div id="m-ba-preview" style="display:none;position:absolute;inset:0;z-index:100;background:#07101F;flex-direction:column;">
                 <!-- Header -->
                 <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:#07101F;border-bottom:1px solid rgba(0,212,255,0.15);flex-shrink:0;">
@@ -1997,7 +1997,7 @@
                 screen.style.transform = 'scale(1.05)';
                 setTimeout(() => {
                     screen.style.display = 'none';
-                    // Cek session — jika sudah login sebelumnya, langsung masuk
+                    // Cek session Â— jika sudah login sebelumnya, langsung masuk
                     if (sessionStorage.getItem('dlpk_logged_in') === '1') {
                         masukDashboard();
                     } else {
@@ -2076,33 +2076,43 @@
                 journalData = snap.val() || {};
                 if(document.getElementById('page-journal').classList.contains('hidden') === false) renderJournalDay();
             });
-            db.ref('/').on('value', (snapshot) => {
-                const data = snapshot.val() || {};
-                
-                if (data.config) {
-                    // Deep merge config to avoid losing nested properties like auth
-                    config.guru = { ...config.guru, ...data.config.guru };
-                    config.sekolah = { ...config.sekolah, ...data.config.sekolah };
-                    if (data.config.auth && data.config.auth.password) {
-                        config.auth.password = data.config.auth.password;
+            db.ref('config').on('value', (snapshot) => {
+                const c = snapshot.val();
+                if (c) {
+                    config.guru = { ...config.guru, ...c.guru };
+                    config.sekolah = { ...config.sekolah, ...c.sekolah };
+                    if (c.auth && c.auth.password) {
+                        config.auth.password = c.auth.password;
                     } else {
                         config.auth = { password: "guru123" };
                     }
+                    updateUIFromConfig();
+                    if (c.guru && c.guru.foto) {
+                        applyFotoGuru(c.guru.foto);
+                    }
                 }
-                if (data.students) students = Object.keys(data.students).map(k => ({...data.students[k], id: k}));
+            });
+
+            db.ref('students').on('value', (snapshot) => {
+                const s = snapshot.val();
+                if (s) students = Object.keys(s).map(k => ({...s[k], id: k}));
                 else students = [];
-                
-                if (data.attendance) attendanceData = data.attendance;
-                if (data.grades) gradesData = data.grades;
-                if (data.gradeConfigs) Object.assign(gradeConfigs, data.gradeConfigs);
-                
-                updateUIFromConfig();
-                // Muat foto guru dari Firebase
-                if (data.config && data.config.guru && data.config.guru.foto) {
-                    applyFotoGuru(data.config.guru.foto);
-                }
                 if (document.getElementById('page-students').classList.contains('hidden') === false) renderSiswa();
-                if (document.getElementById('page-attendance').classList.contains('hidden') === false) renderAbsen();
+            });
+
+            db.ref('attendance').on('value', (snapshot) => {
+                attendanceData = snapshot.val() || {};
+                if (document.getElementById('page-attendance').classList.contains('hidden') === false) updateAbsenDOM();
+            });
+
+            db.ref('grades').on('value', (snapshot) => {
+                gradesData = snapshot.val() || {};
+                if (document.getElementById('page-grades').classList.contains('hidden') === false) renderNilai();
+            });
+
+            db.ref('gradeConfigs').on('value', (snapshot) => {
+                const g = snapshot.val();
+                if (g) Object.assign(gradeConfigs, g);
                 if (document.getElementById('page-grades').classList.contains('hidden') === false) renderNilai();
             });
         }
@@ -2472,9 +2482,9 @@
                 <td class="px-6 py-4 italic text-[10px] pointer-events-none" style="color:#9CA3AF;">${s.alamat||'-'}</td>
                 <td class="px-6 py-4 text-[10px] pointer-events-none" style="color:#E5E7EB;">${s.ayah||'-'}<br><span style="color:#9CA3AF;font-size:9px;">${s.lulusan_ayah||''} ${s.pekerjaan_ayah||''}</span></td>
                 <td class="px-6 py-4 text-[10px] pointer-events-none" style="color:#E5E7EB;">${s.ibu||'-'}<br><span style="color:#9CA3AF;font-size:9px;">${s.lulusan_ibu||''} ${s.pekerjaan_ibu||''}</span></td>
-                <td class="px-6 py-4 text-[10px] pointer-events-none">${s.keterangan && s.keterangan !== '-' ? `<span style="font-size:9px;font-weight:800;padding:2px 8px;border-radius:100px;background:rgba(251,191,36,0.12);color:#fbbf24;border:1px solid rgba(251,191,36,0.25);">${s.keterangan}</span>` : '<span style="color:rgba(255,255,255,0.2);">—</span>'}</td>
+                <td class="px-6 py-4 text-[10px] pointer-events-none">${s.keterangan && s.keterangan !== '-' ? `<span style="font-size:9px;font-weight:800;padding:2px 8px;border-radius:100px;background:rgba(251,191,36,0.12);color:#fbbf24;border:1px solid rgba(251,191,36,0.25);">${s.keterangan}</span>` : '<span style="color:rgba(255,255,255,0.2);">Â—</span>'}</td>
                 <td class="px-6 py-4 text-center">
-                    ${s.wa ? `<a href="https://wa.me/62${s.wa}" target="_blank" class="inline-flex items-center justify-center w-8 h-8 rounded-lg transition-all" style="background:rgba(37,211,102,0.12);border:1px solid rgba(37,211,102,0.3);" onmouseover="this.style.background='rgba(37,211,102,0.25)'" onmouseout="this.style.background='rgba(37,211,102,0.12)'" title="Chat WhatsApp"><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='#25D366'><path d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z'/><path d='M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.855L.057 23.882l6.186-1.443A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.667-.5-5.2-1.373l-.373-.22-3.673.857.896-3.564-.242-.386A9.944 9.944 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z'/></svg></a>` : `<span style="color:rgba(255,255,255,0.15);font-size:9px;">—</span>`}
+                    ${s.wa ? `<a href="https://wa.me/62${s.wa}" target="_blank" class="inline-flex items-center justify-center w-8 h-8 rounded-lg transition-all" style="background:rgba(37,211,102,0.12);border:1px solid rgba(37,211,102,0.3);" onmouseover="this.style.background='rgba(37,211,102,0.25)'" onmouseout="this.style.background='rgba(37,211,102,0.12)'" title="Chat WhatsApp"><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='#25D366'><path d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z'/><path d='M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.855L.057 23.882l6.186-1.443A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.667-.5-5.2-1.373l-.373-.22-3.673.857.896-3.564-.242-.386A9.944 9.944 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z'/></svg></a>` : `<span style="color:rgba(255,255,255,0.15);font-size:9px;">Â—</span>`}
                 </td>
                 <td class="px-6 py-4">
                     <div class="flex items-center justify-center gap-2">
@@ -2550,6 +2560,47 @@
             const y = currentMonth.getFullYear(), m = currentMonth.getMonth() + 1;
             const monthKey = `${y}-${m.toString().padStart(2, '0')}`;
             db.ref(`attendance/${monthKey}/${studentName}/${day}`).set(value);
+        }
+
+        function updateAbsenDOM() {
+            const tbody = document.getElementById('abs-body');
+            if (!tbody || tbody.children.length !== (students.length || 1) || students.length === 0) {
+                renderAbsen();
+                return;
+            }
+            const currentLabel = document.getElementById('month-label').innerText;
+            const expectedLabel = new Intl.DateTimeFormat('id-ID',{month:'long',year:'numeric'}).format(currentMonth);
+            if (currentLabel !== expectedLabel) {
+                renderAbsen();
+                return;
+            }
+
+            const y = currentMonth.getFullYear(), m = currentMonth.getMonth();
+            const monthKey = `${y}-${(m+1).toString().padStart(2,'0')}`;
+            const lastDay = new Date(y, m+1, 0).getDate();
+
+            students.forEach((s, sIdx) => {
+                let rekap = {H:0,S:0,I:0,A:0};
+                for(let i=1; i<=lastDay; i++) {
+                    const val = (attendanceData[monthKey]&&attendanceData[monthKey][s.name]&&attendanceData[monthKey][s.name][i])||'-';
+                    if(val==='H')rekap.H++;
+                    else if(val==='S')rekap.S++;
+                    else if(val==='I')rekap.I++;
+                    else if(val==='A')rekap.A++;
+                    
+                    const sel = document.getElementById(`abs-sel-${sIdx}-${i}`);
+                    if (sel && sel.value !== val) {
+                        sel.value = val;
+                        const cl = val==='H'?'#34d399':val==='S'?'#fbbf24':val==='I'?'#60a5fa':val==='A'?'#f87171':'#9CA3AF';
+                        sel.style.color = cl;
+                    }
+                }
+                
+                const rekH = document.getElementById(`abs-rek-${sIdx}-H`); if(rekH) rekH.textContent = rekap.H || '-';
+                const rekS = document.getElementById(`abs-rek-${sIdx}-S`); if(rekS) rekS.textContent = rekap.S || '-';
+                const rekI = document.getElementById(`abs-rek-${sIdx}-I`); if(rekI) rekI.textContent = rekap.I || '-';
+                const rekA = document.getElementById(`abs-rek-${sIdx}-A`); if(rekA) rekA.textContent = rekap.A || '-';
+            });
         }
 
         function renderAbsen() {
@@ -2645,14 +2696,15 @@
                         const td = document.createElement('td');
                         td.className = 'td-absen';
                         td.style.cssText = `border-right:1px solid ${bc};border-bottom:1px solid ${bc};text-align:center;vertical-align:middle;`;
-                        td.innerHTML = `<select onchange="saveAbsen('${s.name}','${i}',this.value)" class="absen-select" style="color:${cl};background:transparent;"><option value="-" ${val==='-'?'selected':''}>-</option><option value="H" ${val==='H'?'selected':''}>H</option><option value="S" ${val==='S'?'selected':''}>S</option><option value="I" ${val==='I'?'selected':''}>I</option><option value="A" ${val==='A'?'selected':''}>A</option><option value="L" ${val==='L'?'selected':''}>L</option></select>`;
+                        td.innerHTML = `<select id="abs-sel-${sIdx}-${i}" onchange="saveAbsen('${s.name}','${i}',this.value)" class="absen-select" style="color:${cl};background:transparent;"><option value="-" ${val==='-'?'selected':''}>-</option><option value="H" ${val==='H'?'selected':''}>H</option><option value="S" ${val==='S'?'selected':''}>S</option><option value="I" ${val==='I'?'selected':''}>I</option><option value="A" ${val==='A'?'selected':''}>A</option><option value="L" ${val==='L'?'selected':''}>L</option></select>`;
                         tr.appendChild(td);
                     }
                 });
 
                 // REKAP
-                [['#34d399','rgba(0,212,255,0.06)',rekap.H],['#fbbf24','rgba(251,191,36,0.06)',rekap.S],['#60a5fa','rgba(59,130,246,0.06)',rekap.I],['#f87171','rgba(239,68,68,0.06)',rekap.A]].forEach(([cl,bg,v])=>{
+                [['H','#34d399','rgba(0,212,255,0.06)',rekap.H],['S','#fbbf24','rgba(251,191,36,0.06)',rekap.S],['I','#60a5fa','rgba(59,130,246,0.06)',rekap.I],['A','#f87171','rgba(239,68,68,0.06)',rekap.A]].forEach(([ti,cl,bg,v])=>{
                     const td = document.createElement('td');
+                    td.id = `abs-rek-${sIdx}-${ti}`;
                     td.style.cssText = `text-align:center;font-weight:900;color:${cl};background:${bg};border-left:1px solid ${bc};font-size:10px;padding:4px;`;
                     td.textContent = v||'-';
                     tr.appendChild(td);
@@ -2682,7 +2734,7 @@
             subjects.forEach(sub => {
                 const cfg = gradeConfigs[sub] || { ph: ['PH 1'] };
                 let th = `<th style="padding:10px 16px;text-align:left;text-transform:uppercase;letter-spacing:.08em;font-size:9px;font-weight:900;color:#9CA3AF;border-bottom:1px solid rgba(0,212,255,0.12);background:rgba(0,212,255,0.04);">Nama Siswa</th>`;
-                cfg.ph.forEach((p, i) => th += `<th style="text-align:center;padding:10px 4px;font-weight:900;font-size:9px;color:#9CA3AF;text-transform:uppercase;border-bottom:1px solid rgba(0,212,255,0.12);background:rgba(0,212,255,0.04);">${p} <button onclick="delPh('${sub}',${i})" style="color:#f87171;font-size:12px;line-height:1;cursor:pointer;margin-left:2px;">×</button></th>`);
+                cfg.ph.forEach((p, i) => th += `<th style="text-align:center;padding:10px 4px;font-weight:900;font-size:9px;color:#9CA3AF;text-transform:uppercase;border-bottom:1px solid rgba(0,212,255,0.12);background:rgba(0,212,255,0.04);">${p} <button onclick="delPh('${sub}',${i})" style="color:#f87171;font-size:12px;line-height:1;cursor:pointer;margin-left:2px;">Ã—</button></th>`);
                 th += `<th style="text-align:center;background:rgba(0,212,255,0.1);color:#00D4FF;font-weight:900;font-size:9px;padding:10px 8px;border-bottom:1px solid rgba(0,212,255,0.2);">PTS</th>`;
                 th += `<th style="text-align:center;background:rgba(0,212,255,0.1);color:#00D4FF;font-weight:900;font-size:9px;padding:10px 8px;border-bottom:1px solid rgba(0,212,255,0.2);">PAS</th>`;
                 th += `<th style="text-align:center;background:rgba(59,130,246,0.2);color:#60a5fa;font-weight:900;font-size:9px;padding:10px 8px;border-bottom:1px solid rgba(59,130,246,0.3);">NA</th>`;
@@ -2775,7 +2827,7 @@
             const container = document.getElementById('slot-list');
             const slots = Object.entries(scheduleData).sort(([,a],[,b]) => a.mulai.localeCompare(b.mulai));
             if (!slots.length) {
-                container.innerHTML = '<div class="text-center py-8 text-xs font-bold uppercase tracking-widest" style="color:rgba(255,255,255,0.15);">Belum ada slot jam — tambahkan di atas</div>';
+                container.innerHTML = '<div class="text-center py-8 text-xs font-bold uppercase tracking-widest" style="color:rgba(255,255,255,0.15);">Belum ada slot jam Â— tambahkan di atas</div>';
                 return;
             }
             container.innerHTML = slots.map(([id, s]) =>
@@ -2784,7 +2836,7 @@
                         <i data-lucide="clock" style="width:16px;height:16px;color:#00D4FF;"></i>
                     </div>
                     <div class="flex-1">
-                        <div class="font-black text-sm" style="color:#E5E7EB;">${s.mulai} – ${s.selesai}</div>
+                        <div class="font-black text-sm" style="color:#E5E7EB;">${s.mulai} Â– ${s.selesai}</div>
                         ${s.label ? `<div class="text-[10px] font-bold mt-0.5" style="color:#9CA3AF;">${s.label}</div>` : ''}
                     </div>
                     <button onclick="hapusSlot('${id}')" class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);color:#f87171;cursor:pointer;">
@@ -2801,7 +2853,7 @@
             document.getElementById('jdw-slot-id').value = slotId;
             document.getElementById('jdw-hari').value = hari;
             document.getElementById('m-jadwal-title').innerText = hari;
-            document.getElementById('m-jadwal-sub').innerText = slot.mulai + ' – ' + slot.selesai + (slot.label ? ' · ' + slot.label : '');
+            document.getElementById('m-jadwal-sub').innerText = slot.mulai + ' Â– ' + slot.selesai + (slot.label ? ' Â· ' + slot.label : '');
             const existing = scheduleMapel[slotId + '_' + hari] || '';
             document.getElementById('jdw-mapel').value = existing;
             document.getElementById('m-jadwal').classList.remove('hidden');
@@ -2841,7 +2893,7 @@
             const slots = Object.entries(scheduleData).sort(([,a],[,b]) => a.mulai.localeCompare(b.mulai));
             const table = document.getElementById('schedule-table');
             if (!slots.length) {
-                table.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:40px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,0.2);">Belum ada slot jam — buat dulu di tab Setelan Jam</td></tr>';
+                table.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:40px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,0.2);">Belum ada slot jam Â— buat dulu di tab Setelan Jam</td></tr>';
                 return;
             }
             const thead = `<thead><tr>
@@ -2849,7 +2901,7 @@
                 ${hariList.map((h,i) => `<th style="padding:12px 14px;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;color:${hariColor[i]};background:rgba(0,212,255,0.03);border-bottom:1px solid rgba(0,212,255,0.12);text-align:center;">${h}</th>`).join('')}
             </tr></thead>`;
             const tbody = '<tbody>' + slots.map(([slotId, s]) => {
-                const jamLabel = s.mulai + '–' + s.selesai + (s.label ? '<br><span style="font-size:8px;color:#9CA3AF;">' + s.label + '</span>' : '');
+                const jamLabel = s.mulai + 'Â–' + s.selesai + (s.label ? '<br><span style="font-size:8px;color:#9CA3AF;">' + s.label + '</span>' : '');
                 const cells = hariList.map((h, i) => {
                     const mapel = scheduleMapel[slotId + '_' + h] || '';
                     const filled = !!mapel;
@@ -2929,7 +2981,7 @@
                 return;
             }
 
-            // Cari yang sedang aktif — jamNow HARUS >= mulai DAN < selesai (strict)
+            // Cari yang sedang aktif Â— jamNow HARUS >= mulai DAN < selesai (strict)
             let activeEntry = null;
             entries.forEach(e => {
                 const s = parseJam(e.mulai), en = parseJam(e.selesai);
@@ -2937,7 +2989,7 @@
                 if (s >= 0 && en > s && jamNow >= s && jamNow < en) activeEntry = e;
             });
 
-            // Active headline — hanya tampil jika ada jam yang berlaku saat ini
+            // Active headline Â— hanya tampil jika ada jam yang berlaku saat ini
             const activeBlock = document.getElementById('dash-jadwal-active-block');
             // Double-check: pastikan jamNow benar-benar dalam range slot aktif
             const _s = activeEntry ? parseJam(activeEntry.mulai) : -1;
@@ -2946,7 +2998,7 @@
             if (isReallyActive) {
                 activeBlock.classList.remove('hidden');
                 document.getElementById('dash-jadwal-active-name').innerText = activeEntry.mapel;
-                document.getElementById('dash-jadwal-active-jam').innerText = '?  ' + activeEntry.mulai + ' – ' + activeEntry.selesai;
+                document.getElementById('dash-jadwal-active-jam').innerText = '?  ' + activeEntry.mulai + ' Â– ' + activeEntry.selesai;
                 document.getElementById('dash-jadwal-prog-start').innerText = activeEntry.mulai;
                 document.getElementById('dash-jadwal-prog-end').innerText = activeEntry.selesai;
                 const s = parseJam(activeEntry.mulai), en = parseJam(activeEntry.selesai);
@@ -2961,7 +3013,7 @@
 
             const listEl = document.getElementById('dash-jadwal-list');
             listEl.innerHTML = entries.map((e, idx) => {
-                const jamStr = e.mulai + ' – ' + e.selesai;
+                const jamStr = e.mulai + ' Â– ' + e.selesai;
                 const s = parseJam(e.mulai), en = parseJam(e.selesai);
                 const isNow = s >= 0 && en >= 0 && jamNow >= s && jamNow < en;
                 const isPast = en >= 0 && jamNow >= en;
@@ -3112,7 +3164,7 @@
                 if (!mapel) return;
                 const st = parseJam(s.mulai), en = parseJam(s.selesai);
                 if (st >= 0 && en >= 0 && jamNow >= st && jamNow < en) {
-                    currentSlot = { slotId, mapel, jam: s.mulai + ' – ' + s.selesai };
+                    currentSlot = { slotId, mapel, jam: s.mulai + ' Â– ' + s.selesai };
                 }
             });
 
@@ -3127,7 +3179,7 @@
         // Jalankan setiap 30 detik
         setInterval(cekPergantianJam, 30000);
 
-        // Jam digital real-time — pakai requestAnimationFrame agar efisien
+        // Jam digital real-time Â— pakai requestAnimationFrame agar efisien
         // 7-segment: segs = [a,b,c,d,e,f,g]
         const SEG_MAP = {
             '0':[1,1,1,1,1,1,0], '1':[0,1,1,0,0,0,0], '2':[1,1,0,1,1,0,1],
@@ -3234,7 +3286,7 @@
                 .sort(([,a],[,b]) => (b.tanggal||'').localeCompare(a.tanggal||''));
 
             if (!items.length) {
-                grid.innerHTML = `<div class="col-span-3 text-center py-16" style="color:rgba(255,255,255,0.15);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Belum ada bahan ajar — klik Upload untuk menambahkan</div>`;
+                grid.innerHTML = `<div class="col-span-3 text-center py-16" style="color:rgba(255,255,255,0.15);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Belum ada bahan ajar Â— klik Upload untuk menambahkan</div>`;
                 return;
             }
 
@@ -3262,7 +3314,7 @@
                         <div style="position:absolute;left:10px;right:0;top:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:8px 6px;">
                             <i data-lucide="book-open" style="width:28px;height:28px;color:${accent};flex-shrink:0;"></i>
                             <div style="text-align:center;line-height:1.3;">
-                                <div style="font-size:8px;font-weight:900;color:${accent};text-transform:uppercase;letter-spacing:.04em;">${v.mapel||'—'}</div>
+                                <div style="font-size:8px;font-weight:900;color:${accent};text-transform:uppercase;letter-spacing:.04em;">${v.mapel||'Â—'}</div>
                                 ${v.kelas ? `<div style="font-size:7px;font-weight:700;color:rgba(255,255,255,0.45);margin-top:1px;">${v.kelas}</div>` : ''}
                                 ${v.semester ? `<div style="font-size:7px;font-weight:700;color:rgba(255,255,255,0.35);">${v.semester}</div>` : ''}
                             </div>
@@ -3294,7 +3346,7 @@
             const gdMatch = v.url.match(/\/d\/([a-zA-Z0-9_-]+)/);
             if (gdMatch) embedUrl = `https://drive.google.com/file/d/${gdMatch[1]}/preview`;
             document.getElementById('ba-preview-title').innerText = v.judul || '';
-            const meta = [v.mapel, v.kelas, v.semester].filter(Boolean).join(' · ');
+            const meta = [v.mapel, v.kelas, v.semester].filter(Boolean).join(' Â· ');
             document.getElementById('ba-preview-meta').innerText = meta;
             document.getElementById('ba-preview-open').href = v.url;
             document.getElementById('ba-preview-frame').src = embedUrl;
@@ -3385,7 +3437,7 @@
             if (!grid) return;
             const items = Object.entries(modulAjarData).sort(([,a],[,b]) => (b.tanggal||'').localeCompare(a.tanggal||''));
             if (!items.length) {
-                grid.innerHTML = `<div class="col-span-3 text-center py-16" style="color:rgba(255,255,255,0.15);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Belum ada modul ajar — klik Tambah Modul</div>`;
+                grid.innerHTML = `<div class="col-span-3 text-center py-16" style="color:rgba(255,255,255,0.15);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Belum ada modul ajar Â— klik Tambah Modul</div>`;
                 return;
             }
             const colors = [
