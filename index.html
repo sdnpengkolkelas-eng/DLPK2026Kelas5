@@ -193,6 +193,10 @@
             background: #0F172A;
             color: #E5E7EB;
         }
+        .absen-select {
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
 
         /* Opening Screen - Dark Futuristic */
         #opening-screen { 
@@ -280,6 +284,7 @@
         .shimmer-text {
             background: linear-gradient(90deg, #fff 0%, var(--primary) 40%, var(--magenta) 70%, #fff 100%);
             background-size: 200% auto;
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: shimmer 3s linear infinite;
@@ -396,8 +401,14 @@
 
         /* Mobile Responsive Utilities */
         @media (max-width: 768px) {
-            .glass-card { padding: 1.25rem !important; }
+            body { overflow: auto; }
+            .glass-card { padding: 1.25rem !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; box-shadow: none !important; }
+            .glass-card:hover { transform: none !important; box-shadow: none !important; }
+            .header-glass, #main-sidebar { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; box-shadow: none !important; }
             .modern-table th, .modern-table td { padding: 0.75rem 0.5rem; }
+            #opening-screen::before, #opening-screen::after, .loading-bar::after, .pulse-icon, .shimmer-text { animation: none !important; }
+            .sidebar-link, .btn-primary, .modern-input, .absen-select { transition: none !important; }
+            .td-absen { height: 34px; }
             h1 { font-size: 1.75rem !important; }
             h2 { font-size: 1.25rem !important; }
         }
@@ -532,6 +543,7 @@
             margin-bottom: 20px;
             letter-spacing: -0.02em;
             background: linear-gradient(135deg, #fff, var(--primary));
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -862,7 +874,7 @@
                                 <span class="text-[9px] font-black uppercase tracking-[.2em]" style="color:#00D4FF;">Sistem Aktif</span>
                             </div>
                             <h1 id="dash-welcome" class="text-2xl md:text-3xl font-black tracking-tight leading-tight mb-2" style="color:#E5E7EB;">
-                                Selamat Datang, <span style="background:linear-gradient(135deg,#00D4FF,#A855F7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">...</span>
+                                Selamat Datang, <span style="background:linear-gradient(135deg,#00D4FF,#A855F7);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;">...</span>
                             </h1>
                             <p class="text-xs leading-relaxed" style="color:#9CA3AF;max-width:420px;">Platform administrasi kelas digital yang cerdas, terstruktur, dan profesional.</p>
                         </div>
@@ -926,7 +938,7 @@
                                 <span style="width:5px;height:5px;border-radius:50%;background:#00D4FF;box-shadow:0 0 8px #00D4FF;display:inline-block;animation:pulse 1s infinite;flex-shrink:0;"></span>
                                 <span style="font-size:7px;font-weight:900;text-transform:uppercase;letter-spacing:.3em;color:rgba(0,212,255,0.55);">Sedang Berlangsung</span>
                             </div>
-                            <div id="dash-jadwal-active-name" style="font-size:22px;font-weight:900;line-height:1.1;letter-spacing:-.02em;margin-bottom:4px;background:linear-gradient(90deg,#FDE68A,#FBBF24 55%,#F59E0B);-webkit-background-clip:text;-webkit-text-fill-color:transparent;"></div>
+                            <div id="dash-jadwal-active-name" style="font-size:22px;font-weight:900;line-height:1.1;letter-spacing:-.02em;margin-bottom:4px;background:linear-gradient(90deg,#FDE68A,#FBBF24 55%,#F59E0B);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;"></div>
                             <div id="dash-jadwal-active-jam" style="font-size:9px;font-weight:700;color:rgba(0,212,255,0.5);font-family:monospace;letter-spacing:.06em;margin-bottom:10px;"></div>
                             <div style="height:3px;border-radius:100px;background:rgba(0,212,255,0.08);overflow:hidden;margin-bottom:4px;">
                                 <div id="dash-jadwal-progress" style="height:100%;width:0%;background:linear-gradient(90deg,#00D4FF,#7C3AED);border-radius:100px;transition:width .8s cubic-bezier(.4,0,.2,1);box-shadow:0 0 8px rgba(0,212,255,0.5);"></div>
@@ -1970,6 +1982,8 @@
         let gradesData = {};
         let journalData = {};
         let currentJournalDate = new Date();
+        let attendanceWriteTimer = null;
+        let pendingAttendanceWrites = {};
 
         let currentMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
         const subjects = ["BAHASA INDONESIA", "PENDIDIKAN PANCASILA", "MATEMATIKA", "SENI RUPA", "IPAS", "BAHASA JAWA", "BAHASA INGGRIS", "KKA"];
@@ -2125,7 +2139,7 @@
              
              // Dashboard
             const dashWelcome = document.getElementById('dash-welcome');
-            if (dashWelcome) dashWelcome.innerHTML = `Selamat Datang, <span style="background:linear-gradient(135deg,#00D4FF,#A855F7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">${config.guru.nama}</span>`;
+            if (dashWelcome) dashWelcome.innerHTML = `Selamat Datang, <span style="background:linear-gradient(135deg,#00D4FF,#A855F7);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;">${config.guru.nama}</span>`;
             
             const dashGuruNama = document.getElementById('dash-guru-nama');
             if (dashGuruNama) dashGuruNama.innerText = config.guru.nama;
@@ -2527,15 +2541,24 @@
             const ketLibur = document.getElementById('quick-ket-libur').value;
             
             dlpkConfirm(`Setel semua siswa ${val === 'H' ? 'HADIR' : 'LIBUR'} pada tanggal ${d}/${m}/${y}?`, function() {
+                const updates = {};
                 students.forEach(s => {
-                    db.ref(`attendance/${monthKey}/${s.name}/${d}`).set(val);
+                    updates[`attendance/${monthKey}/${s.name}/${d}`] = val;
+                    if (!attendanceData[monthKey]) attendanceData[monthKey] = {};
+                    if (!attendanceData[monthKey][s.name]) attendanceData[monthKey][s.name] = {};
+                    attendanceData[monthKey][s.name][d] = val;
                 });
                 if(val === 'L' && ketLibur) {
-                    db.ref(`attendance/${monthKey}/holidays/${d}`).set(ketLibur);
+                    updates[`attendance/${monthKey}/holidays/${d}`] = ketLibur;
+                    if (!attendanceData[monthKey]) attendanceData[monthKey] = {};
+                    attendanceData[monthKey].holidays = attendanceData[monthKey].holidays || {};
+                    attendanceData[monthKey].holidays[d] = ketLibur;
                 }
-                showToast("Berhasil diperbarui masal!");
-                document.getElementById('quick-ket-libur').value = "";
-                renderAbsen();
+                db.ref().update(updates).then(() => {
+                    showToast("Berhasil diperbarui masal!");
+                    document.getElementById('quick-ket-libur').value = "";
+                    renderAbsen();
+                });
             });
         }
 
@@ -2547,19 +2570,71 @@
             const monthKey = `${y}-${m.toString().padStart(2, '0')}`;
             
             dlpkConfirm(`Hapus seluruh data absensi dan keterangan libur pada tanggal ${d}/${m}/${y}?`, function() {
+                const updates = {};
                 students.forEach(s => {
-                    db.ref(`attendance/${monthKey}/${s.name}/${d}`).remove();
+                    updates[`attendance/${monthKey}/${s.name}/${d}`] = null;
                 });
-                db.ref(`attendance/${monthKey}/holidays/${d}`).remove();
-                showToast("Data tanggal tersebut berhasil dihapus bersih!", "info");
-                renderAbsen();
+                updates[`attendance/${monthKey}/holidays/${d}`] = null;
+                db.ref().update(updates).then(() => {
+                    showToast("Data tanggal tersebut berhasil dihapus bersih!", "info");
+                    renderAbsen();
+                });
             });
+        }
+
+        function refreshAttendanceCellUI(studentName, day, value) {
+            const rowIndex = students.findIndex(s => s.name === studentName);
+            if (rowIndex < 0) return;
+
+            const sel = document.getElementById(`abs-sel-${rowIndex}-${day}`);
+            if (sel) {
+                sel.value = value;
+                const cl = value === 'H' ? '#34d399' : value === 'S' ? '#fbbf24' : value === 'I' ? '#60a5fa' : value === 'A' ? '#f87171' : '#9CA3AF';
+                sel.style.color = cl;
+            }
+
+            const y = currentMonth.getFullYear();
+            const m = currentMonth.getMonth();
+            const monthKey = `${y}-${(m + 1).toString().padStart(2, '0')}`;
+            const monthData = (attendanceData[monthKey] && attendanceData[monthKey][studentName]) || {};
+            let rekap = {H: 0, S: 0, I: 0, A: 0};
+            Object.values(monthData).forEach(v => {
+                if (v === 'H') rekap.H++;
+                else if (v === 'S') rekap.S++;
+                else if (v === 'I') rekap.I++;
+                else if (v === 'A') rekap.A++;
+            });
+
+            const rekH = document.getElementById(`abs-rek-${rowIndex}-H`); if (rekH) rekH.textContent = rekap.H || '-';
+            const rekS = document.getElementById(`abs-rek-${rowIndex}-S`); if (rekS) rekS.textContent = rekap.S || '-';
+            const rekI = document.getElementById(`abs-rek-${rowIndex}-I`); if (rekI) rekI.textContent = rekap.I || '-';
+            const rekA = document.getElementById(`abs-rek-${rowIndex}-A`); if (rekA) rekA.textContent = rekap.A || '-';
+        }
+
+        function flushAttendanceWrites() {
+            if (!Object.keys(pendingAttendanceWrites).length) return;
+            const updates = {};
+            Object.entries(pendingAttendanceWrites).forEach(([path, value]) => {
+                updates[path] = value;
+            });
+            pendingAttendanceWrites = {};
+            attendanceWriteTimer = null;
+            db.ref().update(updates).catch(err => console.error('Gagal sinkronisasi absensi:', err));
         }
 
         function saveAbsen(studentName, day, value) {
             const y = currentMonth.getFullYear(), m = currentMonth.getMonth() + 1;
             const monthKey = `${y}-${m.toString().padStart(2, '0')}`;
-            db.ref(`attendance/${monthKey}/${studentName}/${day}`).set(value);
+            if (!attendanceData[monthKey]) attendanceData[monthKey] = {};
+            if (!attendanceData[monthKey][studentName]) attendanceData[monthKey][studentName] = {};
+            attendanceData[monthKey][studentName][day] = value;
+
+            refreshAttendanceCellUI(studentName, day, value);
+
+            const path = `attendance/${monthKey}/${studentName}/${day}`;
+            pendingAttendanceWrites[path] = value;
+            if (attendanceWriteTimer) clearTimeout(attendanceWriteTimer);
+            attendanceWriteTimer = setTimeout(flushAttendanceWrites, 180);
         }
 
         function updateAbsenDOM() {
@@ -2610,7 +2685,7 @@
             const monthName = new Intl.DateTimeFormat('id-ID',{month:'long'}).format(currentMonth).toUpperCase();
             const holidays = (attendanceData[monthKey]&&attendanceData[monthKey].holidays)||{};
             const totalRows = students.length||1;
-            const rowH = 38; // tinggi tiap baris px
+            const rowH = 38;
 
             document.getElementById('month-label').innerText =
                 new Intl.DateTimeFormat('id-ID',{month:'long',year:'numeric'}).format(currentMonth);
@@ -2647,11 +2722,8 @@
             document.getElementById('abs-head').innerHTML = hd;
 
             // -- BODY --
-            // Tinggi total kolom libur = totalRows * rowH px
             const colH = totalRows * rowH;
             const vStyle = `writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);font-size:7px;font-weight:800;white-space:nowrap;color:#fca5a5;letter-spacing:.1em;`;
-
-            // Fragment untuk performa
             const frag = document.createDocumentFragment();
             const tbody = document.getElementById('abs-body');
             tbody.innerHTML = '';
@@ -2683,14 +2755,12 @@
 
                     if(isH){
                         if(sIdx===0){
-                            // rowspan = totalRows, teks vertikal center
                             const td = document.createElement('td');
                             td.rowSpan = totalRows;
                             td.style.cssText = `width:36px;min-width:36px;max-width:36px;background:rgba(239,68,68,0.18);border-right:1px solid ${bc};border-bottom:1px solid ${bc};padding:0;text-align:center;vertical-align:middle;`;
                             td.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;width:100%;height:${colH}px;"><span style="${vStyle}">${label}</span></div>`;
                             tr.appendChild(td);
                         }
-                        // sIdx > 0: skip, sudah di-cover rowspan
                     } else {
                         const cl = val==='H'?'#34d399':val==='S'?'#fbbf24':val==='I'?'#60a5fa':val==='A'?'#f87171':'#9CA3AF';
                         const td = document.createElement('td');
@@ -3099,7 +3169,7 @@
                             </div>
                         </div>
                         <!-- Mapel name -->
-                        <div style="font-size:26px;font-weight:900;line-height:1.1;margin-bottom:8px;background:linear-gradient(90deg,#ffffff,#00D4FF 55%,#A855F7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-.02em;">${mapel}</div>
+                        <div style="font-size:26px;font-weight:900;line-height:1.1;margin-bottom:8px;background:linear-gradient(90deg,#ffffff,#00D4FF 55%,#A855F7);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-.02em;">${mapel}</div>
                         <!-- Jam -->
                         <div style="font-size:11px;font-weight:700;color:rgba(0,212,255,0.55);font-family:monospace;letter-spacing:.08em;margin-bottom:24px;">?  ${jam}</div>
                         <!-- Progress countdown -->
