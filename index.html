@@ -1793,7 +1793,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="md:col-span-2"><label class="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest mb-2 block ml-1">Nama Sekolah</label><input type="text" id="set-sch-nama" class="modern-input font-bold text-[var(--text-main)]"></div>
                             <div><label class="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest mb-2 block ml-1">NPSN</label><input type="text" id="set-sch-npsn" class="modern-input font-bold text-[var(--text-main)]"></div>
-                            <div><label class="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest mb-2 block ml-1">Tahun Ajaran</label><input type="text" id="set-sch-tahun" placeholder="2025/2026" class="modern-input font-bold text-[var(--text-main)]"></div>
+                            <div><label class="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest mb-2 block ml-1">Tahun Ajaran</label><input type="text" id="set-sch-tahun" placeholder="2026/2027" class="modern-input font-bold text-[var(--text-main)]"></div>
                             <div class="md:col-span-2"><label class="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest mb-2 block ml-1">Nama Kepala Sekolah</label><input type="text" id="set-sch-ks-nama" class="modern-input font-bold text-[var(--text-main)]"></div>
                             <div class="md:col-span-2"><label class="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest mb-2 block ml-1">NIP Kepala Sekolah</label><input type="text" id="set-sch-ks-nip" class="modern-input font-bold text-[var(--text-main)]"></div>
                             <div><label class="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest mb-2 block ml-1">Kota Penerbitan</label><input type="text" id="set-sch-tempat" class="modern-input font-bold text-[var(--text-main)]"></div>
@@ -2036,7 +2036,7 @@
 
         let config = {
             guru: { nama: "Ibu Sari, S.Pd", nip: "19880712 201503 2 003", kelas: "Wali Kelas 5A" },
-            sekolah: { nama: "SDN Harapan Bangsa", npsn: "20234567", alamat: "Jl. Pendidikan No. 12, Jakarta", tempat: "Pengkol", ks_nama: "Bp. Hartono, M.Pd", ks_nip: "19750101 200003 1 001", tahun: "2025/2026" },
+            sekolah: { nama: "SDN Harapan Bangsa", npsn: "20234567", alamat: "Jl. Pendidikan No. 12, Jakarta", tempat: "Pengkol", ks_nama: "Bp. Hartono, M.Pd", ks_nip: "19750101 200003 1 001", tahun: "2026/2027" },
             auth: { password: "guru123" }
         };
 
@@ -2239,7 +2239,7 @@
             document.getElementById('set-guru-kelas').value = config.guru.kelas;
             document.getElementById('set-sch-nama').value = config.sekolah.nama;
             document.getElementById('set-sch-npsn').value = config.sekolah.npsn;
-            document.getElementById('set-sch-tahun').value = config.sekolah.tahun || '2025/2026';
+            document.getElementById('set-sch-tahun').value = config.sekolah.tahun || '2026/2027';
             document.getElementById('set-sch-ks-nama').value = config.sekolah.ks_nama || '';
             document.getElementById('set-sch-ks-nip').value = config.sekolah.ks_nip || '';
             document.getElementById('set-sch-tempat').value = config.sekolah.tempat || 'Pengkol';
@@ -3688,7 +3688,7 @@
             doc.text(title, centerX, 36, {align: "center"});
             doc.setFontSize(9); doc.setFont("helvetica", "normal");
             const displayKelas = config.guru.kelas.toLowerCase().includes('kelas') ? config.guru.kelas : `Kelas ${config.guru.kelas}`;
-            doc.text(`${displayKelas} | Tahun Pelajaran ${config.sekolah.tahun || '2025/2026'}`, centerX, 41, {align: "center"});
+            doc.text(`${displayKelas} | Tahun Pelajaran ${config.sekolah.tahun || '2026/2027'}`, centerX, 41, {align: "center"});
         }
 
         function addPdfFooter(doc, startY, type = 'general') {
