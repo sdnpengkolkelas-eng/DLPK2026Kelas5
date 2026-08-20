@@ -8,9 +8,15 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "icon_dlpk.svg",
+      "src": "icon_dlpk_192.png?v=2",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon_dlpk_512.png?v=2",
       "sizes": "512x512",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "any"
     }
   ]
