@@ -1,24 +1,24 @@
 {
   "name": "DLPK",
   "short_name": "DLPK",
-  "id": "./index.html?v=2",
-  "start_url": "./index.html?v=2",
+  "id": "./index.html?v=3",
+  "start_url": "./index.html?v=3",
   "display": "standalone",
   "background_color": "#0B1220",
   "theme_color": "#0A1931",
   "orientation": "portrait",
   "icons": [
     {
-      "src": "icon_dlpk_192.png?v=2",
+      "src": "icon_dlpk_192_safe.png?v=3",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
     },
     {
-      "src": "icon_dlpk_512.png?v=2",
+      "src": "icon_dlpk_512_safe.png?v=3",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
     }
   ]
 }
