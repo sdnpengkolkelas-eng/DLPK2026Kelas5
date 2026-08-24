@@ -14,6 +14,9 @@
     <link rel="shortcut icon" type="image/png" href="icon_dlpk_192_safe.png?v=3">
     <meta name="apple-mobile-web-app-title" content="DLPK">
     <meta name="application-name" content="DLPK">
+    <script>
+        document.documentElement.dataset.theme = localStorage.getItem('dlpk_theme') === 'light' ? 'light' : 'dark';
+    </script>
     <title>DLPK - Integrated Class Management</title>
     <script src="https://cdn.tailwindcss.com/3.4.17"></script>
     <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
@@ -739,6 +742,220 @@
             .glass-card:hover { transform: none !important; }
             #main-sidebar { transition: none !important; }
         }
+
+        /* Light theme: keep the same layout while replacing dark surfaces with
+           high-contrast neutrals. Inline colors used by generated sections are
+           covered below so every view remains legible after switching. */
+        html[data-theme="light"] {
+            --background: #F4F7FB;
+            --surface: #FFFFFF;
+            --surface2: #E8EEF6;
+            --primary: #006B8F;
+            --accent: #1558A6;
+            --purple: #5B21B6;
+            --magenta: #7E22CE;
+            --text-main: #172033;
+            --text-muted: #475569;
+            --border: rgba(15, 23, 42, 0.16);
+            --shadow: 0 4px 20px rgba(15, 23, 42, 0.12);
+            --shadow-lg: 0 8px 32px rgba(15, 23, 42, 0.16);
+            --glow: 0 0 18px rgba(0, 107, 143, 0.14);
+            --glow-lg: 0 0 32px rgba(0, 107, 143, 0.2);
+        }
+        html[data-theme="light"] body {
+            background-color: var(--background);
+            background-image: linear-gradient(rgba(0, 107, 143, 0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 107, 143, 0.045) 1px, transparent 1px);
+            color: var(--text-main);
+        }
+        html[data-theme="light"] main { background: var(--background) !important; }
+        html[data-theme="light"] main > div[style*="background:rgba(7,16,31"],
+        html[data-theme="light"] [style*="background:rgba(7,16,31"],
+        html[data-theme="light"] [style*="background:rgba(13,20,35"] {
+            background: rgba(244, 247, 251, 0.96) !important;
+        }
+        html[data-theme="light"] #main-sidebar,
+        html[data-theme="light"] .header-glass {
+            background: rgba(255, 255, 255, 0.96) !important;
+            border-color: rgba(15, 23, 42, 0.14) !important;
+            box-shadow: 4px 0 24px rgba(15, 23, 42, 0.08) !important;
+        }
+        html[data-theme="light"] .sidebar-link { color: #475569; }
+        html[data-theme="light"] .sidebar-link:hover,
+        html[data-theme="light"] .sidebar-link.active { color: #005B78; background: #DDF4FA; border-color: #8CCCDC; box-shadow: none; }
+        html[data-theme="light"] .glass-card,
+        html[data-theme="light"] .modern-input,
+        html[data-theme="light"] [style*="#07101F"],
+        html[data-theme="light"] [style*="#060D1F"],
+        html[data-theme="light"] [style*="#0F172A"],
+        html[data-theme="light"] [style*="#0d1829"],
+        html[data-theme="light"] [style*="#0a1628"],
+        html[data-theme="light"] [style*="#0f1f3d"] {
+            background: #FFFFFF !important;
+            color: var(--text-main) !important;
+            border-color: rgba(15, 23, 42, 0.16) !important;
+            box-shadow: var(--shadow) !important;
+        }
+        html[data-theme="light"] [style*="background:rgba(13,24,41"],
+        html[data-theme="light"] [style*="background:rgba(13, 24, 41"],
+        html[data-theme="light"] [style*="background:rgba(15,23,42"],
+        html[data-theme="light"] [style*="background:rgba(15, 23, 42"],
+        html[data-theme="light"] [style*="background:rgba(11,18,32"],
+        html[data-theme="light"] [style*="background:rgba(11, 18, 32"],
+        html[data-theme="light"] [style*="background:rgba(255,255,255,0.0"],
+        html[data-theme="light"] [style*="background:rgba(255,255,255,0.02"],
+        html[data-theme="light"] [style*="background:rgba(255,255,255,0.03"],
+        html[data-theme="light"] [style*="background:rgba(255,255,255,0.04"],
+        html[data-theme="light"] [style*="background:rgba(255,255,255,0.05"],
+        html[data-theme="light"] [style*="background:rgba(255,255,255,0.06"],
+        html[data-theme="light"] [style*="background:rgba(255,255,255,0.08"] {
+            background: #FFFFFF !important;
+        }
+        html[data-theme="light"] [style*="linear-gradient(135deg,#0d1829"],
+        html[data-theme="light"] [style*="linear-gradient(135deg, #0d1829"],
+        html[data-theme="light"] [style*="linear-gradient(135deg,#0a1628"],
+        html[data-theme="light"] [style*="linear-gradient(135deg, #0a1628"] {
+            background: #FFFFFF !important;
+        }
+        html[data-theme="light"] [class*="bg-[rgba(15,23,42"],
+        html[data-theme="light"] [class*="bg-[rgba(11,18,32"],
+        html[data-theme="light"] [class*="bg-[rgba(255,255,255"] {
+            background-color: #FFFFFF !important;
+            color: var(--text-main) !important;
+        }
+        html[data-theme="light"] [style*="color:rgba(156,163,175"],
+        html[data-theme="light"] [style*="color:rgba(255,255,255"],
+        html[data-theme="light"] [style*="color:rgba(0,212,255"],
+        html[data-theme="light"] [style*="color:rgba(168,85,247"],
+        html[data-theme="light"] [style*="color:rgba(124,58,237"],
+        html[data-theme="light"] [style*="color:#CBD5E1"],
+        html[data-theme="light"] [style*="color:#94A3B8"] {
+            color: #334155 !important;
+        }
+        html[data-theme="light"] #login-screen::before { background: rgba(255, 255, 255, 0.72) !important; }
+        html[data-theme="light"] #main-scroll-area [class*="text-[var(--text-muted)"] { color: #475569 !important; }
+        html[data-theme="light"] #table-attendance tbody td:nth-child(1),
+        html[data-theme="light"] #table-attendance tbody td:nth-child(2) {
+            background: #FFFFFF !important;
+            color: #172033 !important;
+        }
+        html[data-theme="light"] #table-attendance thead th[rowspan="2"] {
+            background: #E3F2F7 !important;
+            color: #005B78 !important;
+        }
+        html[data-theme="light"] #table-attendance tbody tr:hover td:nth-child(1),
+        html[data-theme="light"] #table-attendance tbody tr:hover td:nth-child(2) {
+            background: #EEF8FA !important;
+        }
+        html[data-theme="light"] #dash-jadwal-hari-ini {
+            background: #FFFFFF !important;
+            border-color: #B8D7E0 !important;
+            color: #172033 !important;
+        }
+        html[data-theme="light"] #dash-jadwal-hari-ini > div:not(:first-child),
+        html[data-theme="light"] #dash-jadwal-hari-ini > div:not(:first-child) > div {
+            background-color: #FFFFFF !important;
+            background-image: none !important;
+            color: #172033 !important;
+        }
+        html[data-theme="light"] #dash-jadwal-hari-ini [style*="color:#E5E7EB"],
+        html[data-theme="light"] #dash-jadwal-hari-ini [style*="color:rgba(229,231,235"],
+        html[data-theme="light"] #dash-jadwal-hari-ini [style*="color:rgba(255,255,255"] {
+            color: #172033 !important;
+        }
+        html[data-theme="light"] #dash-jadwal-hari-ini .seg,
+        html[data-theme="light"] #dash-jadwal-hari-ini .seg-dot {
+            background: #00A9CC !important;
+            color: #00A9CC !important;
+        }
+        html[data-theme="light"] #dash-jadwal-hari-ini .seg.off { background: #B8D7E0 !important; }
+        html[data-theme="light"] #dash-jadwal-list > div {
+            opacity: 1 !important;
+            background: #FFFFFF !important;
+            border-color: #D7E4EA !important;
+        }
+        html[data-theme="light"] #dash-jadwal-list > div > div,
+        html[data-theme="light"] #dash-jadwal-list > div span {
+            color: #334155 !important;
+        }
+        html[data-theme="light"] #dash-jadwal-list > div:first-child {
+            background: #F3FAFC !important;
+            border-color: #8CCCDC !important;
+        }
+        html[data-theme="light"] #main-scroll-area [style*="linear-gradient(135deg,#0d1829"],
+        html[data-theme="light"] #main-scroll-area [style*="linear-gradient(135deg,#0F172A"],
+        html[data-theme="light"] #main-scroll-area [style*="linear-gradient(135deg,rgba(15,23,42"] {
+            background: #FFFFFF !important;
+        }
+        html[data-theme="light"] #main-scroll-area,
+        html[data-theme="light"] #main-scroll-area h1,
+        html[data-theme="light"] #main-scroll-area h2,
+        html[data-theme="light"] #main-scroll-area h3,
+        html[data-theme="light"] #main-scroll-area h4,
+        html[data-theme="light"] #main-scroll-area p,
+        html[data-theme="light"] #main-scroll-area label,
+        html[data-theme="light"] #main-scroll-area td,
+        html[data-theme="light"] #main-scroll-area th {
+            color: var(--text-main);
+        }
+        html[data-theme="light"] [style*="color:#E5E7EB"],
+        html[data-theme="light"] [style*="color: #E5E7EB"],
+        html[data-theme="light"] [style*="color:#9CA3AF"],
+        html[data-theme="light"] [style*="color: #9CA3AF"],
+        html[data-theme="light"] [style*="rgba(255,255,255,0.2)"],
+        html[data-theme="light"] [style*="rgba(255,255,255,0.15)"],
+        html[data-theme="light"] [style*="rgba(255,255,255,0.45)"] {
+            color: #334155 !important;
+        }
+        html[data-theme="light"] .modern-input,
+        html[data-theme="light"] .absen-select,
+        html[data-theme="light"] .absen-select option { color: #172033 !important; background-color: #FFFFFF !important; color-scheme: light; }
+        html[data-theme="light"] .modern-table th { background: #E3F2F7 !important; color: #005B78 !important; border-color: #B8D7E0 !important; }
+        html[data-theme="light"] .modern-table td { color: #172033 !important; border-color: rgba(15, 23, 42, 0.12) !important; }
+        html[data-theme="light"] .modern-table tr:hover td { background: #EEF8FA !important; }
+        html[data-theme="light"] #theme-toggle { background: #E3F2F7 !important; color: #005B78 !important; border-color: #9CCAD6 !important; }
+        html[data-theme="light"] #theme-toggle .theme-light-label { display: inline; }
+        html[data-theme="light"] #theme-toggle .theme-dark-label { display: none; }
+        html:not([data-theme="light"]) #theme-toggle .theme-light-label { display: none; }
+        html:not([data-theme="light"]) #theme-toggle .theme-dark-label { display: inline; }
+        html[data-theme="light"] .login-box,
+        html[data-theme="light"] .login-info-side,
+        html[data-theme="light"] .login-form-side { background: #FFFFFF !important; color: var(--text-main) !important; border-color: rgba(15, 23, 42, 0.16) !important; }
+        html[data-theme="light"] .login-info-side h2,
+        html[data-theme="light"] .login-form-side h3 { background: none !important; color: var(--text-main) !important; -webkit-text-fill-color: var(--text-main) !important; }
+        html[data-theme="light"] .login-info-side p,
+        html[data-theme="light"] .login-form-side p { color: #475569 !important; opacity: 1; }
+        html[data-theme="light"] #login-screen .login-input-wrapper input { background: #F8FAFC !important; color: #172033 !important; border-color: #B8C5D1 !important; }
+        html[data-theme="light"] #login-screen .login-input-wrapper input::placeholder { color: #64748B !important; }
+        html[data-theme="light"] #opening-screen {
+            background: radial-gradient(circle at 50% 42%, #FFFFFF 0%, #EAF6FA 42%, #DCEBF2 100%) !important;
+        }
+        html[data-theme="light"] #opening-screen::before {
+            background: linear-gradient(115deg, transparent 20%, rgba(0, 107, 143, 0.05) 50%, transparent 80%) !important;
+        }
+        html[data-theme="light"] #opening-screen::after {
+            background: radial-gradient(circle, rgba(0, 169, 204, 0.16), transparent 68%) !important;
+        }
+        html[data-theme="light"] .opening-logo {
+            background: rgba(255,255,255,0.82) !important;
+            border-color: rgba(0, 107, 143, 0.2) !important;
+            box-shadow: 0 0 0 1px rgba(0, 107, 143, 0.06), 0 24px 70px rgba(15, 23, 42, 0.14), 0 0 44px rgba(0, 169, 204, 0.16) !important;
+        }
+        html[data-theme="light"] .opening-logo::before { border-color: rgba(0, 107, 143, 0.2) !important; }
+        html[data-theme="light"] .opening-content h1 {
+            color: #172033 !important;
+            -webkit-text-fill-color: #172033 !important;
+        }
+        html[data-theme="light"] .loading-bar { background: rgba(0, 107, 143, 0.12) !important; }
+        html[data-theme="light"] .loading-bar::after { background: linear-gradient(90deg, transparent, #006B8F, #1558A6, transparent) !important; }
+        html[data-theme="light"] .loading-text { color: #006B8F !important; }
+        @media (max-width: 768px) {
+            html[data-theme="light"] .glass-card,
+            html[data-theme="light"] #main-sidebar,
+            html[data-theme="light"] .header-glass { background: #FFFFFF !important; }
+            html[data-theme="light"] #main-scroll-area [style*="rgba(13, 24, 41"],
+            html[data-theme="light"] #main-scroll-area [style*="rgba(15, 23, 42"],
+            html[data-theme="light"] #main-scroll-area [style*="rgba(11, 18, 32"] { background: #FFFFFF !important; }
+        }
     </style>
 </head>
 <body class="h-full flex">
@@ -893,6 +1110,11 @@
                     <span id="header-identity-sch" class="text-[10px] font-extrabold text-[var(--text-main)] uppercase tracking-tight italic">...</span>
                     <span id="header-identity-guru" class="text-[8px] font-bold text-[var(--text-muted)] uppercase tracking-[0.1em] mt-0.5">...</span>
                 </div>
+                <button id="theme-toggle" onclick="toggleTheme()" type="button" aria-label="Ganti tema" title="Ganti tema" class="h-10 px-3 rounded-xl flex items-center gap-2 border transition-all" style="background:rgba(255,255,255,0.06);border-color:var(--border);color:var(--text-main);font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;">
+                    <i data-lucide="sun" class="w-4 h-4"></i>
+                    <span class="theme-light-label">Mode Light</span>
+                    <span class="theme-dark-label">Mode Dark</span>
+                </button>
                 <div class="h-8 w-[1px] bg-[var(--border)] hidden sm:block"></div>
                 <div class="w-10 h-10 bg-[var(--primary)] rounded-xl flex items-center justify-center text-white shadow-lg transition-all">
                     <i data-lucide="user-check" class="w-5 h-5"></i>
@@ -1954,6 +2176,27 @@
         </div>
     </div>
     <script>
+        // Apply the saved theme before the application becomes interactive.
+        function applyTheme(theme) {
+            const selectedTheme = theme === 'light' ? 'light' : 'dark';
+            document.documentElement.dataset.theme = selectedTheme;
+            localStorage.setItem('dlpk_theme', selectedTheme);
+            const themeMeta = document.querySelector('meta[name="theme-color"]');
+            if (themeMeta) themeMeta.content = selectedTheme === 'light' ? '#F4F7FB' : '#0A1931';
+            const toggle = document.getElementById('theme-toggle');
+            if (toggle) {
+                toggle.setAttribute('aria-label', selectedTheme === 'light' ? 'Ganti ke mode dark' : 'Ganti ke mode light');
+                toggle.setAttribute('title', selectedTheme === 'light' ? 'Ganti ke mode dark' : 'Ganti ke mode light');
+            }
+        }
+
+        function toggleTheme() {
+            applyTheme(document.documentElement.dataset.theme === 'light' ? 'dark' : 'light');
+            lucide.createIcons();
+        }
+
+        applyTheme(localStorage.getItem('dlpk_theme'));
+
         // -- CUSTOM CONFIRM MODAL ---------------------------------
         function dlpkConfirm(msg, onOk, onCancel) {
             const overlay   = document.getElementById('custom-confirm-overlay');
@@ -2047,6 +2290,7 @@
         let currentJournalDate = new Date();
         let attendanceWriteTimer = null;
         let pendingAttendanceWrites = {};
+        let attendanceSyncPending = {};
 
         let currentMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
         const subjects = ["BAHASA INDONESIA", "PENDIDIKAN PANCASILA", "MATEMATIKA", "SENI RUPA", "IPAS", "BAHASA JAWA", "BAHASA INGGRIS", "KKA"];
@@ -2179,6 +2423,15 @@
 
             db.ref('attendance').on('value', (snapshot) => {
                 attendanceData = snapshot.val() || {};
+                const echoedWrites = Object.entries(attendanceSyncPending).every(([path, expected]) => {
+                    const parts = path.split('/');
+                    const actual = attendanceData[parts[1]]?.[parts[2]]?.[parts[3]];
+                    return String(actual) === String(expected);
+                });
+                if (Object.keys(attendanceSyncPending).length && echoedWrites) {
+                    attendanceSyncPending = {};
+                    return;
+                }
                 if (document.getElementById('page-attendance').classList.contains('hidden') === false) updateAbsenDOM();
             });
 
@@ -2679,10 +2932,14 @@
             const updates = {};
             Object.entries(pendingAttendanceWrites).forEach(([path, value]) => {
                 updates[path] = value;
+                attendanceSyncPending[path] = value;
             });
             pendingAttendanceWrites = {};
             attendanceWriteTimer = null;
-            db.ref().update(updates).catch(err => console.error('Gagal sinkronisasi absensi:', err));
+            db.ref().update(updates).catch(err => {
+                Object.keys(updates).forEach(path => delete attendanceSyncPending[path]);
+                console.error('Gagal sinkronisasi absensi:', err);
+            });
         }
 
         function saveAbsen(studentName, day, value) {
