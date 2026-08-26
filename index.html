@@ -948,6 +948,61 @@
         html[data-theme="light"] .loading-bar { background: rgba(0, 107, 143, 0.12) !important; }
         html[data-theme="light"] .loading-bar::after { background: linear-gradient(90deg, transparent, #006B8F, #1558A6, transparent) !important; }
         html[data-theme="light"] .loading-text { color: #006B8F !important; }
+        .login-brand-title {
+            display: block;
+            font-size: 11px;
+            line-height: 1.5;
+            letter-spacing: 0.16em;
+        }
+        html[data-theme="light"] .login-brand-title {
+            color: #0F766E !important;
+            opacity: 1;
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: 0.12em;
+            text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+        }
+        html[data-theme="light"] #page-journal > div:first-child,
+        html[data-theme="light"] #page-journal > div:first-child > div,
+        html[data-theme="light"] #page-print > .space-y-3 > .grid > div,
+        html[data-theme="light"] #page-print > div:last-child {
+            background: #FFFFFF !important;
+            color: var(--text-main) !important;
+            border-color: #C7D9E2 !important;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08) !important;
+        }
+        html[data-theme="light"] #page-journal [style*="background:rgba(255,255,255,0.04"],
+        html[data-theme="light"] #page-print [style*="background:rgba(13,24,41"] {
+            background: #FFFFFF !important;
+        }
+        html[data-theme="light"] #page-journal .modern-input,
+        html[data-theme="light"] #page-print .modern-input {
+            background: #F8FAFC !important;
+            color: #172033 !important;
+            border-color: #B8C5D1 !important;
+        }
+        html[data-theme="light"] #page-journal table,
+        html[data-theme="light"] #page-print table { background: #FFFFFF !important; }
+        html[data-theme="light"] #page-journal [style*="color:#9CA3AF"],
+        html[data-theme="light"] #page-print [style*="color:#9CA3AF"] { color: #475569 !important; }
+        html[data-theme="light"] #page-journal [style*="color:#E5E7EB"],
+        html[data-theme="light"] #page-print [style*="color:#E5E7EB"] { color: #172033 !important; }
+        html[data-theme="light"] #page-journal [style*="color:rgba(0,212,255"],
+        html[data-theme="light"] #page-print [style*="color:rgba(0,212,255"] { color: #006B8F !important; }
+        html[data-theme="light"] #page-journal tr:hover td,
+        html[data-theme="light"] #page-print tr:hover td { background: #EEF8FA !important; }
+        html[data-theme="light"] #dash-jadwal-hari-ini > div[style*="background:#060D1F"] {
+            background: #FFFFFF !important;
+            border-color: #0F7C91 !important;
+            box-shadow: 0 5px 18px rgba(15, 118, 110, 0.18) !important;
+        }
+        html[data-theme="light"] #dash-jadwal-hari-ini .seg,
+        html[data-theme="light"] #dash-jadwal-hari-ini .seg-dot {
+            background: #075985 !important;
+            box-shadow: 0 0 5px rgba(7, 89, 133, 0.45) !important;
+        }
+        html[data-theme="light"] #dash-jadwal-hari-ini .seg.off { background: #BFD7E2 !important; box-shadow: none !important; }
+        html[data-theme="light"] #dash-jadwal-hari-ini #dash-clock-date { color: #0F5F73 !important; background: #FFFFFF !important; }
         @media (max-width: 768px) {
             html[data-theme="light"] .glass-card,
             html[data-theme="light"] #main-sidebar,
@@ -986,7 +1041,7 @@
                 <p>Platform cerdas untuk pendidik profesional dalam mengelola administrasi kelas secara terstruktur, efisien, dan eksklusif  semua dalam satu kendali.</p>
                 
                 <div class="mt-auto opacity-40 text-[10px] font-bold uppercase tracking-[0.2em]">
-                    DAFTAR LAPORAN PERKEMBANGAN KELAS
+                    <span class="login-brand-title">DAFTAR LAPORAN PERKEMBANGAN KELAS</span>
                 </div>
             </div>
 
