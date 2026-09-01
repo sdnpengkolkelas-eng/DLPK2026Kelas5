@@ -913,6 +913,223 @@
         html[data-theme="light"] .modern-table td { color: #172033 !important; border-color: rgba(15, 23, 42, 0.12) !important; }
         html[data-theme="light"] .modern-table tr:hover td { background: #EEF8FA !important; }
         html[data-theme="light"] #theme-toggle { background: #E3F2F7 !important; color: #005B78 !important; border-color: #9CCAD6 !important; }
+        html[data-theme="light"] .btn-primary {
+            background: linear-gradient(135deg, #00A9CC, #0086A8) !important;
+            color: white !important;
+            box-shadow: 0 4px 20px rgba(0, 169, 204, 0.25) !important;
+        }
+        html[data-theme="light"] .btn-primary:hover {
+            box-shadow: 0 8px 30px rgba(0, 169, 204, 0.4) !important;
+        }
+        html[data-theme="light"] .toast {
+            background: rgba(255, 255, 255, 0.95) !important;
+            border: 1px solid #E5E7EB !important;
+            color: #172033 !important;
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.12) !important;
+        }
+        html[data-theme="light"] .toast-title { color: #172033 !important; }
+        html[data-theme="light"] .toast-message { color: #475569 !important; }
+        html[data-theme="light"] .toast-icon { background: #E3F2F7 !important; }
+        html[data-theme="light"] .toast-success .toast-icon { color: #059669 !important; background: #DCFCE7 !important; }
+        html[data-theme="light"] .toast-error .toast-icon { color: #DC2626 !important; background: #FEE2E2 !important; }
+        html[data-theme="light"] .toast-close { color: #9CA3AF !important; }
+        html[data-theme="light"] .toast-progress {
+            background: linear-gradient(90deg, #00A9CC, #0086A8) !important;
+        }
+        
+        /* Additional specific light mode fixes */
+        html[data-theme="light"] [style*="background:rgba(239,68,68"] {
+            background: rgba(220, 38, 38, 0.1) !important;
+            border-color: rgba(220, 38, 38, 0.25) !important;
+        }
+        html[data-theme="light"] [style*="border:1px solid rgba(239,68,68"] {
+            border-color: rgba(220, 38, 38, 0.25) !important;
+        }
+        
+        /* Sidebar navigation fixes */
+        html[data-theme="light"] #main-sidebar { background: rgba(255, 255, 255, 0.96) !important; border-color: rgba(15, 23, 42, 0.14) !important; }
+        html[data-theme="light"] #main-sidebar [style*="border-bottom"] { border-color: rgba(15, 23, 42, 0.08) !important; }
+        html[data-theme="light"] #main-sidebar [style*="border-right"] { border-color: rgba(15, 23, 42, 0.08) !important; }
+        html[data-theme="light"] #main-sidebar [style*="color:rgba(255,255,255,0.2"] { color: rgba(15, 23, 42, 0.3) !important; }
+        
+        /* Input placeholder and focus states */
+        html[data-theme="light"] .modern-input:focus {
+            border-color: #006B8F !important;
+            background: rgba(0, 107, 143, 0.05) !important;
+            box-shadow: 0 0 0 3px rgba(0, 107, 143, 0.1) !important;
+        }
+        html[data-theme="light"] select.modern-input {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23006B8F' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+        }
+        
+        /* Status indicator colors */
+        html[data-theme="light"] .w-1\\.5.h-1\\.5.rounded-full[style*="bg-"] { opacity: 0.9; }
+        
+        /* Hero section accents */
+        html[data-theme="light"] [style*="color:rgba(0,212,255,0.1)"] { color: rgba(0, 107, 143, 0.08) !important; }
+        
+        /* Badge backgrounds adjustment */
+        html[data-theme="light"] [style*="background:rgba(0,212,255,0.05"],
+        html[data-theme="light"] [style*="background: rgba(0,212,255,0.05"] { background: #E3F2F7 !important; }
+        
+        /* Semua text dengan rgba warna opacity */
+        html[data-theme="light"] [style*="color:rgba(255,255,255,0.4"],
+        html[data-theme="light"] [style*="color:rgba(255,255,255,0.5"],
+        html[data-theme="light"] [style*="color:rgba(255,255,255,0.6"],
+        html[data-theme="light"] [style*="color:rgba(255,255,255,0.7"],
+        html[data-theme="light"] [style*="color:rgba(255,255,255,0.8"] { color: #64748B !important; }
+        
+        /* Hover state backgrounds */
+        html[data-theme="light"] [style*="hover:bg-"] { 
+            /* Preserved for Tailwind classes */
+        }
+        
+        /* Modal styling for light mode */
+        html[data-theme="light"] #m-ba-upload,
+        html[data-theme="light"] #m-ba-edit,
+        html[data-theme="light"] #m-ma-upload,
+        html[data-theme="light"] #m-ma-edit {
+            background: rgba(255, 255, 255, 0.95) !important;
+        }
+        html[data-theme="light"] [style*="background:#0F172A"] {
+            background: #FFFFFF !important;
+        }
+        html[data-theme="light"] [style*="background: #0F172A"] {
+            background: #FFFFFF !important;
+        }
+        html[data-theme="light"] [style*="border:1px solid rgba(0,212,255,0.2"] {
+            border-color: #D1D5DB !important;
+            background: #FFFFFF !important;
+        }
+        html[data-theme="light"] [style*="border:1px solid rgba(124,58,237,0.25"] {
+            border-color: #D1D5DB !important;
+            background: #FFFFFF !important;
+        }
+        
+        /* Dialog text fix */
+        html[data-theme="light"] [style*="color:#E5E7EB"][style*="text-sm"][style*="font-black"] { color: #172033 !important; }
+        
+        /* Specific label colors that are still dark */
+        html[data-theme="light"] div[style*="color:rgba(255,255,255,0.2)"],
+        html[data-theme="light"] span[style*="color:rgba(255,255,255,0.2"] { color: #9CA3AF !important; }
+        
+        /* Message helper text */
+        html[data-theme="light"] [style*="font-size:9px"][style*="color:rgba(0,212,255,0.4"],
+        html[data-theme="light"] [style*="font-size:9px"][style*="color:rgba(168,85,247,0.4"] { color: #9CA3AF !important; }
+        
+        /* Active elements */
+        html[data-theme="light"] .active[style*="color:#00D4FF"] { color: #006B8F !important; }
+        
+        /* Specific section headers */
+        html[data-theme="light"] [style*="color:rgba(0,212,255,0.6"],
+        html[data-theme="light"] [style*="color: rgba(0,212,255,0.6"] { color: #0086A8 !important; }
+        html[data-theme="light"] [style*="color:rgba(168,85,247,0.6"] { color: #7C3AED !important; }
+        html[data-theme="light"] [style*="color:rgba(39,174,96,0.6"] { color: #059669 !important; }
+        html[data-theme="light"] [style*="color:rgba(243,156,18,0.6"] { color: #D97706 !important; }
+        
+        /* Print page badge colors */
+        html[data-theme="light"] [style*="background:rgba(243,156,18,0.08"],
+        html[data-theme="light"] [style*="background:rgba(243,156,18,0.1"] { background: #FEF3C7 !important; }
+        html[data-theme="light"] [style*="background:rgba(39,174,96,0.08"],
+        html[data-theme="light"] [style*="background:rgba(39,174,96,0.1"] { background: #DCFCE7 !important; }
+        html[data-theme="light"] [style*="background:rgba(168,85,247,0.08"],
+        html[data-theme="light"] [style*="background:rgba(168,85,247,0.1"] { background: #F3E8FF !important; }
+        
+        /* Gradient accent lines */
+        html[data-theme="light"] [style*="background:linear-gradient(90deg,transparent,rgba(0,212,255"],
+        html[data-theme="light"] [style*="background:linear-gradient(to bottom,#00D4FF"] {
+            background: linear-gradient(90deg, transparent, #006B8F, transparent) !important;
+        }
+        html[data-theme="light"] [style*="background:linear-gradient(to bottom,#7C3AED"],
+        html[data-theme="light"] [style*="background:linear-gradient(to bottom,#A855F7"] {
+            background: linear-gradient(to bottom, #7C3AED, transparent) !important;
+        }
+        
+        /* Ensure all text is readable */
+        html[data-theme="light"] #main-scroll-area { color: #172033 !important; }
+        
+        /* Page-specific backgrounds and borders */
+        html[data-theme="light"] #page-dashboard [style*="border:1px solid rgba(0,212,255"],
+        html[data-theme="light"] #page-students [style*="border:1px solid rgba(0,212,255"],
+        html[data-theme="light"] #page-attendance [style*="border:1px solid rgba(0,212,255"],
+        html[data-theme="light"] #page-journal [style*="border:1px solid rgba(0,212,255"],
+        html[data-theme="light"] #page-print [style*="border:1px solid rgba(0,212,255"] {
+            border-color: #D1D5DB !important;
+        }
+        
+        /* Ensure input colors in forms */
+        html[data-theme="light"] input[type="date"].modern-input {
+            color: #172033 !important;
+            background: #F8FAFC !important;
+        }
+        html[data-theme="light"] textarea.modern-input {
+            color: #172033 !important;
+            background: #F8FAFC !important;
+        }
+        
+        /* Link colors in preview */
+        html[data-theme="light"] a[style*="color:#00D4FF"] {
+            color: #006B8F !important;
+            text-decoration: underline;
+        }
+        
+        /* Separator lines */
+        html[data-theme="light"] [style*="h-px"][style*="bg-[var(--border)"],
+        html[data-theme="light"] [style*="h-px"][style*="background"] {
+            background: #E5E7EB !important;
+        }
+        
+        /* Card hover effects in light mode */
+        html[data-theme="light"] .glass-card:hover {
+            border-color: #B8D7E0 !important;
+            box-shadow: 0 4px 20px rgba(0, 107, 143, 0.12) !important;
+        }
+        
+        /* Specific ID overrides */
+        html[data-theme="light"] #sidebar-overlay { background: rgba(15, 23, 42, 0.4) !important; backdrop-filter: blur(4px); }
+        html[data-theme="light"] .sidebar-link { color: #475569; border-radius: 12px; }
+        html[data-theme="light"] .sidebar-link:hover { background: #E0F2FE; color: #006B8F; border-color: #99D5E7; }
+        html[data-theme="light"] .sidebar-link.active { 
+            background: linear-gradient(135deg, #E0F2FE, #E0F7FA);
+            color: #006B8F; 
+            font-weight: 700; 
+            border-color: #99D5E7;
+        }
+        
+        /* Ensure glassy card effects work in light mode */
+        html[data-theme="light"] .glass-card {
+            background: rgba(255, 255, 255, 0.98) !important;
+            backdrop-filter: blur(0px) !important;
+            border-color: rgba(15, 23, 42, 0.1) !important;
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08) !important;
+        }
+        
+        /* Ensure proper text contrast */
+        html[data-theme="light"] #main-scroll-area strong { color: #172033 !important; }
+        html[data-theme="light"] #main-scroll-area em { color: #475569 !important; }
+        
+        /* Remove/adjust glows for light mode */
+        html[data-theme="light"] [style*="box-shadow:0 0 20px rgba(0,212,255"] {
+            box-shadow: 0 0 8px rgba(0, 107, 143, 0.15) !important;
+        }
+        html[data-theme="light"] [style*="box-shadow:0 0 30px rgba(0,212,255"] {
+            box-shadow: 0 0 12px rgba(0, 107, 143, 0.12) !important;
+        }
+        
+        /* Final override for any remaining dark text on light */
+        html[data-theme="light"] body,
+        html[data-theme="light"] h1,
+        html[data-theme="light"] h2,
+        html[data-theme="light"] h3,
+        html[data-theme="light"] h4,
+        html[data-theme="light"] h5,
+        html[data-theme="light"] h6,
+        html[data-theme="light"] p,
+        html[data-theme="light"] label,
+        html[data-theme="light"] span,
+        html[data-theme="light"] div {
+            color-scheme: light;
+        }
         html[data-theme="light"] #theme-toggle .theme-light-label { display: inline; }
         html[data-theme="light"] #theme-toggle .theme-dark-label { display: none; }
         html:not([data-theme="light"]) #theme-toggle .theme-light-label { display: none; }
@@ -1003,6 +1220,216 @@
         }
         html[data-theme="light"] #dash-jadwal-hari-ini .seg.off { background: #BFD7E2 !important; box-shadow: none !important; }
         html[data-theme="light"] #dash-jadwal-hari-ini #dash-clock-date { color: #0F5F73 !important; background: #FFFFFF !important; }
+        
+        /* Extended Light Mode Fixes */
+        html[data-theme="light"] [style*="color:#E5E7EB"],
+        html[data-theme="light"] [style*="color: #E5E7EB"] { color: #172033 !important; }
+        html[data-theme="light"] [style*="color:#9CA3AF"],
+        html[data-theme="light"] [style*="color: #9CA3AF"] { color: #475569 !important; }
+        html[data-theme="light"] [style*="color:#00D4FF"],
+        html[data-theme="light"] [style*="color: #00D4FF"] { color: #006B8F !important; }
+        html[data-theme="light"] [style*="color:#A855F7"],
+        html[data-theme="light"] [style*="color: #A855F7"] { color: #7C3AED !important; }
+        
+        /* Welcome message gradient fix */
+        html[data-theme="light"] #dash-welcome span {
+            background: linear-gradient(135deg, #005B78, #006B8F) !important;
+            -webkit-background-clip: text !important;
+            background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+        }
+        
+        /* Label text colors in light mode */
+        html[data-theme="light"] [style*="color:rgba(156,163,175"],
+        html[data-theme="light"] [style*="color: rgba(156,163,175"],
+        html[data-theme="light"] [style*="color:rgba(255,255,255,0.2"],
+        html[data-theme="light"] [style*="color: rgba(255,255,255"],
+        html[data-theme="light"] [style*="color:rgba(0,212,255"] {
+            color: #475569 !important;
+        }
+        
+        /* Icon colors fix */
+        html[data-theme="light"] i[style*="color:#00D4FF"],
+        html[data-theme="light"] i[style*="color: #00D4FF"],
+        html[data-theme="light"] svg[style*="color:#00D4FF"],
+        html[data-theme="light"] svg[style*="color: #00D4FF"] { color: #006B8F !important; }
+        
+        html[data-theme="light"] i[style*="color:#A855F7"],
+        html[data-theme="light"] svg[style*="color:#A855F7"] { color: #7C3AED !important; }
+        
+        /* Gradient backgrounds in light mode */
+        html[data-theme="light"] [style*="linear-gradient(135deg,#00D4FF"],
+        html[data-theme="light"] [style*="linear-gradient(135deg, #00D4FF"],
+        html[data-theme="light"] [style*="linear-gradient(90deg,#00D4FF"],
+        html[data-theme="light"] [style*="linear-gradient(90deg, #00D4FF"] {
+            background: linear-gradient(135deg, #00A9CC, #0086A8) !important;
+            color: white !important;
+        }
+        
+        html[data-theme="light"] [style*="linear-gradient(135deg,#A855F7"],
+        html[data-theme="light"] [style*="linear-gradient(135deg, #A855F7"] {
+            background: linear-gradient(135deg, #7C3AED, #6D28D9) !important;
+            color: white !important;
+        }
+        
+        /* Tab buttons fix */
+        html[data-theme="light"] #tab-grid-btn {
+            background: #F0F4F8 !important;
+            color: #475569 !important;
+            border-color: #D1D5DB !important;
+        }
+        
+        /* Modal overlay text */
+        html[data-theme="light"] [style*="font-size:13px;font-weight:900;color:#E5E7EB"],
+        html[data-theme="light"] #ba-preview-title { color: #172033 !important; }
+        
+        /* Print page section labels */
+        html[data-theme="light"] [style*="color:#F39C12"] { color: #D97706 !important; }
+        html[data-theme="light"] [style*="color:#27AE60"] { color: #059669 !important; }
+        
+        /* Badge and status elements */
+        html[data-theme="light"] [style*="background:rgba(0,212,255,0.1)"],
+        html[data-theme="light"] [style*="background: rgba(0,212,255"] {
+            background: #D7EEF6 !important;
+        }
+        html[data-theme="light"] [style*="border:1px solid rgba(0,212,255"] {
+            border-color: #8CCCDC !important;
+        }
+        
+        /* Active/Live badges */
+        html[data-theme="light"] #dash-jadwal-now-badge {
+            background: #D7EEF6 !important;
+            border-color: #8CCCDC !important;
+            color: #006B8F !important;
+        }
+        
+        /* Schedule header section */
+        html[data-theme="light"] #dash-jadwal-active-block {
+            background: #E8F6FB !important;
+            border-color: #8CCCDC !important;
+        }
+        
+        /* Active schedule name gradient */
+        html[data-theme="light"] #dash-jadwal-active-name {
+            background: linear-gradient(90deg, #D97706, #CA8A04, #B45309) !important;
+            -webkit-background-clip: text !important;
+            background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+        }
+        
+        /* Progress bar */
+        html[data-theme="light"] #dash-jadwal-progress {
+            background: linear-gradient(90deg, #0086A8, #006B8F) !important;
+        }
+        
+        /* List item colors */
+        html[data-theme="light"] #dash-jadwal-list > div {
+            background: #F8FAFB !important;
+            border-color: #D1D5DB !important;
+        }
+        html[data-theme="light"] #dash-jadwal-list > div > div,
+        html[data-theme="light"] #dash-jadwal-list > div span {
+            color: #172033 !important;
+        }
+        
+        /* Attendance labels */
+        html[data-theme="light"] .flex.items-center.gap-2 [style*="color:rgba"] {
+            color: #475569 !important;
+        }
+        
+        /* Settings page backgrounds */
+        html[data-theme="light"] #page-settings [style*="background:rgba"],
+        html[data-theme="light"] #page-grades [style*="background:rgba"] {
+            background: #FFFFFF !important;
+        }
+        
+        /* Form helper text */
+        html[data-theme="light"] [style*="font-size:9px"][style*="font-bold"][style*="color:rgba(0,212,255"],
+        html[data-theme="light"] [style*="font-size:9px"][style*="font-bold"][style*="color:rgba(124,58,237"] {
+            color: #64748B !important;
+        }
+        
+        /* Logout button light mode */
+        html[data-theme="light"] button[style*="background:rgba(239,68,68,0.06)"] {
+            background: #FEE2E2 !important;
+            border-color: #FECACA !important;
+            color: #DC2626 !important;
+        }
+        
+        /* Opening screen text */
+        html[data-theme="light"] .opening-content h1 {
+            color: #0F766E !important;
+            -webkit-text-fill-color: #0F766E !important;
+        }
+        
+        /* Page title and breadcrumb */
+        html[data-theme="light"] #page-title { color: #006B8F !important; }
+        html[data-theme="light"] #breadcrumb-active { color: #172033 !important; }
+        
+        /* Header identity text */
+        html[data-theme="light"] #header-identity-sch { color: #172033 !important; }
+        html[data-theme="light"] #header-identity-guru { color: #475569 !important; }
+        
+        /* Close button in modals */
+        html[data-theme="light"] [style*="color:#f87171"],
+        html[data-theme="light"] [style*="color: #f87171"] { color: #DC2626 !important; }
+        
+        /* Sidebar user status */
+        html[data-theme="light"] [style*="color:rgba(0,212,255,0.6)"] { color: #0086A8 !important; }
+        html[data-theme="light"] [style*="color:rgba(0,212,255,0.5)"] { color: #0086A8 !important; }
+        
+        /* Section labels and descriptions */
+        html[data-theme="light"] [style*="color:rgba(0,212,255,0.4"],
+        html[data-theme="light"] [style*="color: rgba(0,212,255,0.4"] { color: #64748B !important; }
+        html[data-theme="light"] [style*="color:rgba(124,58,237,0.6"] { color: #7C3AED !important; }
+        
+        /* Button text colors in light mode */
+        html[data-theme="light"] [style*="color:#0B1220"] { color: #0F766E !important; }
+        html[data-theme="light"] button[style*="color:#fff"] {
+            color: white !important;
+        }
+        
+        /* Text opacity fixes */
+        html[data-theme="light"] [style*="opacity:0.6"] { opacity: 0.7 !important; }
+        
+        /* All inline gradient texts that need dark theme adjustment */
+        html[data-theme="light"] [style*="background:linear-gradient"][style*="background-clip:text"],
+        html[data-theme="light"] [style*="background: linear-gradient"][style*="background-clip"] {
+            background-image: linear-gradient(135deg, #005B78, #006B8F) !important;
+        }
+        
+        /* Hero banner text colors */
+        html[data-theme="light"] [style*="background:linear-gradient(135deg,#0d1829"],
+        html[data-theme="light"] [style*="background: linear-gradient(135deg, #0d1829"] {
+            background: linear-gradient(135deg, #E0F2FE, #E8F6FB) !important;
+            color: #0F766E !important;
+        }
+        html[data-theme="light"] [style*="background:linear-gradient(135deg,#0d1829"] h1,
+        html[data-theme="light"] [style*="background:linear-gradient(135deg,#0d1829"] h2,
+        html[data-theme="light"] [style*="background:linear-gradient(135deg,#0d1829"] h3,
+        html[data-theme="light"] [style*="background:linear-gradient(135deg,#0d1829"] h4,
+        html[data-theme="light"] [style*="background:linear-gradient(135deg,#0d1829"] p {
+            color: #172033 !important;
+        }
+        
+        /* Slot list items */
+        html[data-theme="light"] #slot-list > div { background: #F8FAFB !important; border-color: #D1D5DB !important; }
+        
+        /* Quick select backgrounds */
+        html[data-theme="light"] .bg-\[var\(--primary\)\] { background: #0086A8 !important; }
+        html[data-theme="light"] #quick-day-name { 
+            background: #0086A8 !important;
+            color: white !important;
+        }
+        
+        /* Attendance indicators */
+        html[data-theme="light"] .w-3.h-3.rounded-full { 
+            opacity: 1;
+        }
+        html[data-theme="light"] .w-3.h-3.rounded-full[style*="bg-"] {
+            background-color: inherit !important;
+        }
+        
         @media (max-width: 768px) {
             html[data-theme="light"] .glass-card,
             html[data-theme="light"] #main-sidebar,
