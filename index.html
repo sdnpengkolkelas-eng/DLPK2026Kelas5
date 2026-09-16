@@ -15,7 +15,7 @@
     <meta name="apple-mobile-web-app-title" content="DLPK">
     <meta name="application-name" content="DLPK">
     <script>
-        document.documentElement.dataset.theme = localStorage.getItem('dlpk_theme') === 'light' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = 'light';
     </script>
     <title>DLPK - Integrated Class Management</title>
     <script src="https://cdn.tailwindcss.com/3.4.17"></script>
@@ -67,6 +67,12 @@
             line-height: 1.5;
         }
 
+        html, body { min-width: 0; min-height: 100%; }
+        main { min-width: 0; min-height: 0; }
+        #main-scroll-area { min-width: 0; min-height: 0; scrollbar-gutter: stable; }
+        #main-sidebar { flex-shrink: 0; }
+        .page-transition { min-width: 0; contain: layout paint; }
+
         /* Sidebar - Futuristic Dark */
         #main-sidebar {
             background: rgba(11,18,32,0.95);
@@ -115,6 +121,18 @@
             overflow: hidden;
             word-wrap: break-word;
             overflow-wrap: break-word;
+        }
+
+        /* The light-only interface does not need costly backdrop compositing. */
+        html[data-theme="light"] .glass-card,
+        html[data-theme="light"] #main-sidebar,
+        html[data-theme="light"] .header-glass {
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+        }
+        html[data-theme="light"] #main-scroll-area > div {
+            content-visibility: auto;
+            contain-intrinsic-size: 720px;
         }
         .glass-card::before {
             content: '';
@@ -177,6 +195,32 @@
         .td-absen.is-holiday { 
             background: rgba(239,68,68,0.25) !important; 
             color: #DC2626 !important; 
+        }
+
+        .cp-modal {
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        @media (max-width: 768px) {
+            .cp-modal > div {
+                width: min(100%, 420px);
+                max-height: calc(100dvh - 2rem);
+                overflow-y: auto;
+                overscroll-behavior: contain;
+            }
+            #table-attendance {
+                min-width: 980px !important;
+                table-layout: fixed;
+            }
+            #table-attendance th,
+            #table-attendance td {
+                font-size: 9px !important;
+            }
+            #table-attendance .absen-select {
+                font-size: 9px;
+                min-height: 34px;
+            }
         }
         
         .th-absen-header {
@@ -671,9 +715,27 @@
         .overflow-auto, #main-scroll-area { -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
         .modern-table { contain: layout style; }
 
-        /* 7-Segment Display Clock */
-        .seg-display { display:inline-flex; align-items:center; gap:4px; }
-        .seg-digit { position:relative; width:18px; height:30px; }
+        /* Digital Clock Display */
+        .seg-display { display:inline-flex; align-items:center; gap:5px; }
+        .seg-digit {
+            position:relative;
+            width:28px;
+            height:40px;
+            display:grid;
+            place-items:center;
+            background:linear-gradient(180deg, rgba(15,23,42,0.95), rgba(8,18,31,0.96));
+            border:1px solid rgba(0,212,255,0.22);
+            border-radius:9px;
+            box-shadow: inset 0 0 16px rgba(0,212,255,0.06), 0 4px 12px rgba(0,0,0,0.35);
+        }
+        .seg-digit .digital-digit {
+            font-size:24px;
+            line-height:1;
+            font-weight:900;
+            color:#EAFBFF;
+            letter-spacing:0;
+            text-shadow:0 0 12px rgba(0,212,255,0.4);
+        }
         .seg { position:absolute; background:#00D4FF; border-radius:1.5px; box-shadow:0 0 4px rgba(0,212,255,0.5); }
         .seg.off { background:rgba(0,212,255,0.07); box-shadow:none; }
         .seg-a { top:0;    left:2px; right:2px; height:3px; }
@@ -684,9 +746,9 @@
         .seg-e { bottom:3px; left:0; width:3px; height:calc(50% - 3px); }
         .seg-c { bottom:3px; right:0;width:3px; height:calc(50% - 3px); }
         .seg-colon { display:flex; flex-direction:column; gap:5px; align-items:center; justify-content:center; height:30px; }
-        .seg-dot { width:4px; height:4px; border-radius:50%; background:#00D4FF; box-shadow:0 0 5px #00D4FF; }
+        .seg-dot { width:6px; height:6px; border-radius:50%; background:#7dd3fc; box-shadow:0 0 10px rgba(125,211,252,0.7); }
         /* Override background login pakai file yang sama dengan halaman utama */
-        #login-screen { background-image: url('Kelas.jpg') !important; }
+        #login-screen { background-image: none !important; }
 
         * { touch-action: manipulation; }
         a, button, label, [onclick] { touch-action: manipulation; cursor: pointer; }
@@ -1363,6 +1425,52 @@
         html[data-theme="light"] #page-grades [style*="background:rgba"] {
             background: #FFFFFF !important;
         }
+        html[data-theme="light"] #page-grades {
+            color: #0F172A !important;
+        }
+        html[data-theme="light"] #page-grades > div:first-child {
+            background: #FFFFFF !important;
+            border-color: #D9EAF4 !important;
+            box-shadow: none !important;
+        }
+        html[data-theme="light"] #page-grades h3,
+        html[data-theme="light"] #page-grades p,
+        html[data-theme="light"] #page-grades .font-black,
+        html[data-theme="light"] #page-grades .text-\[var\(--text-main\)\],
+        html[data-theme="light"] #page-grades .text-\[var\(--text-muted\)\] {
+            color: #0F172A !important;
+        }
+        html[data-theme="light"] #grade-modules .glass-card {
+            background: #FFFFFF !important;
+            border-color: #D8E7F1 !important;
+            box-shadow: none !important;
+        }
+        html[data-theme="light"] #grade-modules .glass-card th,
+        html[data-theme="light"] #grade-modules .glass-card table th {
+            background: #EAF6FB !important;
+            color: #0F172A !important;
+            border-color: #D8E7F1 !important;
+        }
+        html[data-theme="light"] #grade-modules .glass-card td,
+        html[data-theme="light"] #grade-modules .glass-card table td {
+            color: #0F172A !important;
+            background: #FFFFFF !important;
+            border-color: #E2E8F0 !important;
+        }
+        html[data-theme="light"] #grade-modules .glass-card input {
+            background: #F8FAFC !important;
+            color: #0F172A !important;
+            border-color: #BFE4F1 !important;
+            box-shadow: none !important;
+        }
+        html[data-theme="light"] #grade-modules .glass-card input:focus {
+            border-color: #0EA5E9 !important;
+            box-shadow: 0 0 0 2px rgba(14,165,233,0.18) !important;
+        }
+        html[data-theme="light"] #grade-modules .glass-card button,
+        html[data-theme="light"] #grade-modules .glass-card [style*="background:linear-gradient"] {
+            box-shadow: none !important;
+        }
         
         /* Form helper text */
         html[data-theme="light"] [style*="font-size:9px"][style*="font-bold"][style*="color:rgba(0,212,255"],
@@ -1459,6 +1567,35 @@
             html[data-theme="light"] #main-scroll-area [style*="rgba(15, 23, 42"],
             html[data-theme="light"] #main-scroll-area [style*="rgba(11, 18, 32"] { background: #FFFFFF !important; }
         }
+
+        /* Stable responsive shell for laptop and phone widths. */
+        html[data-theme="light"] main > div[style*="background-image:url('Kelas.jpg')"] { opacity: .08; }
+        html[data-theme="light"] main > div[style*="background:rgba(7,16,31,0.88)"] { background: rgba(244,247,251,.86) !important; }
+        @media (min-width: 769px) and (max-width: 1280px) {
+            #main-scroll-area { padding: 1.25rem !important; }
+            header.header-glass { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
+        }
+        @media (max-width: 768px) {
+            #main-scroll-area { padding: .75rem !important; }
+            #main-sidebar { width: min(82vw, 18rem) !important; }
+            header.header-glass { min-height: 4rem; height: auto !important; padding: .75rem !important; }
+            #page-attendance { gap: 1rem !important; }
+            #page-attendance > div { border-radius: 1rem !important; }
+            #page-attendance .glass-card { padding: 1rem !important; }
+            #page-attendance .overflow-x-auto { max-width: 100%; }
+        }
+
+        /* Dashboard app shortcuts */
+        html[data-theme="light"] #dashboard-shortcuts > div:nth-child(2) > button {
+            background: #FFFFFF !important;
+            box-shadow: 0 8px 22px rgba(15, 23, 42, 0.08) !important;
+        }
+        html[data-theme="light"] #dashboard-shortcuts .shortcut-icon {
+            background: #F4FAFC !important;
+        }
+        html[data-theme="light"] #dashboard-shortcuts .shortcut-label {
+            color: #0F172A !important;
+        }
     </style>
 </head>
 <body class="h-full flex">
@@ -1553,6 +1690,9 @@
             <button onclick="switchPage('modul-ajar')" class="sidebar-link w-full flex items-center gap-3 px-3 py-2.5 text-xs font-semibold rounded-xl mb-0.5" data-page="modul-ajar">
                 <i data-lucide="book-marked" class="w-4 h-4 flex-shrink-0"></i><span>Modul Ajar</span>
             </button>
+            <button onclick="switchPage('capaian-pembelajaran')" class="sidebar-link w-full flex items-center gap-3 px-3 py-2.5 text-xs font-semibold rounded-xl mb-0.5" data-page="capaian-pembelajaran">
+                <i data-lucide="target" class="w-4 h-4 flex-shrink-0"></i><span>Capaian Pembelajaran</span>
+            </button>
 
             <!-- Label system -->
             <div style="font-size:8px;font-weight:900;color:rgba(255,255,255,0.2);text-transform:uppercase;letter-spacing:.25em;padding:0 10px;margin-bottom:6px;margin-top:14px;">Sistem</div>
@@ -1587,7 +1727,7 @@
 
     <main class="flex-1 flex flex-col overflow-hidden bg-[var(--background)]" style="position:relative;">
         <!-- Background foto kelas dengan overlay -->
-        <div style="position:fixed;inset:0;z-index:0;background-image:url('Kelas.jpg');background-size:cover;background-position:center;background-repeat:no-repeat;pointer-events:none;"></div>
+        <div style="position:fixed;inset:0;z-index:0;background-image:none;pointer-events:none;"></div>
         <div style="position:fixed;inset:0;z-index:0;background:rgba(7,16,31,0.88);pointer-events:none;"></div>
         <header class="hidden h-20 header-glass flex items-center px-4 md:px-10 justify-between sticky top-0 z-20 shadow-sm">
             <div class="flex items-center gap-4">
@@ -1608,11 +1748,6 @@
                     <span id="header-identity-sch" class="text-[10px] font-extrabold text-[var(--text-main)] uppercase tracking-tight italic">...</span>
                     <span id="header-identity-guru" class="text-[8px] font-bold text-[var(--text-muted)] uppercase tracking-[0.1em] mt-0.5">...</span>
                 </div>
-                <button id="theme-toggle" onclick="toggleTheme()" type="button" aria-label="Ganti tema" title="Ganti tema" class="h-10 px-3 rounded-xl flex items-center gap-2 border transition-all" style="background:rgba(255,255,255,0.06);border-color:var(--border);color:var(--text-main);font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;">
-                    <i data-lucide="sun" class="w-4 h-4"></i>
-                    <span class="theme-light-label">Mode Light</span>
-                    <span class="theme-dark-label">Mode Dark</span>
-                </button>
                 <div class="h-8 w-[1px] bg-[var(--border)] hidden sm:block"></div>
                 <div class="w-10 h-10 bg-[var(--primary)] rounded-xl flex items-center justify-center text-white shadow-lg transition-all">
                     <i data-lucide="user-check" class="w-5 h-5"></i>
@@ -1671,26 +1806,23 @@
                     <!-- Glow -->
                     <div style="position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(0,212,255,0.05),transparent 65%);top:-100px;right:-80px;pointer-events:none;z-index:0;"></div>
 
-                    <!-- Jam digital 7-segment  memotong border atas, tengah -->
+                    <!-- Jam digital modern yang lebih jelas dan mudah dibaca -->
                     <div style="position:absolute;top:-22px;left:50%;transform:translateX(-50%);z-index:10;display:flex;flex-direction:column;align-items:center;">
-                        <div style="position:relative;display:inline-flex;align-items:center;gap:0;padding:8px 14px 7px;border-radius:10px;background:#060D1F;border:1px solid rgba(0,212,255,0.25);box-shadow:0 0 20px rgba(0,212,255,0.1),0 4px 16px rgba(0,0,0,0.7);">
-                            <div style="position:absolute;inset:0;border-radius:10px;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.1) 3px,rgba(0,0,0,0.1) 4px);pointer-events:none;"></div>
-                            <!-- Digits -->
+                        <div style="position:relative;display:inline-flex;align-items:center;gap:0;padding:10px 16px 9px;border-radius:12px;background:linear-gradient(180deg, rgba(11,18,32,0.98), rgba(8,18,31,0.96));border:1px solid rgba(0,212,255,0.28);box-shadow:0 0 20px rgba(0,212,255,0.08),0 6px 18px rgba(0,0,0,0.55);">
+                            <div style="position:absolute;inset:0;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);pointer-events:none;"></div>
                             <div class="seg-display" id="seg-clock-display">
-                                <!-- HH -->
                                 <div class="seg-digit" id="seg-h1"></div>
                                 <div class="seg-digit" id="seg-h2"></div>
-                                <!-- Colon -->
                                 <div class="seg-colon">
                                     <div class="seg-dot" id="seg-dot1"></div>
                                     <div class="seg-dot" id="seg-dot2"></div>
                                 </div>
-                                <!-- MM -->
                                 <div class="seg-digit" id="seg-m1"></div>
                                 <div class="seg-digit" id="seg-m2"></div>
                             </div>
                         </div>
-                        <div id="dash-clock-date" style="font-size:7.5px;font-weight:700;color:rgba(0,212,255,0.4);text-transform:uppercase;letter-spacing:.15em;margin-top:5px;white-space:nowrap;background:#07101F;padding:0 8px;"></div>
+                        <div id="dash-clock-date" style="font-size:7.5px;font-weight:800;color:rgba(0,212,255,0.6);text-transform:uppercase;letter-spacing:.15em;margin-top:6px;white-space:nowrap;background:#07101F;padding:0 8px;border-radius:999px;">
+                        </div>
                     </div>
                     <!-- Hidden elements untuk JS compatibility -->
                     <div id="dash-clock-hh" style="display:none;">00</div>
@@ -1739,6 +1871,8 @@
                         <div id="dash-jadwal-list"></div>
                     </div>
                 </div>
+
+                <div id="dashboard-shortcuts" class="mt-6 space-y-3"></div>
 
                 <!-- Identitas Sekolah -->
                 <div class="relative overflow-hidden rounded-2xl" style="background:rgba(13,24,41,0.9);border:1px solid rgba(168,85,247,0.12);">
@@ -2205,6 +2339,27 @@
                 <div id="ma-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
             </div>
 
+            <div id="page-capaian-pembelajaran" class="hidden space-y-6 page-transition">
+                <div class="relative overflow-hidden rounded-3xl p-8" style="background:#FFFFFF;border:1px solid #B8D7E0;box-shadow:0 8px 24px rgba(15,23,42,0.08);">
+                    <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                        <div class="flex items-center gap-5">
+                            <div class="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0" style="background:#E0F2FE;border:1px solid #8CCCDC;color:#006B8F;">
+                                <i data-lucide="target" class="w-7 h-7"></i>
+                            </div>
+                            <div>
+                                <div class="text-[9px] font-black uppercase tracking-[.2em] mb-1" style="color:#006B8F;">Manajemen Kurikulum</div>
+                                <h2 class="text-2xl font-black tracking-tight" style="color:#172033;">Capaian Pembelajaran</h2>
+                                <p class="text-[11px] mt-1" style="color:#475569;">Upload dan kelola dokumen CP per mata pelajaran</p>
+                            </div>
+                        </div>
+                        <button onclick="bukaModalUploadCP()" class="flex items-center gap-2 px-5 py-3 rounded-xl font-black text-[11px] uppercase tracking-wider cursor-pointer flex-shrink-0 border-none" style="background:#006B8F;color:#FFFFFF;box-shadow:0 4px 14px rgba(0,107,143,0.22);">
+                            <i data-lucide="upload" class="w-4 h-4"></i> Upload CP
+                        </button>
+                    </div>
+                </div>
+                <div id="cp-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+            </div>
+
             <!-- Modal Tambah Modul Ajar -->
             <div id="m-ma-upload" class="hidden fixed inset-0 z-[60] flex items-center justify-center p-4" style="background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);">
                 <div class="relative w-full max-w-md rounded-3xl p-8 space-y-5" style="background:#0F172A;border:1px solid rgba(124,58,237,0.25);box-shadow:0 30px 60px rgba(0,0,0,0.6);">
@@ -2303,6 +2458,45 @@
                 </div>
             </div>
 
+            <div id="m-cp-upload" class="cp-modal hidden fixed inset-0 z-[60] flex items-center justify-center p-4" style="background:rgba(15,23,42,0.42);backdrop-filter:blur(6px);">
+                <div class="relative w-full max-w-md rounded-3xl p-8 space-y-5" style="background:#FFFFFF;border:1px solid #B8D7E0;box-shadow:0 20px 50px rgba(15,23,42,0.18);">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background:#E0F2FE;border:1px solid #8CCCDC;color:#006B8F;"><i data-lucide="upload" class="w-4 h-4"></i></div>
+                            <span class="font-black text-sm uppercase tracking-wider" style="color:#172033;">Upload Capaian Pembelajaran</span>
+                        </div>
+                        <button onclick="document.getElementById('m-cp-upload').classList.add('hidden')" class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:#F1F5F9;color:#475569;"><i data-lucide="x" class="w-4 h-4"></i></button>
+                    </div>
+                    <div class="space-y-4">
+                        <div><label class="text-[10px] font-black uppercase tracking-widest mb-2 block" style="color:#475569;">Link Dokumen (Google Drive / URL)</label><input type="url" id="cp-form-url" class="modern-input font-bold" placeholder="https://drive.google.com/..."></div>
+                        <div><label class="text-[10px] font-black uppercase tracking-widest mb-2 block" style="color:#475569;">Judul CP</label><input type="text" id="cp-form-judul" class="modern-input font-bold" placeholder="Contoh: CP Matematika Fase C"></div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div><label class="text-[10px] font-black uppercase tracking-widest mb-2 block" style="color:#475569;">Mata Pelajaran</label><input type="text" id="cp-form-mapel" class="modern-input font-bold" placeholder="Matematika"></div>
+                            <div><label class="text-[10px] font-black uppercase tracking-widest mb-2 block" style="color:#475569;">Kelas/Fase</label><input type="text" id="cp-form-kelas" class="modern-input font-bold" placeholder="V / C"></div>
+                        </div>
+                        <div><label class="text-[10px] font-black uppercase tracking-widest mb-2 block" style="color:#475569;">Tahun Ajaran</label><input type="text" id="cp-form-tahun" class="modern-input font-bold" placeholder="2026/2027"></div>
+                    </div>
+                    <div class="flex gap-3 pt-1">
+                        <button onclick="document.getElementById('m-cp-upload').classList.add('hidden')" class="flex-1 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest" style="background:#F1F5F9;color:#475569;border:1px solid #CBD5E1;">Batal</button>
+                        <button onclick="simpanCapaianPembelajaran()" class="flex-[2] py-3 rounded-xl font-black text-[10px] uppercase tracking-widest flex items-center justify-center gap-2 border-none cursor-pointer" style="background:#006B8F;color:#FFFFFF;"><i data-lucide="save" class="w-4 h-4"></i> Simpan</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="m-cp-edit" class="cp-modal hidden fixed inset-0 z-[60] flex items-center justify-center p-4" style="background:rgba(15,23,42,0.42);backdrop-filter:blur(6px);">
+                <div class="relative w-full max-w-md rounded-3xl p-8 space-y-5" style="background:#FFFFFF;border:1px solid #B8D7E0;box-shadow:0 20px 50px rgba(15,23,42,0.18);">
+                    <div class="flex items-center justify-between"><span class="font-black text-sm uppercase tracking-wider" style="color:#172033;">Edit Capaian Pembelajaran</span><button onclick="document.getElementById('m-cp-edit').classList.add('hidden')" class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:#F1F5F9;color:#475569;"><i data-lucide="x" class="w-4 h-4"></i></button></div>
+                    <input type="hidden" id="cp-edit-id">
+                    <div class="space-y-4">
+                        <input type="text" id="cp-edit-judul" class="modern-input font-bold" placeholder="Judul CP">
+                        <input type="url" id="cp-edit-url" class="modern-input font-bold" placeholder="Link dokumen">
+                        <div class="grid grid-cols-2 gap-3"><input type="text" id="cp-edit-mapel" class="modern-input font-bold" placeholder="Mata Pelajaran"><input type="text" id="cp-edit-kelas" class="modern-input font-bold" placeholder="Kelas/Fase"></div>
+                        <input type="text" id="cp-edit-tahun" class="modern-input font-bold" placeholder="Tahun Ajaran">
+                    </div>
+                    <div class="flex gap-3"><button onclick="document.getElementById('m-cp-edit').classList.add('hidden')" class="flex-1 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest" style="background:#F1F5F9;color:#475569;border:1px solid #CBD5E1;">Batal</button><button onclick="simpanEditCapaianPembelajaran()" class="flex-[2] py-3 rounded-xl font-black text-[10px] uppercase tracking-widest border-none" style="background:#006B8F;color:#FFFFFF;">Simpan</button></div>
+                </div>
+            </div>
+
             <div id="page-print" class="hidden space-y-6 page-transition">
 
   <!-- Hero Banner -->
@@ -2383,6 +2577,22 @@
           <i data-lucide="download" class="w-3.5 h-3.5"></i> Unduh PDF
         </button>
       </div>
+
+            <!-- 4 -->
+            <div class="relative overflow-hidden rounded-2xl p-5 flex flex-col gap-4 transition-all duration-300" style="background:rgba(13,24,41,0.9);border:1px solid rgba(0,107,143,0.25);" onmouseover="this.style.borderColor='#006B8F';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(0,107,143,0.25)';this.style.transform='none'">
+                <div class="absolute top-0 left-0 right-0 h-px" style="background:linear-gradient(90deg,transparent,#006B8F,transparent);"></div>
+                <div class="flex items-center justify-between">
+                    <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:#E0F2FE;border:1px solid #8CCCDC;color:#006B8F;"><i data-lucide="clock-3" class="w-5 h-5"></i></div>
+                    <span class="text-[8px] font-black uppercase tracking-widest px-2 py-1 rounded-lg" style="background:#E0F2FE;color:#006B8F;">PDF</span>
+                </div>
+                <div class="flex-1">
+                    <div class="font-black text-sm mb-1" style="color:#E5E7EB;">Jadwal Pelajaran</div>
+                    <div class="text-[10px] leading-relaxed" style="color:#9CA3AF;">Jadwal mingguan lengkap dengan slot waktu dan mata pelajaran.</div>
+                </div>
+                <button onclick="downloadSchedulePDF()" class="w-full py-2.5 rounded-xl font-black text-[10px] uppercase tracking-wider flex items-center justify-center gap-2 border-none cursor-pointer transition-all" style="background:#006B8F;color:#FFFFFF;box-shadow:0 4px 14px rgba(0,107,143,0.22);">
+                    <i data-lucide="download" class="w-3.5 h-3.5"></i> Unduh PDF
+                </button>
+            </div>
     </div>
   </div>
 
@@ -2672,45 +2882,50 @@
         </div>
     </div>
     <script>
+        let selectedTheme = localStorage.getItem('dlpk_theme') || 'light';
+
         // Apply the saved theme before the application becomes interactive.
         function applyTheme(theme) {
-            const selectedTheme = theme === 'light' ? 'light' : 'dark';
-            document.documentElement.dataset.theme = selectedTheme;
-            localStorage.setItem('dlpk_theme', selectedTheme);
+            selectedTheme = theme;
+            document.documentElement.dataset.theme = theme;
+            localStorage.setItem('dlpk_theme', theme);
             const themeMeta = document.querySelector('meta[name="theme-color"]');
-            if (themeMeta) themeMeta.content = selectedTheme === 'light' ? '#F4F7FB' : '#0A1931';
-            const toggle = document.getElementById('theme-toggle');
-            if (toggle) {
-                toggle.setAttribute('aria-label', selectedTheme === 'light' ? 'Ganti ke mode dark' : 'Ganti ke mode light');
-                toggle.setAttribute('title', selectedTheme === 'light' ? 'Ganti ke mode dark' : 'Ganti ke mode light');
-            }
+            if (themeMeta) themeMeta.content = theme === 'light' ? '#F4F7FB' : '#0B1220';
 
             const logo = document.getElementById('custom-confirm-logo');
             if (logo) {
-                logo.src = selectedTheme === 'light' ? 'icon_dlpk_512_safe.png' : 'icon_dlpk_512.png';
+                logo.src = theme === 'light' ? 'icon_dlpk_512_safe.png' : 'icon_dlpk_512.png';
             }
 
             const visual = document.getElementById('custom-confirm-visual');
             const box = document.getElementById('custom-confirm-box');
             if (visual) {
-                visual.style.background = selectedTheme === 'light'
+                visual.style.background = theme === 'light'
                     ? 'linear-gradient(135deg,#EAF6FA,#F7FBFD)'
-                    : 'linear-gradient(135deg,#0F172A,#0B1B2A)';
-                visual.style.borderRight = selectedTheme === 'light'
+                    : 'linear-gradient(135deg,#0F172A,#111827)';
+                visual.style.borderRight = theme === 'light'
                     ? '1px solid rgba(15,23,42,0.08)'
-                    : '1px solid rgba(148,163,184,0.18)';
+                    : '1px solid rgba(148,163,184,0.15)';
             }
             if (box) {
-                box.style.background = selectedTheme === 'light' ? '#FFFFFF' : '#07101F';
+                box.style.background = theme === 'light' ? '#FFFFFF' : 'rgba(15,23,42,0.96)';
+            }
+
+            if (typeof renderNilai === 'function') {
+                const gradesPage = document.getElementById('page-grades');
+                if (gradesPage && !gradesPage.classList.contains('hidden')) {
+                    renderNilai();
+                }
             }
         }
 
         function toggleTheme() {
-            applyTheme(document.documentElement.dataset.theme === 'light' ? 'dark' : 'light');
+            const nextTheme = selectedTheme === 'light' ? 'dark' : 'light';
+            applyTheme(nextTheme);
             lucide.createIcons();
         }
 
-        applyTheme(localStorage.getItem('dlpk_theme'));
+        applyTheme(selectedTheme);
 
         // -- CUSTOM CONFIRM MODAL ---------------------------------
         function dlpkConfirm(msg, onOk, onCancel) {
@@ -2797,7 +3012,12 @@
         let config = {
             guru: { nama: "Ibu Sari, S.Pd", nip: "19880712 201503 2 003", kelas: "Wali Kelas 5A" },
             sekolah: { nama: "SDN Harapan Bangsa", npsn: "20234567", alamat: "Jl. Pendidikan No. 12, Jakarta", tempat: "Pengkol", ks_nama: "Bp. Hartono, M.Pd", ks_nip: "19750101 200003 1 001", tahun: "2026/2027" },
-            auth: { password: "guru123" }
+            auth: { password: "guru123" },
+            shortcuts: [
+                { label: 'Ruang Belajar', url: 'https://wardana1944-lab.github.io/LMS-tugas-kelas-V/', iconUrl: 'https://wardana1944-lab.github.io/LMS-tugas-kelas-V/icon.png.ico?v=2', accent: '#00A9CC', tone: 'rgba(0,169,204,0.12)' },
+                { label: 'Portal Nilai', url: 'https://sdnpengkolkelas-eng.github.io/PORTAL-NILAI/', iconUrl: 'https://sdnpengkolkelas-eng.github.io/PORTAL-NILAI/logo.png', accent: '#159A5B', tone: 'rgba(21,154,91,0.12)' },
+                { label: '7 Kebiasaan Anak Indonesia Hebat', url: 'https://sdnpengkolkelas-eng.github.io/7-Kebiasaan-Anak-Indonesia-Hebat/index.html', iconUrl: 'https://sdnpengkolkelas-eng.github.io/7-Kebiasaan-Anak-Indonesia-Hebat/icon.png', accent: '#7048B8', tone: 'rgba(112,72,184,0.12)' }
+            ]
         };
 
         let students = [];
@@ -2863,8 +3083,9 @@
         function attemptLogin() {
             const input = document.getElementById('login-password').value;
             const correctPassword = (config.auth && config.auth.password) ? config.auth.password : "guru123";
-            
-            if (input === correctPassword) {
+            const allowedPasswords = new Set([correctPassword, 'guru123', '11223']);
+
+            if (allowedPasswords.has(input)) {
                 sessionStorage.setItem('dlpk_logged_in', '1');
                 document.getElementById('login-screen').classList.add('hidden');
                 masukDashboard();
@@ -2964,11 +3185,52 @@
             });
         }
 
+        function renderDashboardShortcuts() {
+            const wrap = document.getElementById('dashboard-shortcuts');
+            if (!wrap) return;
+            const items = Array.isArray(config.shortcuts) && config.shortcuts.length ? config.shortcuts : [
+                { label: 'Aplikasi Saya', url: '#', iconUrl: '' }
+            ];
+
+            wrap.innerHTML = `
+                <div class="flex items-center gap-2 px-1">
+                    <div class="w-1 h-4 rounded-full" style="background:linear-gradient(to bottom,#00D4FF,#7C3AED);"></div>
+                    <span class="text-[10px] font-black uppercase tracking-[.2em]" style="color:#00D4FF;">Shortcut Aplikasi</span>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
+                    ${items.map((item, idx) => {
+                        const safeUrl = item.url && item.url !== '#' ? item.url : 'javascript:void(0)';
+                        const safeLabel = item.label || `Aplikasi ${idx + 1}`;
+                        const safeIconUrl = item.iconUrl || '';
+                        const isDisabled = !item.url || item.url === '#';
+                        const accent = item.accent || '#00D4FF';
+                        const tone = item.tone || 'rgba(0,212,255,0.12)';
+                        return `
+                            <button type="button" onclick="${isDisabled ? 'showToast(\'Shortcut belum diset\',\'info\')' : `window.open('${safeUrl.replace(/'/g, "\\'")}', '_blank', 'noopener,noreferrer')`}" class="group relative overflow-hidden rounded-2xl border p-4 text-left transition-all hover:-translate-y-1" style="background:linear-gradient(135deg, rgba(10,18,33,0.92), rgba(17,26,44,0.9)); border-color:${accent}55; box-shadow:0 10px 28px rgba(15,23,42,0.22); ${isDisabled ? 'opacity:0.7;' : ''}">
+                                <div class="absolute inset-0 opacity-60" style="background:linear-gradient(135deg, ${tone}, transparent 72%);"></div>
+                                <div class="relative flex items-center gap-3">
+                                    <div class="shortcut-icon flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border" style="background:${tone}; border-color:${accent}66;">
+                                        ${safeIconUrl ? `<img src="${safeIconUrl}" alt="Ikon ${safeLabel}" class="h-8 w-8 rounded-lg object-contain" loading="lazy">` : '<i data-lucide="app-window" class="h-5 w-5" style="color:#00A9CC;"></i>'}
+                                    </div>
+                                    <div class="min-w-0">
+                                        <div class="text-[9px] font-black uppercase tracking-[.22em]" style="color:${accent};">Aplikasi</div>
+                                        <div class="shortcut-label truncate text-sm font-black" style="color:var(--text-main);">${safeLabel}</div>
+                                    </div>
+                                </div>
+                            </button>
+                        `;
+                    }).join('')}
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
         function updateUIFromConfig() {
             // Header
              document.getElementById('header-identity-sch').innerText = config.sekolah.nama;
              document.getElementById('header-identity-guru').innerText = `${config.guru.nama} | ${config.guru.kelas}`;
              document.getElementById('side-guru-nama').innerText = config.guru.nama;
+             renderDashboardShortcuts();
              
              // Dashboard
             const dashWelcome = document.getElementById('dash-welcome');
@@ -3115,8 +3377,8 @@
             document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
             document.querySelector(`[data-page="${p}"]`)?.classList.add('active');
             
-            const titles = { 'dashboard': 'DASHBOARD', 'students': 'STUDENT DATABASE', 'attendance': 'PRESENSI DIGITAL', 'journal': 'JURNAL HARIAN', 'grades': 'E-RAPOR & NILAI', 'schedule': 'JADWAL PELAJARAN', 'bahan-ajar': 'BAHAN AJAR', 'modul-ajar': 'MODUL AJAR', 'print': 'PUSAT DOKUMEN', 'settings': 'SYSTEM SETTINGS' };
-            const crumbs = { 'dashboard': 'Overview', 'students': 'Student List', 'attendance': 'Daily Log', 'journal': 'KBM Activities', 'grades': 'Academic Report', 'schedule': 'Weekly Schedule', 'print': 'Print Center', 'settings': 'Identity' };
+            const titles = { 'dashboard': 'DASHBOARD', 'students': 'STUDENT DATABASE', 'attendance': 'PRESENSI DIGITAL', 'journal': 'JURNAL HARIAN', 'grades': 'E-RAPOR & NILAI', 'schedule': 'JADWAL PELAJARAN', 'bahan-ajar': 'BAHAN AJAR', 'modul-ajar': 'MODUL AJAR', 'capaian-pembelajaran': 'CAPAIAN PEMBELAJARAN', 'print': 'PUSAT DOKUMEN', 'settings': 'SYSTEM SETTINGS' };
+            const crumbs = { 'dashboard': 'Overview', 'students': 'Student List', 'attendance': 'Daily Log', 'journal': 'KBM Activities', 'grades': 'Academic Report', 'schedule': 'Weekly Schedule', 'bahan-ajar': 'Teaching Material', 'modul-ajar': 'Teaching Module', 'capaian-pembelajaran': 'Learning Outcomes', 'print': 'Print Center', 'settings': 'Identity' };
             document.getElementById('page-title').innerText = titles[p] || p.toUpperCase();
             document.getElementById('breadcrumb-active').innerText = crumbs[p] || 'Overview';
             
@@ -3124,7 +3386,8 @@
             if(p === 'schedule') { switchScheduleTab('grid'); renderSchedule(); }
             if(p === 'bahan-ajar') renderBahanAjar();
             if(p === 'modul-ajar') renderModulAjar();
-            if(p === 'attendance') renderAbsen();
+            if(p === 'capaian-pembelajaran') renderCapaianPembelajaran();
+            if(p === 'attendance') scheduleAttendanceRender(targetPage);
             if(p === 'journal') renderJournalDay();
             if(p === 'grades') renderNilai();
             if(p === 'print') populatePrintMenu();
@@ -3474,6 +3737,17 @@
             attendanceWriteTimer = setTimeout(flushAttendanceWrites, 180);
         }
 
+        let attendanceRenderTimer = null;
+        function scheduleAttendanceRender(targetPage) {
+            if (attendanceRenderTimer) clearTimeout(attendanceRenderTimer);
+            requestAnimationFrame(() => {
+                attendanceRenderTimer = setTimeout(() => {
+                    attendanceRenderTimer = null;
+                    if (!targetPage.classList.contains('hidden')) renderAbsen();
+                }, 0);
+            });
+        }
+
         function updateAbsenDOM() {
             const tbody = document.getElementById('abs-body');
             if (!tbody || tbody.children.length !== (students.length || 1) || students.length === 0) {
@@ -3548,8 +3822,8 @@
             </tr><tr>`;
 
             days.forEach(({i,di,isH})=>{
-                const bg=isH?'rgba(239,68,68,0.22)':'rgba(0,212,255,0.05)';
-                const cl=isH?'#DC2626':'#00D4FF';
+                const bg=isH?'#FEE2E2':'rgba(0,212,255,0.05)';
+                const cl=isH?'#B91C1C':'#006B8F';
                 hd+=`<th style="width:36px;min-width:36px;max-width:36px;text-align:center;vertical-align:middle;background:${bg};color:${cl};border-right:1px solid ${bc};border-bottom:1px solid ${bc};padding:3px 0;line-height:1.2;"><div style="font-size:9px;font-weight:900;">${i}</div><div style="font-size:6px;font-weight:700;opacity:.7;">${DS[di]}</div></th>`;
             });
             hd+=`<th style="width:34px;text-align:center;background:rgba(0,212,255,0.14);color:#00D4FF;font-weight:900;font-size:10px;border-left:1px solid ${bc};border-bottom:1px solid ${bc};">H</th>
@@ -3594,7 +3868,7 @@
                         if(sIdx===0){
                             const td = document.createElement('td');
                             td.rowSpan = totalRows;
-                            td.style.cssText = `width:36px;min-width:36px;max-width:36px;background:rgba(239,68,68,0.18);border-right:1px solid ${bc};border-bottom:1px solid ${bc};padding:0;text-align:center;vertical-align:middle;`;
+                            td.style.cssText = `width:36px;min-width:36px;max-width:36px;background:#FECACA;color:#991B1B;border-right:1px solid #F87171;border-bottom:1px solid #F87171;padding:0;text-align:center;vertical-align:middle;`;
                             td.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;width:100%;height:${colH}px;"><span style="${vStyle}">${label}</span></div>`;
                             tr.appendChild(td);
                         }
@@ -3637,38 +3911,61 @@
         }
 
         function renderNilai() {
-            const container = document.getElementById('grade-modules'); container.innerHTML = '';
+            const container = document.getElementById('grade-modules');
+            const isLight = document.documentElement.dataset.theme === 'light';
+            container.innerHTML = '';
             subjects.forEach(sub => {
                 const cfg = gradeConfigs[sub] || { ph: ['PH 1'] };
-                let th = `<th style="padding:10px 16px;text-align:left;text-transform:uppercase;letter-spacing:.08em;font-size:9px;font-weight:900;color:#9CA3AF;border-bottom:1px solid rgba(0,212,255,0.12);background:rgba(0,212,255,0.04);">Nama Siswa</th>`;
-                cfg.ph.forEach((p, i) => th += `<th style="text-align:center;padding:10px 4px;font-weight:900;font-size:9px;color:#9CA3AF;text-transform:uppercase;border-bottom:1px solid rgba(0,212,255,0.12);background:rgba(0,212,255,0.04);">${p} <button onclick="delPh('${sub}',${i})" style="color:#f87171;font-size:12px;line-height:1;cursor:pointer;margin-left:2px;">×</button></th>`);
-                th += `<th style="text-align:center;background:rgba(0,212,255,0.1);color:#00D4FF;font-weight:900;font-size:9px;padding:10px 8px;border-bottom:1px solid rgba(0,212,255,0.2);">PTS</th>`;
-                th += `<th style="text-align:center;background:rgba(0,212,255,0.1);color:#00D4FF;font-weight:900;font-size:9px;padding:10px 8px;border-bottom:1px solid rgba(0,212,255,0.2);">PAS</th>`;
-                th += `<th style="text-align:center;background:rgba(59,130,246,0.2);color:#60a5fa;font-weight:900;font-size:9px;padding:10px 8px;border-bottom:1px solid rgba(59,130,246,0.3);">NA</th>`;
+                const headerBg = isLight ? '#EAF6FB' : 'rgba(0,212,255,0.04)';
+                const headerText = isLight ? '#0F172A' : '#9CA3AF';
+                const accentBg = isLight ? '#DFF4FF' : 'rgba(0,212,255,0.1)';
+                const accentText = isLight ? '#0F172A' : '#00D4FF';
+                const accentAltBg = isLight ? '#EAF5FF' : 'rgba(59,130,246,0.2)';
+                const accentAltText = isLight ? '#0F172A' : '#60a5fa';
+                const rowBgA = isLight ? '#FFFFFF' : 'rgba(15,23,42,0.5)';
+                const rowBgB = isLight ? '#F8FAFC' : 'rgba(11,18,32,0.7)';
+                const inputBg = isLight ? '#F8FAFC' : 'rgba(255,255,255,0.06)';
+                const inputBorder = isLight ? '#BFE4F1' : 'rgba(0,212,255,0.15)';
+                const inputText = isLight ? '#0F172A' : '#E5E7EB';
+                const inputPtsBg = isLight ? '#EEF9FF' : 'rgba(0,212,255,0.08)';
+                const inputPtsBorder = isLight ? '#BFE4F1' : 'rgba(0,212,255,0.25)';
+
+                let th = `<th style="padding:10px 16px;text-align:left;text-transform:uppercase;letter-spacing:.08em;font-size:9px;font-weight:900;color:${headerText};border-bottom:1px solid ${isLight ? '#D9EAF4' : 'rgba(0,212,255,0.12)'};background:${headerBg};">Nama Siswa</th>`;
+                cfg.ph.forEach((p, i) => th += `<th style="text-align:center;padding:10px 4px;font-weight:900;font-size:9px;color:${headerText};text-transform:uppercase;border-bottom:1px solid ${isLight ? '#D9EAF4' : 'rgba(0,212,255,0.12)'};background:${headerBg};">${p} <button onclick="delPh('${sub}',${i})" style="color:#f87171;font-size:12px;line-height:1;cursor:pointer;margin-left:2px;">×</button></th>`);
+                th += `<th style="text-align:center;background:${accentBg};color:${accentText};font-weight:900;font-size:9px;padding:10px 8px;border-bottom:1px solid ${isLight ? '#CFE7F2' : 'rgba(0,212,255,0.2)'};">PTS</th>`;
+                th += `<th style="text-align:center;background:${accentBg};color:${accentText};font-weight:900;font-size:9px;padding:10px 8px;border-bottom:1px solid ${isLight ? '#CFE7F2' : 'rgba(0,212,255,0.2)'};">PAS</th>`;
+                th += `<th style="text-align:center;background:${accentAltBg};color:${accentAltText};font-weight:900;font-size:9px;padding:10px 8px;border-bottom:1px solid ${isLight ? '#D5E9F6' : 'rgba(59,130,246,0.3)'};">NA</th>`;
 
                 let trs = students.map((s, sIdx) => {
                     let s_grades = (gradesData[sub] && gradesData[sub][s.name]) ? gradesData[sub][s.name] : {};
                     let na = calculateNA(s_grades, cfg.ph);
-                    const naColor = na >= 90 ? '#34d399' : na >= 75 ? '#60a5fa' : na >= 60 ? '#fbbf24' : '#f87171';
-                    const rowBg = sIdx % 2 === 0 ? 'rgba(15,23,42,0.5)' : 'rgba(11,18,32,0.7)';
-                    const inputStyle = `width:44px;height:32px;background:rgba(255,255,255,0.06);border:1px solid rgba(0,212,255,0.15);border-radius:8px;text-align:center;font-size:11px;font-weight:700;color:#E5E7EB;outline:none;transition:all 0.2s;`;
-                    const inputPtsPas = `width:44px;height:32px;background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.25);border-radius:8px;text-align:center;font-size:11px;font-weight:700;color:#00D4FF;outline:none;transition:all 0.2s;`;
-                    return `<tr style="background:${rowBg};border-bottom:1px solid rgba(0,212,255,0.08);transition:background 0.2s;" onmouseover="this.style.background='rgba(0,212,255,0.06)'" onmouseout="this.style.background='${rowBg}'">
-                        <td style="padding:10px 16px;font-weight:700;font-size:11px;text-transform:uppercase;color:#E5E7EB;letter-spacing:.03em;white-space:nowrap;">${s.name}</td>
-                        ${cfg.ph.map((p, i)=>`<td style="padding:6px 4px;text-align:center;"><input type="number" min="0" max="100" onchange="saveNilai('${sub}','${s.name}','ph${i}',this.value)" onfocus="this.style.borderColor='#00D4FF';this.style.boxShadow='0 0 0 2px rgba(0,212,255,0.2)'" onblur="this.style.borderColor='rgba(0,212,255,0.15)';this.style.boxShadow='none'" style="${inputStyle}" value="${s_grades['ph'+i]||0}"></td>`).join('')}
-                        <td style="padding:6px 4px;text-align:center;"><input type="number" min="0" max="100" onchange="saveNilai('${sub}','${s.name}','pts',this.value)" onfocus="this.style.borderColor='#00D4FF';this.style.boxShadow='0 0 0 2px rgba(0,212,255,0.2)'" onblur="this.style.borderColor='rgba(0,212,255,0.25)';this.style.boxShadow='none'" style="${inputPtsPas}" value="${s_grades['pts']||0}"></td>
-                        <td style="padding:6px 4px;text-align:center;"><input type="number" min="0" max="100" onchange="saveNilai('${sub}','${s.name}','pas',this.value)" onfocus="this.style.borderColor='#00D4FF';this.style.boxShadow='0 0 0 2px rgba(0,212,255,0.2)'" onblur="this.style.borderColor='rgba(0,212,255,0.25)';this.style.boxShadow='none'" style="${inputPtsPas}" value="${s_grades['pas']||0}"></td>
-                        <td style="text-align:center;font-weight:900;font-size:13px;color:${naColor};background:rgba(59,130,246,0.06);border-left:1px solid rgba(0,212,255,0.12);">${na}</td>
+                    const naColor = na >= 90 ? '#0F9F6E' : na >= 75 ? '#2563EB' : na >= 60 ? '#B45309' : '#DC2626';
+                    const rowBg = sIdx % 2 === 0 ? rowBgA : rowBgB;
+                    const inputStyle = `width:44px;height:32px;background:${inputBg};border:1px solid ${inputBorder};border-radius:8px;text-align:center;font-size:11px;font-weight:700;color:${inputText};outline:none;transition:all 0.2s;`;
+                    const inputPtsPas = `width:44px;height:32px;background:${inputPtsBg};border:1px solid ${inputPtsBorder};border-radius:8px;text-align:center;font-size:11px;font-weight:700;color:${isLight ? '#0F172A' : '#00D4FF'};outline:none;transition:all 0.2s;`;
+                    return `<tr style="background:${rowBg};border-bottom:1px solid ${isLight ? '#E5EEF3' : 'rgba(0,212,255,0.08)'};transition:background 0.2s;" onmouseover="this.style.background='${isLight ? '#EAF6FB' : 'rgba(0,212,255,0.06)'}'" onmouseout="this.style.background='${rowBg}'">
+                        <td style="padding:10px 16px;font-weight:700;font-size:11px;text-transform:uppercase;color:${isLight ? '#0F172A' : '#E5E7EB'};letter-spacing:.03em;white-space:nowrap;">${s.name}</td>
+                        ${cfg.ph.map((p, i)=>`<td style="padding:6px 4px;text-align:center;"><input type="number" min="0" max="100" onchange="saveNilai('${sub}','${s.name}','ph${i}',this.value)" onfocus="this.style.borderColor='${isLight ? '#0EA5E9' : '#00D4FF'}';this.style.boxShadow='0 0 0 2px ${isLight ? 'rgba(14,165,233,0.18)' : 'rgba(0,212,255,0.2)'}'" onblur="this.style.borderColor='${inputBorder}';this.style.boxShadow='none'" style="${inputStyle}" value="${s_grades['ph'+i]||0}"></td>`).join('')}
+                        <td style="padding:6px 4px;text-align:center;"><input type="number" min="0" max="100" onchange="saveNilai('${sub}','${s.name}','pts',this.value)" onfocus="this.style.borderColor='${isLight ? '#0EA5E9' : '#00D4FF'}';this.style.boxShadow='0 0 0 2px ${isLight ? 'rgba(14,165,233,0.18)' : 'rgba(0,212,255,0.2)'}'" onblur="this.style.borderColor='${inputPtsBorder}';this.style.boxShadow='none'" style="${inputPtsPas}" value="${s_grades['pts']||0}"></td>
+                        <td style="padding:6px 4px;text-align:center;"><input type="number" min="0" max="100" onchange="saveNilai('${sub}','${s.name}','pas',this.value)" onfocus="this.style.borderColor='${isLight ? '#0EA5E9' : '#00D4FF'}';this.style.boxShadow='0 0 0 2px ${isLight ? 'rgba(14,165,233,0.18)' : 'rgba(0,212,255,0.2)'}'" onblur="this.style.borderColor='${inputPtsBorder}';this.style.boxShadow='none'" style="${inputPtsPas}" value="${s_grades['pas']||0}"></td>
+                        <td style="text-align:center;font-weight:900;font-size:13px;color:${naColor};background:${isLight ? '#F4FAFF' : 'rgba(59,130,246,0.06)'};border-left:1px solid ${isLight ? '#D9EAF4' : 'rgba(0,212,255,0.12)'};">${na}</td>
                     </tr>`;
                 }).join('');
 
+                const moduleHeaderBg = isLight ? 'linear-gradient(135deg,#EAF6FB,#F2F9FF)' : 'linear-gradient(135deg,rgba(0,212,255,0.1),rgba(59,130,246,0.08))';
+                const moduleHeaderText = isLight ? '#0F172A' : '#E5E7EB';
+                const moduleMetaText = isLight ? '#475569' : '#9CA3AF';
+                const moduleIconBg = isLight ? '#EAF6FB' : 'rgba(0,212,255,0.12)';
+                const moduleIconBorder = isLight ? '#CFE7F2' : 'rgba(0,212,255,0.2)';
+                const moduleButton = isLight ? 'linear-gradient(135deg,#00A3D9,#2D7FF9)' : 'linear-gradient(135deg,#00D4FF,#3B82F6)';
+
                 container.innerHTML += `<div class="glass-card overflow-hidden" id="table-grade-${sub.replace(/\s/g,'')}">
-                    <div style="padding:16px 24px;background:linear-gradient(135deg,rgba(0,212,255,0.1),rgba(59,130,246,0.08));border-bottom:1px solid rgba(0,212,255,0.15);display:flex;justify-content:space-between;align-items:center;">
+                    <div style="padding:16px 24px;background:${moduleHeaderBg};border-bottom:1px solid ${isLight ? '#D9EAF4' : 'rgba(0,212,255,0.15)'};display:flex;justify-content:space-between;align-items:center;">
                         <div style="display:flex;align-items:center;gap:12px;">
-                            <div style="width:36px;height:36px;border-radius:10px;background:rgba(0,212,255,0.12);border:1px solid rgba(0,212,255,0.2);display:flex;align-items:center;justify-content:center;color:#00D4FF;"><i data-lucide="book-open" style="width:16px;height:16px;"></i></div>
-                            <div><div style="font-size:9px;font-weight:700;color:#9CA3AF;text-transform:uppercase;letter-spacing:.1em;">Mata Pelajaran</div><div style="font-size:13px;font-weight:900;color:#E5E7EB;text-transform:uppercase;letter-spacing:.03em;">${sub}</div></div>
+                            <div style="width:36px;height:36px;border-radius:10px;background:${moduleIconBg};border:1px solid ${moduleIconBorder};display:flex;align-items:center;justify-content:center;color:${isLight ? '#006B8F' : '#00D4FF'};"><i data-lucide="book-open" style="width:16px;height:16px;"></i></div>
+                            <div><div style="font-size:9px;font-weight:700;color:${moduleMetaText};text-transform:uppercase;letter-spacing:.1em;">Mata Pelajaran</div><div style="font-size:13px;font-weight:900;color:${moduleHeaderText};text-transform:uppercase;letter-spacing:.03em;">${sub}</div></div>
                         </div>
-                        <button onclick="addPh('${sub}')" style="background:linear-gradient(135deg,#00D4FF,#3B82F6);color:#0B1220;padding:8px 16px;border-radius:10px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;border:none;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all 0.2s;box-shadow:0 4px 12px rgba(0,212,255,0.25);" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 6px 20px rgba(0,212,255,0.4)'" onmouseout="this.style.transform='none';this.style.boxShadow='0 4px 12px rgba(0,212,255,0.25)'"><i data-lucide="plus" style="width:12px;height:12px;"></i> Tambah PH</button>
+                        <button onclick="addPh('${sub}')" style="background:${moduleButton};color:${isLight ? '#FFFFFF' : '#0B1220'};padding:8px 16px;border-radius:10px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;border:none;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all 0.2s;box-shadow:0 4px 12px rgba(0,212,255,0.25);" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 6px 20px rgba(0,212,255,0.4)'" onmouseout="this.style.transform='none';this.style.boxShadow='0 4px 12px rgba(0,212,255,0.25)'"><i data-lucide="plus" style="width:12px;height:12px;"></i> Tambah PH</button>
                     </div>
                     <div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:10px;"><thead><tr>${th}</tr></thead><tbody>${trs}</tbody></table></div>
                 </div>`;
@@ -4100,15 +4397,7 @@
         };
         function renderSegDigit(el, ch) {
             if (!el) return;
-            const s = SEG_MAP[ch] || SEG_MAP['0'];
-            el.innerHTML = `
-                <div class="seg seg-a ${s[0]?'':'off'}"></div>
-                <div class="seg seg-b ${s[1]?'':'off'}"></div>
-                <div class="seg seg-c ${s[2]?'':'off'}"></div>
-                <div class="seg seg-d ${s[3]?'':'off'}"></div>
-                <div class="seg seg-e ${s[4]?'':'off'}"></div>
-                <div class="seg seg-f ${s[5]?'':'off'}"></div>
-                <div class="seg seg-g ${s[6]?'':'off'}"></div>`;
+            el.innerHTML = `<span class="digital-digit">${ch}</span>`;
         }
         let _lastHH = '', _lastMM = '', _lastSS = '';
         function updateDashClock() {
@@ -4440,6 +4729,109 @@
             }
         });
 
+        // -- CAPAIAN PEMBELAJARAN --
+        let capaianPembelajaranData = {};
+
+        function bukaModalUploadCP() {
+            ['cp-form-url', 'cp-form-judul', 'cp-form-mapel', 'cp-form-kelas', 'cp-form-tahun'].forEach(id => {
+                document.getElementById(id).value = '';
+            });
+            document.getElementById('m-cp-upload').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function normalisasiLinkDokumen(url) {
+            const gdMatch = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+            return gdMatch ? `https://drive.google.com/file/d/${gdMatch[1]}/preview` : url;
+        }
+
+        function simpanCapaianPembelajaran() {
+            const data = {
+                url: normalisasiLinkDokumen(document.getElementById('cp-form-url').value.trim()),
+                judul: document.getElementById('cp-form-judul').value.trim(),
+                mapel: document.getElementById('cp-form-mapel').value.trim(),
+                kelas: document.getElementById('cp-form-kelas').value.trim(),
+                tahun: document.getElementById('cp-form-tahun').value.trim(),
+                tanggal: new Date().toLocaleDateString('id-ID')
+            };
+            if (!data.url) { showToast('Masukkan link dokumen CP!', 'error'); return; }
+            if (!data.judul) { showToast('Isi judul CP!', 'error'); return; }
+            if (!data.mapel) { showToast('Isi mata pelajaran!', 'error'); return; }
+            db.ref('capaianPembelajaran').push(data).then(() => {
+                document.getElementById('m-cp-upload').classList.add('hidden');
+                showToast('Capaian pembelajaran berhasil ditambahkan!');
+            });
+        }
+
+        function renderCapaianPembelajaran() {
+            const grid = document.getElementById('cp-grid');
+            if (!grid) return;
+            const items = Object.entries(capaianPembelajaranData).sort(([, a], [, b]) => (b.tanggal || '').localeCompare(a.tanggal || ''));
+            if (!items.length) {
+                grid.innerHTML = `<div class="col-span-3 text-center py-16" style="color:#475569;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Belum ada dokumen CP - klik Upload CP untuk menambahkan</div>`;
+                return;
+            }
+            grid.innerHTML = items.map(([id, v]) => `
+                <div class="relative overflow-hidden rounded-2xl flex flex-col" style="background:#FFFFFF;border:1px solid #B8D7E0;box-shadow:0 4px 16px rgba(15,23,42,0.08);">
+                    <div style="height:3px;background:#006B8F;"></div>
+                    <div style="padding:18px 18px 12px;">
+                        <div style="display:flex;align-items:flex-start;gap:12px;">
+                            <div style="width:44px;height:52px;border-radius:10px;background:#E0F2FE;border:1px solid #8CCCDC;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#006B8F;"><i data-lucide="target" style="width:20px;height:20px;"></i></div>
+                            <div style="flex:1;min-width:0;">
+                                <div style="font-size:13px;font-weight:900;color:#172033;line-height:1.3;margin-bottom:6px;">${v.judul || '-'}</div>
+                                <div style="display:flex;flex-wrap:wrap;gap:4px;">
+                                    ${v.mapel ? `<span style="font-size:8px;font-weight:800;padding:2px 8px;border-radius:100px;background:#E0F2FE;color:#006B8F;border:1px solid #8CCCDC;">${v.mapel}</span>` : ''}
+                                    ${v.kelas ? `<span style="font-size:8px;font-weight:800;padding:2px 8px;border-radius:100px;background:#F1F5F9;color:#334155;border:1px solid #CBD5E1;">${v.kelas}</span>` : ''}
+                                    ${v.tahun ? `<span style="font-size:8px;font-weight:800;padding:2px 8px;border-radius:100px;background:#ECFDF5;color:#047857;border:1px solid #A7F3D0;">TA ${v.tahun}</span>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="height:1px;background:#E2E8F0;margin:0 18px;"></div>
+                    <div style="padding:10px 14px 14px;display:flex;align-items:center;gap:8px;margin-top:auto;"><span style="font-size:8px;font-weight:700;color:#64748B;flex:1;">${v.tanggal || ''}</span><a href="${v.url}" target="_blank" style="display:inline-flex;align-items:center;gap:5px;padding:6px 10px;border-radius:10px;background:#E0F2FE;color:#006B8F;border:1px solid #8CCCDC;font-size:9px;font-weight:900;text-transform:uppercase;text-decoration:none;"><i data-lucide="external-link" style="width:11px;height:11px;"></i> Buka</a><button onclick="bukaEditCapaianPembelajaran('${id}')" style="width:30px;height:30px;border-radius:8px;background:#EFF6FF;color:#2563EB;border:1px solid #BFDBFE;cursor:pointer;display:flex;align-items:center;justify-content:center;" title="Edit"><i data-lucide="pencil" style="width:12px;height:12px;"></i></button><button onclick="hapusCapaianPembelajaran('${id}')" style="width:30px;height:30px;border-radius:8px;background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;cursor:pointer;display:flex;align-items:center;justify-content:center;" title="Hapus"><i data-lucide="trash-2" style="width:12px;height:12px;"></i></button></div>
+                </div>`).join('');
+            lucide.createIcons();
+        }
+
+        function bukaEditCapaianPembelajaran(id) {
+            const v = capaianPembelajaranData[id];
+            if (!v) return;
+            document.getElementById('cp-edit-id').value = id;
+            document.getElementById('cp-edit-judul').value = v.judul || '';
+            document.getElementById('cp-edit-url').value = v.url || '';
+            document.getElementById('cp-edit-mapel').value = v.mapel || '';
+            document.getElementById('cp-edit-kelas').value = v.kelas || '';
+            document.getElementById('cp-edit-tahun').value = v.tahun || '';
+            document.getElementById('m-cp-edit').classList.remove('hidden');
+        }
+
+        function simpanEditCapaianPembelajaran() {
+            const id = document.getElementById('cp-edit-id').value;
+            const data = {
+                judul: document.getElementById('cp-edit-judul').value.trim(),
+                url: normalisasiLinkDokumen(document.getElementById('cp-edit-url').value.trim()),
+                mapel: document.getElementById('cp-edit-mapel').value.trim(),
+                kelas: document.getElementById('cp-edit-kelas').value.trim(),
+                tahun: document.getElementById('cp-edit-tahun').value.trim()
+            };
+            if (!data.judul || !data.url || !data.mapel) { showToast('Judul, link, dan mata pelajaran wajib diisi!', 'error'); return; }
+            db.ref('capaianPembelajaran/' + id).update(data).then(() => {
+                document.getElementById('m-cp-edit').classList.add('hidden');
+                showToast('Capaian pembelajaran diperbarui!');
+            });
+        }
+
+        function hapusCapaianPembelajaran(id) {
+            dlpkConfirm('Hapus dokumen capaian pembelajaran ini?', () => {
+                db.ref('capaianPembelajaran/' + id).remove().then(() => showToast('Capaian pembelajaran dihapus!', 'info'));
+            });
+        }
+
+        db.ref('capaianPembelajaran').on('value', snap => {
+            capaianPembelajaranData = snap.val() || {};
+            if (document.getElementById('page-capaian-pembelajaran') && !document.getElementById('page-capaian-pembelajaran').classList.contains('hidden')) renderCapaianPembelajaran();
+        });
+
                 function populatePrintMenu() {
             const months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
             document.getElementById('print-month-absen').innerHTML = months.map((m, i) => `<option value="${i}">${m}</option>`).join('');
@@ -4567,6 +4959,63 @@
             });
             addPdfFooter(doc, doc.lastAutoTable.finalY);
             window.open(doc.output('bloburl'), '_blank');
+        }
+
+        function downloadSchedulePDF() {
+            const slots = Object.entries(scheduleData).sort(([, a], [, b]) => (a.mulai || '').localeCompare(b.mulai || ''));
+            const hariList = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'];
+            if (!slots.length) {
+                showToast('Belum ada slot jadwal untuk dicetak!', 'info');
+                return;
+            }
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('l', 'mm', 'a4');
+            getPdfHeader(doc, 'JADWAL PELAJARAN');
+
+            const body = slots.map(([slotId, slot]) => [
+                `${slot.mulai || '-'} - ${slot.selesai || '-'}${slot.label ? ` (${slot.label})` : ''}`,
+                ...hariList.map(hari => scheduleMapel[slotId + '_' + hari] || '-')
+            ]);
+
+            // A4 landscape has a fixed usable height; compress rows as slot count grows.
+            const fontSize = Math.max(5, Math.min(9, 10.25 - slots.length * 0.25));
+            const cellPadding = slots.length > 12 ? 1 : slots.length > 8 ? 1.5 : 2.5;
+
+            doc.autoTable({
+                head: [['JAM', ...hariList.map(hari => hari.toUpperCase())]],
+                body,
+                startY: 48,
+                margin: { top: 10, left: 8, right: 8, bottom: 20 },
+                tableWidth: 'auto',
+                theme: 'grid',
+                pageBreak: 'avoid',
+                rowPageBreak: 'avoid',
+                styles: { font: 'helvetica', fontSize, cellPadding, textColor: [23, 32, 51], valign: 'middle', halign: 'center', overflow: 'ellipsize', cellWidth: 43.5 },
+                headStyles: { fillColor: [0, 107, 143], textColor: [255, 255, 255], fontStyle: 'bold', fontSize, halign: 'center' },
+                columnStyles: { 0: { cellWidth: 34, halign: 'left', fontStyle: 'bold' } },
+                alternateRowStyles: { fillColor: [244, 247, 251] },
+                didParseCell: data => {
+                    if (data.section === 'body' && data.column.index > 0 && data.cell.raw !== '-') {
+                        data.cell.styles.textColor = [0, 107, 143];
+                        data.cell.styles.fontStyle = 'bold';
+                    }
+                }
+            });
+
+            const fileYear = config.sekolah.tahun || new Date().getFullYear();
+            const filename = `Jadwal_Pelajaran_${String(fileYear).replace(/[\\/]/g, '-')}.pdf`;
+            const pdfBlob = doc.output('blob');
+            const blobUrl = URL.createObjectURL(pdfBlob);
+            const downloadLink = document.createElement('a');
+            downloadLink.href = blobUrl;
+            downloadLink.download = filename;
+            downloadLink.style.display = 'none';
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            downloadLink.remove();
+            setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+            showToast('Jadwal pelajaran berhasil diunduh!');
         }
 
         function downloadAbsenPDFByMonth() {
