@@ -1586,7 +1586,217 @@
         }
 
         /* Dashboard app shortcuts */
-        html[data-theme="light"] #dashboard-shortcuts > div:nth-child(2) > button {
+        #dashboard-shortcuts .shortcut-shell {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.55rem;
+        }
+        #dashboard-shortcuts .shortcut-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.9rem;
+            border: 1px solid rgba(148,163,184,0.12);
+            padding: 0.7rem 0.7rem;
+            text-align: left;
+            background: rgba(15, 23, 42, 0.35) !important;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        #dashboard-shortcuts .shortcut-item:hover {
+            transform: translateY(-2px);
+        }
+        #dashboard-shortcuts .shortcut-icon {
+            width: 2.3rem;
+            height: 2.3rem;
+            flex-shrink: 0;
+            border-radius: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255,255,255,0.10);
+        }
+        #dashboard-shortcuts .shortcut-tag {
+            font-size: 7px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            font-weight: 900;
+            opacity: 0.9;
+        }
+        #dashboard-shortcuts .shortcut-label {
+            font-size: 0.63rem;
+            line-height: 1.25;
+            font-weight: 900;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        #android-bottom-nav {
+            position: fixed;
+            left: 50%;
+            bottom: max(0.75rem, env(safe-area-inset-bottom));
+            transform: translateX(-50%);
+            z-index: 50;
+            display: none;
+            width: min(86vw, 18rem);
+            padding: 0.25rem 0.3rem;
+            border-radius: 1rem;
+            background: rgba(2, 6, 23, 0.96);
+            border: 1px solid rgba(71, 85, 105, 0.5);
+            box-shadow: 0 10px 24px rgba(2, 6, 23, 0.42);
+        }
+        body:not(.app-ready) #android-bottom-nav {
+            display: none !important;
+        }
+        #android-nav-trigger {
+            position: fixed;
+            left: 50%;
+            bottom: max(0.7rem, env(safe-area-inset-bottom));
+            transform: translateX(-50%);
+            z-index: 51;
+            display: none;
+            width: 2.15rem;
+            height: 0.85rem;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            border: 1px solid rgba(148,163,184,0.18);
+            background: rgba(2,6,23,0.96);
+            color: rgba(186,230,253,0.9);
+            box-shadow: 0 8px 18px rgba(2,6,23,0.35);
+        }
+        #android-nav-trigger i {
+            width: 0.65rem;
+            height: 0.65rem;
+        }
+        body.android-nav-open #android-nav-trigger {
+            display: none !important;
+        }
+        .android-nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.18rem;
+            min-height: 2.35rem;
+            border-radius: 0.7rem;
+            color: rgba(226, 232, 240, 0.85);
+            background: transparent;
+            border: none;
+            font-size: 0.44rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .android-nav-item i {
+            width: 0.82rem;
+            height: 0.82rem;
+        }
+        .android-nav-item.active {
+            color: #E2E8F0;
+            background: rgba(30, 41, 59, 0.92);
+            border: 1px solid rgba(100, 116, 139, 0.42);
+        }
+        .android-nav-item.exit-item {
+            color: #FCA5A5;
+        }
+        .shortcut-app-shell {
+            width: 100%;
+            height: 100%;
+        }
+        .shortcut-topbar {
+            min-height: 2.75rem;
+            padding-top: 0.45rem !important;
+            padding-bottom: 0.45rem !important;
+            background: rgba(2, 6, 23, 0.94);
+        }
+        .shortcut-topbar > div:first-child > div:first-child {
+            width: 1.7rem;
+            height: 1.7rem;
+            border-radius: 0.55rem;
+        }
+        .shortcut-topbar > div:first-child {
+            gap: 0.5rem;
+        }
+        .shortcut-topbar #shortcut-modal-title {
+            font-size: 0.68rem;
+        }
+        .shortcut-topbar button {
+            width: 1.8rem;
+            height: 1.8rem;
+            border-radius: 0.55rem;
+        }
+        .shortcut-webview-wrap {
+            min-height: 0;
+            flex: 1;
+        }
+        .shortcut-mobile-nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: max(0.55rem, env(safe-area-inset-bottom));
+            width: min(78vw, 15rem);
+            padding: 0.22rem 0.28rem !important;
+            gap: 0.22rem !important;
+            border-radius: 0.85rem;
+            background: rgba(2, 6, 23, 0.94);
+            border: 1px solid rgba(148,163,184,0.2);
+            box-shadow: 0 10px 24px rgba(2, 6, 23, 0.48);
+        }
+        .shortcut-mobile-nav button {
+            min-height: 2rem;
+            padding: 0.32rem 0.42rem !important;
+            gap: 0.22rem !important;
+            border-radius: 0.58rem !important;
+            font-size: 0.48rem !important;
+            letter-spacing: 0.08em !important;
+        }
+        .shortcut-mobile-nav button i {
+            width: 0.78rem;
+            height: 0.78rem;
+        }
+        #shortcut-modal[data-shortcut-theme="belajar"] .shortcut-topbar,
+        #shortcut-modal[data-shortcut-theme="belajar"] .shortcut-mobile-nav {
+            background: rgba(6, 78, 59, 0.94);
+            border-color: rgba(52, 211, 153, 0.3);
+        }
+        #shortcut-modal[data-shortcut-theme="belajar"] .shortcut-mobile-nav button.bg-indigo-500\/20 {
+            background: rgba(16, 185, 129, 0.22) !important;
+        }
+        #shortcut-modal[data-shortcut-theme="nilai"] .shortcut-topbar,
+        #shortcut-modal[data-shortcut-theme="nilai"] .shortcut-mobile-nav {
+            background: rgba(7, 47, 79, 0.95);
+            border-color: rgba(56, 189, 248, 0.3);
+        }
+        #shortcut-modal[data-shortcut-theme="nilai"] .shortcut-mobile-nav button.bg-indigo-500\/20 {
+            background: rgba(14, 165, 233, 0.22) !important;
+        }
+        #shortcut-modal[data-shortcut-theme="kebiasaan"] .shortcut-topbar,
+        #shortcut-modal[data-shortcut-theme="kebiasaan"] .shortcut-mobile-nav {
+            background: rgba(67, 42, 12, 0.95);
+            border-color: rgba(251, 191, 36, 0.3);
+        }
+        #shortcut-modal[data-shortcut-theme="kebiasaan"] .shortcut-mobile-nav button.bg-indigo-500\/20 {
+            background: rgba(245, 158, 11, 0.24) !important;
+        }
+        @media (max-width: 768px) {
+            #android-nav-trigger { display: flex; }
+            body:not(.app-ready) #android-nav-trigger { display: none !important; }
+            body.android-nav-open #android-bottom-nav { display: flex !important; }
+            .shortcut-topbar {
+                padding-left: 0.85rem;
+                padding-right: 0.85rem;
+            }
+            .shortcut-mobile-nav {
+                display: flex !important;
+            }
+            .shortcut-app-shell {
+                border-radius: 0;
+            }
+        }
+        html[data-theme="light"] #dashboard-shortcuts > div:nth-child(2) > button,
+        html[data-theme="light"] #dashboard-shortcuts .shortcut-item {
             background: #FFFFFF !important;
             box-shadow: 0 8px 22px rgba(15, 23, 42, 0.08) !important;
         }
@@ -1595,6 +1805,28 @@
         }
         html[data-theme="light"] #dashboard-shortcuts .shortcut-label {
             color: #0F172A !important;
+        }
+        @media (max-width: 640px) {
+            #dashboard-shortcuts .shortcut-shell {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 0.55rem;
+            }
+            #dashboard-shortcuts .shortcut-item {
+                padding: 0.6rem 0.6rem;
+                border-radius: 0.8rem;
+            }
+            #dashboard-shortcuts .shortcut-icon {
+                width: 2.05rem;
+                height: 2.05rem;
+                border-radius: 0.6rem;
+            }
+            #dashboard-shortcuts .shortcut-tag {
+                font-size: 6px;
+                letter-spacing: 0.14em;
+            }
+            #dashboard-shortcuts .shortcut-label {
+                font-size: 0.58rem;
+            }
         }
     </style>
 </head>
@@ -1646,6 +1878,24 @@
     <!-- Add Overlay for Mobile -->
     <div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 z-40 hidden md:hidden backdrop-blur-sm transition-opacity opacity-0"></div>
 
+        <nav id="android-bottom-nav" aria-label="Navigasi Android" class="md:hidden">
+            <button type="button" class="android-nav-item active" onclick="switchPage('dashboard')">
+                <i data-lucide="home"></i>
+                <span>Home</span>
+            </button>
+            <button type="button" class="android-nav-item" onclick="toggleSidebar()">
+                <i data-lucide="menu"></i>
+                <span>Menu</span>
+            </button>
+            <button type="button" class="android-nav-item exit-item" onclick="requestExitFromNav()">
+                <i data-lucide="log-out"></i>
+                <span>Keluar</span>
+            </button>
+        </nav>
+        <button id="android-nav-trigger" type="button" onclick="toggleAndroidNav()" aria-label="Buka navigasi">
+            <i data-lucide="chevron-up"></i>
+        </button>
+
     <aside id="main-sidebar" class="hidden w-64 flex flex-col z-50 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 h-full" style="background:#060D1F;border-right:1px solid rgba(0,212,255,0.1);">
         <!-- Logo -->
         <div style="padding:20px 20px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(0,212,255,0.08);">
@@ -1691,7 +1941,10 @@
                 <i data-lucide="book-marked" class="w-4 h-4 flex-shrink-0"></i><span>Modul Ajar</span>
             </button>
             <button onclick="switchPage('capaian-pembelajaran')" class="sidebar-link w-full flex items-center gap-3 px-3 py-2.5 text-xs font-semibold rounded-xl mb-0.5" data-page="capaian-pembelajaran">
-                <i data-lucide="target" class="w-4 h-4 flex-shrink-0"></i><span>Capaian Pembelajaran</span>
+                <i data-lucide="target" class="w-4 h-4 flex-shrink-0"></i><span>CP/ATP</span>
+            </button>
+            <button onclick="switchPage('prota-prosem')" class="sidebar-link w-full flex items-center gap-3 px-3 py-2.5 text-xs font-semibold rounded-xl mb-0.5" data-page="prota-prosem">
+                <i data-lucide="calendar-range" class="w-4 h-4 flex-shrink-0"></i><span>Prota / Prosem</span>
             </button>
 
             <!-- Label system -->
@@ -1874,6 +2127,44 @@
 
                 <div id="dashboard-shortcuts" class="mt-6 space-y-3"></div>
 
+                <div id="shortcut-modal" class="fixed inset-0 z-[999] hidden items-stretch justify-center bg-slate-950/85 backdrop-blur-sm" aria-hidden="true">
+                    <div class="shortcut-app-shell relative flex w-full max-w-6xl flex-col overflow-hidden border border-white/10 bg-slate-950 shadow-2xl shadow-slate-950/50">
+                        <div class="shortcut-topbar flex items-center justify-between border-b border-white/10 bg-slate-950/90 px-4 py-3">
+                            <div class="flex items-center gap-3 min-w-0">
+                                <div class="h-8 w-8 rounded-xl border border-white/10 bg-white/5 flex items-center justify-center text-slate-200">
+                                    <i data-lucide="app-window" class="h-4 w-4"></i>
+                                </div>
+                                <div class="min-w-0">
+                                    <div class="text-[9px] font-black uppercase tracking-[.2em] text-sky-300">Aplikasi</div>
+                                    <div id="shortcut-modal-title" class="truncate text-sm font-black text-white">Shortcut</div>
+                                </div>
+                            </div>
+                            <button type="button" onclick="closeShortcutModal()" class="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-200 transition hover:bg-white/10" aria-label="Tutup shortcut">
+                                <i data-lucide="x" class="h-4 w-4"></i>
+                            </button>
+                        </div>
+
+                        <div class="shortcut-webview-wrap relative flex-1 bg-slate-950">
+                            <iframe id="shortcut-iframe" title="Shortcut app" class="h-full w-full border-0 bg-white" allowfullscreen loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"></iframe>
+                        </div>
+
+                        <div class="shortcut-mobile-nav hidden items-center justify-between gap-2 border-t border-white/10 bg-slate-950/95 px-4 pb-[calc(env(safe-area-inset-bottom)+.7rem)] pt-3">
+                            <button type="button" onclick="shortcutGoBack()" class="flex flex-1 items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-3 py-3 text-xs font-black uppercase tracking-[.12em] text-slate-200">
+                                <i data-lucide="arrow-left" class="h-4 w-4"></i>
+                                Kembali
+                            </button>
+                            <button type="button" onclick="shortcutRefresh()" class="flex flex-1 items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-3 py-3 text-xs font-black uppercase tracking-[.12em] text-slate-200">
+                                <i data-lucide="rotate-cw" class="h-4 w-4"></i>
+                                Refresh
+                            </button>
+                            <button type="button" onclick="closeShortcutModal()" class="flex flex-1 items-center justify-center gap-2 rounded-2xl border border-white/10 bg-indigo-500/20 px-3 py-3 text-xs font-black uppercase tracking-[.12em] text-sky-100">
+                                <i data-lucide="home" class="h-4 w-4"></i>
+                                Home
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Identitas Sekolah -->
                 <div class="relative overflow-hidden rounded-2xl" style="background:rgba(13,24,41,0.9);border:1px solid rgba(168,85,247,0.12);">
                     <div class="absolute top-0 left-0 right-0 h-px" style="background:linear-gradient(90deg,transparent,rgba(168,85,247,0.4),transparent);"></div>
@@ -1981,8 +2272,8 @@
                                     <select id="jrn-mapel" class="modern-input font-bold text-[var(--text-main)]"></select>
                                 </div>
                                 <div>
-                                    <label class="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest mb-2 block ml-1">Capaian Pembelajaran (CP)</label>
-                                    <textarea id="jrn-cp" rows="4" class="modern-input font-medium text-[var(--text-main)] text-sm" placeholder="Deskripsikan CP..."></textarea>
+                                    <label class="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest mb-2 block ml-1">CP/ATP</label>
+                                    <textarea id="jrn-cp" rows="4" class="modern-input font-medium text-[var(--text-main)] text-sm" placeholder="Deskripsikan CP/ATP..."></textarea>
                                 </div>
                                 <div>
                                     <label class="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest mb-2 block ml-1">Materi Pokok</label>
@@ -2348,16 +2639,37 @@
                             </div>
                             <div>
                                 <div class="text-[9px] font-black uppercase tracking-[.2em] mb-1" style="color:#006B8F;">Manajemen Kurikulum</div>
-                                <h2 class="text-2xl font-black tracking-tight" style="color:#172033;">Capaian Pembelajaran</h2>
-                                <p class="text-[11px] mt-1" style="color:#475569;">Upload dan kelola dokumen CP per mata pelajaran</p>
+                                <h2 class="text-2xl font-black tracking-tight" style="color:#172033;">CP/ATP</h2>
+                                <p class="text-[11px] mt-1" style="color:#475569;">Upload dan kelola dokumen CP/ATP per mata pelajaran</p>
                             </div>
                         </div>
                         <button onclick="bukaModalUploadCP()" class="flex items-center gap-2 px-5 py-3 rounded-xl font-black text-[11px] uppercase tracking-wider cursor-pointer flex-shrink-0 border-none" style="background:#006B8F;color:#FFFFFF;box-shadow:0 4px 14px rgba(0,107,143,0.22);">
-                            <i data-lucide="upload" class="w-4 h-4"></i> Upload CP
+                            <i data-lucide="upload" class="w-4 h-4"></i> Upload CP/ATP
                         </button>
                     </div>
                 </div>
                 <div id="cp-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+            </div>
+
+            <div id="page-prota-prosem" class="hidden space-y-6 page-transition">
+                <div class="relative overflow-hidden rounded-3xl p-8" style="background:linear-gradient(135deg,#F8FAFC 0%,#EEF2FF 100%);border:1px solid #C7D2FE;box-shadow:0 8px 24px rgba(15,23,42,0.08);">
+                    <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                        <div class="flex items-center gap-5">
+                            <div class="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0" style="background:#EEF2FF;border:1px solid #C7D2FE;color:#4338CA;">
+                                <i data-lucide="calendar-range" class="w-7 h-7"></i>
+                            </div>
+                            <div>
+                                <div class="text-[9px] font-black uppercase tracking-[.2em] mb-1" style="color:#4338CA;">Manajemen Kurikulum</div>
+                                <h2 class="text-2xl font-black tracking-tight" style="color:#172033;">Prota / Prosem</h2>
+                                <p class="text-[11px] mt-1" style="color:#475569;">Upload dan kelola dokumen Prota serta Prosem per mata pelajaran</p>
+                            </div>
+                        </div>
+                        <button onclick="bukaModalUploadProtaProsem()" class="flex items-center gap-2 px-5 py-3 rounded-xl font-black text-[11px] uppercase tracking-wider cursor-pointer flex-shrink-0 border-none" style="background:#4338CA;color:#FFFFFF;box-shadow:0 4px 14px rgba(67,56,202,0.25);">
+                            <i data-lucide="upload" class="w-4 h-4"></i> Upload Prota / Prosem
+                        </button>
+                    </div>
+                </div>
+                <div id="prota-prosem-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
             </div>
 
             <!-- Modal Tambah Modul Ajar -->
@@ -2463,13 +2775,13 @@
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3">
                             <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background:#E0F2FE;border:1px solid #8CCCDC;color:#006B8F;"><i data-lucide="upload" class="w-4 h-4"></i></div>
-                            <span class="font-black text-sm uppercase tracking-wider" style="color:#172033;">Upload Capaian Pembelajaran</span>
+                            <span class="font-black text-sm uppercase tracking-wider" style="color:#172033;">Upload CP/ATP</span>
                         </div>
                         <button onclick="document.getElementById('m-cp-upload').classList.add('hidden')" class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:#F1F5F9;color:#475569;"><i data-lucide="x" class="w-4 h-4"></i></button>
                     </div>
                     <div class="space-y-4">
                         <div><label class="text-[10px] font-black uppercase tracking-widest mb-2 block" style="color:#475569;">Link Dokumen (Google Drive / URL)</label><input type="url" id="cp-form-url" class="modern-input font-bold" placeholder="https://drive.google.com/..."></div>
-                        <div><label class="text-[10px] font-black uppercase tracking-widest mb-2 block" style="color:#475569;">Judul CP</label><input type="text" id="cp-form-judul" class="modern-input font-bold" placeholder="Contoh: CP Matematika Fase C"></div>
+                        <div><label class="text-[10px] font-black uppercase tracking-widest mb-2 block" style="color:#475569;">Judul CP/ATP</label><input type="text" id="cp-form-judul" class="modern-input font-bold" placeholder="Contoh: CP/ATP Matematika Fase C"></div>
                         <div class="grid grid-cols-2 gap-3">
                             <div><label class="text-[10px] font-black uppercase tracking-widest mb-2 block" style="color:#475569;">Mata Pelajaran</label><input type="text" id="cp-form-mapel" class="modern-input font-bold" placeholder="Matematika"></div>
                             <div><label class="text-[10px] font-black uppercase tracking-widest mb-2 block" style="color:#475569;">Kelas/Fase</label><input type="text" id="cp-form-kelas" class="modern-input font-bold" placeholder="V / C"></div>
@@ -2485,15 +2797,54 @@
 
             <div id="m-cp-edit" class="cp-modal hidden fixed inset-0 z-[60] flex items-center justify-center p-4" style="background:rgba(15,23,42,0.42);backdrop-filter:blur(6px);">
                 <div class="relative w-full max-w-md rounded-3xl p-8 space-y-5" style="background:#FFFFFF;border:1px solid #B8D7E0;box-shadow:0 20px 50px rgba(15,23,42,0.18);">
-                    <div class="flex items-center justify-between"><span class="font-black text-sm uppercase tracking-wider" style="color:#172033;">Edit Capaian Pembelajaran</span><button onclick="document.getElementById('m-cp-edit').classList.add('hidden')" class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:#F1F5F9;color:#475569;"><i data-lucide="x" class="w-4 h-4"></i></button></div>
+                    <div class="flex items-center justify-between"><span class="font-black text-sm uppercase tracking-wider" style="color:#172033;">Edit CP/ATP</span><button onclick="document.getElementById('m-cp-edit').classList.add('hidden')" class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:#F1F5F9;color:#475569;"><i data-lucide="x" class="w-4 h-4"></i></button></div>
                     <input type="hidden" id="cp-edit-id">
                     <div class="space-y-4">
-                        <input type="text" id="cp-edit-judul" class="modern-input font-bold" placeholder="Judul CP">
+                        <input type="text" id="cp-edit-judul" class="modern-input font-bold" placeholder="Judul CP/ATP">
                         <input type="url" id="cp-edit-url" class="modern-input font-bold" placeholder="Link dokumen">
                         <div class="grid grid-cols-2 gap-3"><input type="text" id="cp-edit-mapel" class="modern-input font-bold" placeholder="Mata Pelajaran"><input type="text" id="cp-edit-kelas" class="modern-input font-bold" placeholder="Kelas/Fase"></div>
                         <input type="text" id="cp-edit-tahun" class="modern-input font-bold" placeholder="Tahun Ajaran">
                     </div>
                     <div class="flex gap-3"><button onclick="document.getElementById('m-cp-edit').classList.add('hidden')" class="flex-1 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest" style="background:#F1F5F9;color:#475569;border:1px solid #CBD5E1;">Batal</button><button onclick="simpanEditCapaianPembelajaran()" class="flex-[2] py-3 rounded-xl font-black text-[10px] uppercase tracking-widest border-none" style="background:#006B8F;color:#FFFFFF;">Simpan</button></div>
+                </div>
+            </div>
+
+            <div id="m-prota-upload" class="cp-modal hidden fixed inset-0 z-[60] flex items-center justify-center p-4" style="background:rgba(15,23,42,0.42);backdrop-filter:blur(6px);">
+                <div class="relative w-full max-w-md rounded-3xl p-8 space-y-5" style="background:#FFFFFF;border:1px solid #C7D2FE;box-shadow:0 20px 50px rgba(15,23,42,0.18);">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background:#EEF2FF;border:1px solid #C7D2FE;color:#4338CA;"><i data-lucide="upload" class="w-4 h-4"></i></div>
+                            <span class="font-black text-sm uppercase tracking-wider" style="color:#172033;">Upload Prota / Prosem</span>
+                        </div>
+                        <button onclick="document.getElementById('m-prota-upload').classList.add('hidden')" class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:#F1F5F9;color:#475569;"><i data-lucide="x" class="w-4 h-4"></i></button>
+                    </div>
+                    <div class="space-y-4">
+                        <div><label class="text-[10px] font-black uppercase tracking-widest mb-2 block" style="color:#475569;">Link Dokumen (Google Drive / URL)</label><input type="url" id="prota-form-url" class="modern-input font-bold" placeholder="https://drive.google.com/..."></div>
+                        <div><label class="text-[10px] font-black uppercase tracking-widest mb-2 block" style="color:#475569;">Judul</label><input type="text" id="prota-form-judul" class="modern-input font-bold" placeholder="Contoh: Prota / Prosem Matematika"></div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div><label class="text-[10px] font-black uppercase tracking-widest mb-2 block" style="color:#475569;">Mata Pelajaran</label><input type="text" id="prota-form-mapel" class="modern-input font-bold" placeholder="Matematika"></div>
+                            <div><label class="text-[10px] font-black uppercase tracking-widest mb-2 block" style="color:#475569;">Kelas</label><input type="text" id="prota-form-kelas" class="modern-input font-bold" placeholder="IV A"></div>
+                        </div>
+                        <div><label class="text-[10px] font-black uppercase tracking-widest mb-2 block" style="color:#475569;">Tahun Ajaran</label><input type="text" id="prota-form-tahun" class="modern-input font-bold" placeholder="2026/2027"></div>
+                    </div>
+                    <div class="flex gap-3 pt-1">
+                        <button onclick="document.getElementById('m-prota-upload').classList.add('hidden')" class="flex-1 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest" style="background:#F1F5F9;color:#475569;border:1px solid #CBD5E1;">Batal</button>
+                        <button onclick="simpanProtaProsem()" class="flex-[2] py-3 rounded-xl font-black text-[10px] uppercase tracking-widest flex items-center justify-center gap-2 border-none cursor-pointer" style="background:#4338CA;color:#FFFFFF;"><i data-lucide="save" class="w-4 h-4"></i> Simpan</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="m-prota-edit" class="cp-modal hidden fixed inset-0 z-[60] flex items-center justify-center p-4" style="background:rgba(15,23,42,0.42);backdrop-filter:blur(6px);">
+                <div class="relative w-full max-w-md rounded-3xl p-8 space-y-5" style="background:#FFFFFF;border:1px solid #C7D2FE;box-shadow:0 20px 50px rgba(15,23,42,0.18);">
+                    <div class="flex items-center justify-between"><span class="font-black text-sm uppercase tracking-wider" style="color:#172033;">Edit Prota / Prosem</span><button onclick="document.getElementById('m-prota-edit').classList.add('hidden')" class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:#F1F5F9;color:#475569;"><i data-lucide="x" class="w-4 h-4"></i></button></div>
+                    <input type="hidden" id="prota-edit-id">
+                    <div class="space-y-4">
+                        <input type="text" id="prota-edit-judul" class="modern-input font-bold" placeholder="Judul Prota / Prosem">
+                        <input type="url" id="prota-edit-url" class="modern-input font-bold" placeholder="Link dokumen">
+                        <div class="grid grid-cols-2 gap-3"><input type="text" id="prota-edit-mapel" class="modern-input font-bold" placeholder="Mata Pelajaran"><input type="text" id="prota-edit-kelas" class="modern-input font-bold" placeholder="Kelas"></div>
+                        <input type="text" id="prota-edit-tahun" class="modern-input font-bold" placeholder="Tahun Ajaran">
+                    </div>
+                    <div class="flex gap-3"><button onclick="document.getElementById('m-prota-edit').classList.add('hidden')" class="flex-1 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest" style="background:#F1F5F9;color:#475569;border:1px solid #CBD5E1;">Batal</button><button onclick="simpanEditProtaProsem()" class="flex-[2] py-3 rounded-xl font-black text-[10px] uppercase tracking-widest border-none" style="background:#4338CA;color:#FFFFFF;">Simpan</button></div>
                 </div>
             </div>
 
@@ -3068,6 +3419,7 @@
         };
 
         function masukDashboard() {
+            document.body.classList.add('app-ready');
             document.getElementById('login-screen').classList.add('hidden');
             document.querySelectorAll('main > div > div').forEach(d => d.classList.add('hidden'));
             const dashPage = document.getElementById('page-dashboard');
@@ -3102,6 +3454,8 @@
         function logout() {
             dlpkConfirm('Apakah Anda yakin ingin keluar dari sistem?', function() {
                 sessionStorage.removeItem('dlpk_logged_in');
+                document.body.classList.remove('app-ready');
+                document.body.classList.remove('android-nav-open');
                 // Sembunyikan elemen utama
                 document.getElementById('main-sidebar').classList.add('hidden');
                 document.querySelector('header').classList.add('hidden');
@@ -3185,6 +3539,133 @@
             });
         }
 
+        function openShortcutModal(url, label) {
+            const modal = document.getElementById('shortcut-modal');
+            const iframe = document.getElementById('shortcut-iframe');
+            const title = document.getElementById('shortcut-modal-title');
+            if (!modal || !iframe || !title) return;
+
+            const safeUrl = /^https?:\/\//i.test(url || '') ? url : 'about:blank';
+            const labelText = (label || '').toLowerCase();
+            const theme = labelText.includes('ruang') || labelText.includes('belajar')
+                ? 'belajar'
+                : labelText.includes('nilai')
+                    ? 'nilai'
+                    : labelText.includes('kebiasaan')
+                        ? 'kebiasaan'
+                        : 'default';
+            title.textContent = label || 'Aplikasi';
+            iframe.src = safeUrl;
+            iframe.setAttribute('title', label || 'Aplikasi');
+            modal.dataset.shortcutTheme = theme;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            modal.setAttribute('aria-hidden', 'false');
+            lucide.createIcons();
+        }
+
+        function closeShortcutModal() {
+            const modal = document.getElementById('shortcut-modal');
+            const iframe = document.getElementById('shortcut-iframe');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                modal.setAttribute('aria-hidden', 'true');
+            }
+            if (iframe) iframe.src = 'about:blank';
+        }
+
+        function shortcutGoBack() {
+            const iframe = document.getElementById('shortcut-iframe');
+            if (!iframe || !iframe.contentWindow) return;
+            try {
+                if (iframe.contentWindow.history.length > 1) {
+                    iframe.contentWindow.history.back();
+                } else {
+                    closeShortcutModal();
+                }
+            } catch (error) {
+                closeShortcutModal();
+            }
+        }
+
+        function shortcutRefresh() {
+            const iframe = document.getElementById('shortcut-iframe');
+            if (!iframe) return;
+            try {
+                iframe.contentWindow.location.reload();
+            } catch (error) {
+                iframe.src = iframe.src;
+            }
+        }
+
+        let exitPressTimer = 0;
+
+        function requestExitFromNav() {
+            const now = Date.now();
+            const elapsed = now - exitPressTimer;
+
+            if (elapsed < 1800 && exitPressTimer !== 0) {
+                exitPressTimer = 0;
+                dlpkConfirm('Apakah Anda yakin ingin keluar dari aplikasi?', function() {
+                    sessionStorage.removeItem('dlpk_logged_in');
+                    document.body.classList.remove('app-ready');
+                    document.body.classList.remove('android-nav-open');
+                    document.getElementById('main-sidebar').classList.add('hidden');
+                    document.querySelector('header').classList.add('hidden');
+                    document.getElementById('main-scroll-area').classList.add('hidden');
+
+                    const sidebar = document.getElementById('main-sidebar');
+                    sidebar.classList.add('-translate-x-full');
+                    const overlay = document.getElementById('sidebar-overlay');
+                    overlay.classList.add('hidden');
+                    overlay.classList.add('opacity-0');
+
+                    const loginScreen = document.getElementById('login-screen');
+                    loginScreen.classList.remove('hidden');
+
+                    const passInput = document.getElementById('login-password');
+                    if (passInput) {
+                        passInput.value = '';
+                        passInput.focus();
+                    }
+
+                    showToast('Anda telah keluar', 'info');
+                    lucide.createIcons();
+                });
+                return;
+            }
+
+            exitPressTimer = now;
+            showToast('Ketuk sekali lagi untuk keluar', 'info', 1500);
+        }
+
+        function toggleAndroidNav() {
+            document.body.classList.toggle('android-nav-open');
+            lucide.createIcons();
+        }
+
+        function hideAndroidNav() {
+            document.body.classList.remove('android-nav-open');
+        }
+
+        document.addEventListener('click', function(event) {
+            const navItem = event.target.closest('.android-nav-item');
+            if (navItem) {
+                document.querySelectorAll('.android-nav-item').forEach(item => item.classList.remove('active'));
+                navItem.classList.add('active');
+                if (!navItem.classList.contains('exit-item')) hideAndroidNav();
+                return;
+            }
+            if (!event.target.closest('#android-bottom-nav, #android-nav-trigger')) hideAndroidNav();
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                requestExitFromNav();
+            }
+        });
+
         function renderDashboardShortcuts() {
             const wrap = document.getElementById('dashboard-shortcuts');
             if (!wrap) return;
@@ -3197,7 +3678,7 @@
                     <div class="w-1 h-4 rounded-full" style="background:linear-gradient(to bottom,#00D4FF,#7C3AED);"></div>
                     <span class="text-[10px] font-black uppercase tracking-[.2em]" style="color:#00D4FF;">Shortcut Aplikasi</span>
                 </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
+                <div class="shortcut-shell">
                     ${items.map((item, idx) => {
                         const safeUrl = item.url && item.url !== '#' ? item.url : 'javascript:void(0)';
                         const safeLabel = item.label || `Aplikasi ${idx + 1}`;
@@ -3205,16 +3686,17 @@
                         const isDisabled = !item.url || item.url === '#';
                         const accent = item.accent || '#00D4FF';
                         const tone = item.tone || 'rgba(0,212,255,0.12)';
+                        const action = isDisabled ? 'showToast(\'Shortcut belum diset\',\'info\')' : `openShortcutModal('${safeUrl.replace(/'/g, "\\'")}', '${safeLabel.replace(/'/g, "\\'")}')`;
                         return `
-                            <button type="button" onclick="${isDisabled ? 'showToast(\'Shortcut belum diset\',\'info\')' : `window.open('${safeUrl.replace(/'/g, "\\'")}', '_blank', 'noopener,noreferrer')`}" class="group relative overflow-hidden rounded-2xl border p-4 text-left transition-all hover:-translate-y-1" style="background:linear-gradient(135deg, rgba(10,18,33,0.92), rgba(17,26,44,0.9)); border-color:${accent}55; box-shadow:0 10px 28px rgba(15,23,42,0.22); ${isDisabled ? 'opacity:0.7;' : ''}">
+                            <button type="button" onclick="${action}" class="shortcut-item group" style="background:linear-gradient(135deg, rgba(10,18,33,0.92), rgba(17,26,44,0.9)); box-shadow:none; ${isDisabled ? 'opacity:0.7;' : ''}">
                                 <div class="absolute inset-0 opacity-60" style="background:linear-gradient(135deg, ${tone}, transparent 72%);"></div>
                                 <div class="relative flex items-center gap-3">
-                                    <div class="shortcut-icon flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border" style="background:${tone}; border-color:${accent}66;">
+                                    <div class="shortcut-icon" style="background:${tone}; border-color:${accent}66;">
                                         ${safeIconUrl ? `<img src="${safeIconUrl}" alt="Ikon ${safeLabel}" class="h-8 w-8 rounded-lg object-contain" loading="lazy">` : '<i data-lucide="app-window" class="h-5 w-5" style="color:#00A9CC;"></i>'}
                                     </div>
                                     <div class="min-w-0">
-                                        <div class="text-[9px] font-black uppercase tracking-[.22em]" style="color:${accent};">Aplikasi</div>
-                                        <div class="shortcut-label truncate text-sm font-black" style="color:var(--text-main);">${safeLabel}</div>
+                                        <div class="shortcut-tag" style="color:${accent};">Aplikasi</div>
+                                        <div class="shortcut-label" style="color:var(--text-main);">${safeLabel}</div>
                                     </div>
                                 </div>
                             </button>
@@ -3377,8 +3859,8 @@
             document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
             document.querySelector(`[data-page="${p}"]`)?.classList.add('active');
             
-            const titles = { 'dashboard': 'DASHBOARD', 'students': 'STUDENT DATABASE', 'attendance': 'PRESENSI DIGITAL', 'journal': 'JURNAL HARIAN', 'grades': 'E-RAPOR & NILAI', 'schedule': 'JADWAL PELAJARAN', 'bahan-ajar': 'BAHAN AJAR', 'modul-ajar': 'MODUL AJAR', 'capaian-pembelajaran': 'CAPAIAN PEMBELAJARAN', 'print': 'PUSAT DOKUMEN', 'settings': 'SYSTEM SETTINGS' };
-            const crumbs = { 'dashboard': 'Overview', 'students': 'Student List', 'attendance': 'Daily Log', 'journal': 'KBM Activities', 'grades': 'Academic Report', 'schedule': 'Weekly Schedule', 'bahan-ajar': 'Teaching Material', 'modul-ajar': 'Teaching Module', 'capaian-pembelajaran': 'Learning Outcomes', 'print': 'Print Center', 'settings': 'Identity' };
+            const titles = { 'dashboard': 'DASHBOARD', 'students': 'STUDENT DATABASE', 'attendance': 'PRESENSI DIGITAL', 'journal': 'JURNAL HARIAN', 'grades': 'E-RAPOR & NILAI', 'schedule': 'JADWAL PELAJARAN', 'bahan-ajar': 'BAHAN AJAR', 'modul-ajar': 'MODUL AJAR', 'capaian-pembelajaran': 'CP/ATP', 'print': 'PUSAT DOKUMEN', 'settings': 'SYSTEM SETTINGS' };
+            const crumbs = { 'dashboard': 'Overview', 'students': 'Student List', 'attendance': 'Daily Log', 'journal': 'KBM Activities', 'grades': 'Academic Report', 'schedule': 'Weekly Schedule', 'bahan-ajar': 'Teaching Material', 'modul-ajar': 'Teaching Module', 'capaian-pembelajaran': 'CP/ATP', 'print': 'Print Center', 'settings': 'Identity' };
             document.getElementById('page-title').innerText = titles[p] || p.toUpperCase();
             document.getElementById('breadcrumb-active').innerText = crumbs[p] || 'Overview';
             
@@ -4754,12 +5236,12 @@
                 tahun: document.getElementById('cp-form-tahun').value.trim(),
                 tanggal: new Date().toLocaleDateString('id-ID')
             };
-            if (!data.url) { showToast('Masukkan link dokumen CP!', 'error'); return; }
-            if (!data.judul) { showToast('Isi judul CP!', 'error'); return; }
+            if (!data.url) { showToast('Masukkan link dokumen CP/ATP!', 'error'); return; }
+            if (!data.judul) { showToast('Isi judul CP/ATP!', 'error'); return; }
             if (!data.mapel) { showToast('Isi mata pelajaran!', 'error'); return; }
             db.ref('capaianPembelajaran').push(data).then(() => {
                 document.getElementById('m-cp-upload').classList.add('hidden');
-                showToast('Capaian pembelajaran berhasil ditambahkan!');
+                showToast('CP/ATP berhasil ditambahkan!');
             });
         }
 
@@ -4768,7 +5250,7 @@
             if (!grid) return;
             const items = Object.entries(capaianPembelajaranData).sort(([, a], [, b]) => (b.tanggal || '').localeCompare(a.tanggal || ''));
             if (!items.length) {
-                grid.innerHTML = `<div class="col-span-3 text-center py-16" style="color:#475569;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Belum ada dokumen CP - klik Upload CP untuk menambahkan</div>`;
+                grid.innerHTML = `<div class="col-span-3 text-center py-16" style="color:#475569;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Belum ada dokumen CP/ATP - klik Upload CP/ATP untuk menambahkan</div>`;
                 return;
             }
             grid.innerHTML = items.map(([id, v]) => `
@@ -4817,19 +5299,117 @@
             if (!data.judul || !data.url || !data.mapel) { showToast('Judul, link, dan mata pelajaran wajib diisi!', 'error'); return; }
             db.ref('capaianPembelajaran/' + id).update(data).then(() => {
                 document.getElementById('m-cp-edit').classList.add('hidden');
-                showToast('Capaian pembelajaran diperbarui!');
+                showToast('CP/ATP diperbarui!');
             });
         }
 
         function hapusCapaianPembelajaran(id) {
-            dlpkConfirm('Hapus dokumen capaian pembelajaran ini?', () => {
-                db.ref('capaianPembelajaran/' + id).remove().then(() => showToast('Capaian pembelajaran dihapus!', 'info'));
+            dlpkConfirm('Hapus dokumen CP/ATP ini?', () => {
+                db.ref('capaianPembelajaran/' + id).remove().then(() => showToast('CP/ATP dihapus!', 'info'));
             });
         }
 
         db.ref('capaianPembelajaran').on('value', snap => {
             capaianPembelajaranData = snap.val() || {};
             if (document.getElementById('page-capaian-pembelajaran') && !document.getElementById('page-capaian-pembelajaran').classList.contains('hidden')) renderCapaianPembelajaran();
+        });
+
+        // -- Prota / Prosem --
+        let protaProsemData = {};
+
+        function bukaModalUploadProtaProsem() {
+            ['prota-form-url', 'prota-form-judul', 'prota-form-mapel', 'prota-form-kelas', 'prota-form-tahun'].forEach(id => {
+                document.getElementById(id).value = '';
+            });
+            document.getElementById('m-prota-upload').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function simpanProtaProsem() {
+            const data = {
+                url: normalisasiLinkDokumen(document.getElementById('prota-form-url').value.trim()),
+                judul: document.getElementById('prota-form-judul').value.trim(),
+                mapel: document.getElementById('prota-form-mapel').value.trim(),
+                kelas: document.getElementById('prota-form-kelas').value.trim(),
+                tahun: document.getElementById('prota-form-tahun').value.trim(),
+                tanggal: new Date().toLocaleDateString('id-ID')
+            };
+            if (!data.url) { showToast('Masukkan link dokumen Prota / Prosem!', 'error'); return; }
+            if (!data.judul) { showToast('Isi judul Prota / Prosem!', 'error'); return; }
+            if (!data.mapel) { showToast('Isi mata pelajaran!', 'error'); return; }
+            db.ref('protaProsem').push(data).then(() => {
+                document.getElementById('m-prota-upload').classList.add('hidden');
+                showToast('Prota / Prosem berhasil ditambahkan!');
+            });
+        }
+
+        function renderProtaProsem() {
+            const grid = document.getElementById('prota-prosem-grid');
+            if (!grid) return;
+            const items = Object.entries(protaProsemData).sort(([, a], [, b]) => (b.tanggal || '').localeCompare(a.tanggal || ''));
+            if (!items.length) {
+                grid.innerHTML = `<div class="col-span-3 text-center py-16" style="color:#475569;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Belum ada dokumen Prota / Prosem - klik Upload Prota / Prosem untuk menambahkan</div>`;
+                return;
+            }
+            grid.innerHTML = items.map(([id, v]) => `
+                <div class="relative overflow-hidden rounded-2xl flex flex-col" style="background:#FFFFFF;border:1px solid #C7D2FE;box-shadow:0 4px 16px rgba(15,23,42,0.08);">
+                    <div style="height:3px;background:#4338CA;"></div>
+                    <div style="padding:18px 18px 12px;">
+                        <div style="display:flex;align-items:flex-start;gap:12px;">
+                            <div style="width:44px;height:52px;border-radius:10px;background:#EEF2FF;border:1px solid #C7D2FE;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#4338CA;"><i data-lucide="calendar-range" style="width:20px;height:20px;"></i></div>
+                            <div style="flex:1;min-width:0;">
+                                <div style="font-size:13px;font-weight:900;color:#172033;line-height:1.3;margin-bottom:6px;">${v.judul || '-'}</div>
+                                <div style="display:flex;flex-wrap:wrap;gap:4px;">
+                                    ${v.mapel ? `<span style="font-size:8px;font-weight:800;padding:2px 8px;border-radius:100px;background:#EEF2FF;color:#4338CA;border:1px solid #C7D2FE;">${v.mapel}</span>` : ''}
+                                    ${v.kelas ? `<span style="font-size:8px;font-weight:800;padding:2px 8px;border-radius:100px;background:#F1F5F9;color:#334155;border:1px solid #CBD5E1;">${v.kelas}</span>` : ''}
+                                    ${v.tahun ? `<span style="font-size:8px;font-weight:800;padding:2px 8px;border-radius:100px;background:#ECFDF5;color:#047857;border:1px solid #A7F3D0;">TA ${v.tahun}</span>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="height:1px;background:#E2E8F0;margin:0 18px;"></div>
+                    <div style="padding:10px 14px 14px;display:flex;align-items:center;gap:8px;margin-top:auto;"><span style="font-size:8px;font-weight:700;color:#64748B;flex:1;">${v.tanggal || ''}</span><a href="${v.url}" target="_blank" style="display:inline-flex;align-items:center;gap:5px;padding:6px 10px;border-radius:10px;background:#EEF2FF;color:#4338CA;border:1px solid #C7D2FE;font-size:9px;font-weight:900;text-transform:uppercase;text-decoration:none;"><i data-lucide="external-link" style="width:11px;height:11px;"></i> Buka</a><button onclick="bukaEditProtaProsem('${id}')" style="width:30px;height:30px;border-radius:8px;background:#EFF6FF;color:#2563EB;border:1px solid #BFDBFE;cursor:pointer;display:flex;align-items:center;justify-content:center;" title="Edit"><i data-lucide="pencil" style="width:12px;height:12px;"></i></button><button onclick="hapusProtaProsem('${id}')" style="width:30px;height:30px;border-radius:8px;background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;cursor:pointer;display:flex;align-items:center;justify-content:center;" title="Hapus"><i data-lucide="trash-2" style="width:12px;height:12px;"></i></button></div>
+                </div>`).join('');
+            lucide.createIcons();
+        }
+
+        function bukaEditProtaProsem(id) {
+            const v = protaProsemData[id];
+            if (!v) return;
+            document.getElementById('prota-edit-id').value = id;
+            document.getElementById('prota-edit-judul').value = v.judul || '';
+            document.getElementById('prota-edit-url').value = v.url || '';
+            document.getElementById('prota-edit-mapel').value = v.mapel || '';
+            document.getElementById('prota-edit-kelas').value = v.kelas || '';
+            document.getElementById('prota-edit-tahun').value = v.tahun || '';
+            document.getElementById('m-prota-edit').classList.remove('hidden');
+        }
+
+        function simpanEditProtaProsem() {
+            const id = document.getElementById('prota-edit-id').value;
+            const data = {
+                judul: document.getElementById('prota-edit-judul').value.trim(),
+                url: normalisasiLinkDokumen(document.getElementById('prota-edit-url').value.trim()),
+                mapel: document.getElementById('prota-edit-mapel').value.trim(),
+                kelas: document.getElementById('prota-edit-kelas').value.trim(),
+                tahun: document.getElementById('prota-edit-tahun').value.trim()
+            };
+            if (!data.judul || !data.url || !data.mapel) { showToast('Judul, link, dan mata pelajaran wajib diisi!', 'error'); return; }
+            db.ref('protaProsem/' + id).update(data).then(() => {
+                document.getElementById('m-prota-edit').classList.add('hidden');
+                showToast('Prota / Prosem diperbarui!');
+            });
+        }
+
+        function hapusProtaProsem(id) {
+            dlpkConfirm('Hapus dokumen Prota / Prosem ini?', () => {
+                db.ref('protaProsem/' + id).remove().then(() => showToast('Prota / Prosem dihapus!', 'info'));
+            });
+        }
+
+        db.ref('protaProsem').on('value', snap => {
+            protaProsemData = snap.val() || {};
+            if (document.getElementById('page-prota-prosem') && !document.getElementById('page-prota-prosem').classList.contains('hidden')) renderProtaProsem();
         });
 
                 function populatePrintMenu() {
@@ -5114,7 +5694,7 @@
             }
 
             doc.autoTable({
-                head: [['Hari, Tanggal', 'Mata Pelajaran', 'Capaian Pembelajaran (CP)', 'Materi / Kegiatan']],
+                head: [['Hari, Tanggal', 'Mata Pelajaran', 'CP/ATP', 'Materi / Kegiatan']],
                 body: tableData,
                 startY: 48,
                 styles: { fontSize: 8, cellPadding: 3 },
