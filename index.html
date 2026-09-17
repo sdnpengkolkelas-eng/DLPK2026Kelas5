@@ -8,10 +8,11 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#0A1931">
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/png" sizes="192x192" href="icon_dlpk_192.png">
-    <link rel="apple-touch-icon" sizes="192x192" href="icon_dlpk_192.png">
-    <link rel="shortcut icon" type="image/png" href="icon_dlpk_192.png">
+    <link rel="manifest" href="manifest.json?v=4">
+    <link rel="icon" type="image/png" sizes="192x192" href="icon_dlpk_192.png?v=4">
+    <link rel="icon" type="image/png" sizes="512x512" href="icon_dlpk_512.png?v=4">
+    <link rel="apple-touch-icon" sizes="192x192" href="icon_dlpk_192.png?v=4">
+    <link rel="shortcut icon" type="image/png" href="icon_dlpk_192.png?v=4">
     <meta name="apple-mobile-web-app-title" content="DLPK">
     <meta name="application-name" content="DLPK">
     <script>
@@ -873,6 +874,7 @@
             width: 260px;
             height: 260px;
             margin: 0;
+            animation: none;
             filter: drop-shadow(0 18px 24px rgba(0,0,0,0.4));
             transform: translateY(-8px);
         }
@@ -1967,7 +1969,7 @@
                     <span class="login-lamp__glow"></span>
                     <span class="login-lamp__switch"></span>
                     <span class="login-lamp__pull-cord"></span>
-                    <button type="button" class="login-lamp__pull" aria-label="Tarik tali untuk menyalakan lampu" onclick="releaseLoginLamp()" onpointerdown="startLoginLampPull(event)" onpointerup="finishLoginLampPull(event)"></button>
+                    <button type="button" class="login-lamp__pull" aria-label="Tarik tali untuk menyalakan lampu" onclick="releaseLoginLamp()" onpointerdown="startLoginLampPull(event)" onpointerup="finishLoginLampPull(event)" onpointercancel="finishLoginLampPull(event)"></button>
             </div>
             <div class="login-box">
                 <div class="login-form-side">
