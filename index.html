@@ -302,7 +302,9 @@
         }
         .opening-logo {
             position: relative;
-            width: 156px;
+            width: 100%;
+            max-width: 156px;
+            min-width: 0;
             height: 156px;
             padding: 7px;
             display: grid;
@@ -655,7 +657,7 @@
         .login-stage {
             position: relative;
             z-index: 1;
-            width: min(100%, 420px);
+            width: min(100%, 560px);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -679,9 +681,8 @@
         .login-brand {
             display: flex;
             align-items: center;
-            justify-content: flex-start;
-            gap: 10px;
-            margin-bottom: 26px;
+            justify-content: center;
+            margin-bottom: 22px;
             padding-bottom: 18px;
             border-bottom: 1px solid rgba(148, 163, 184, 0.2);
             opacity: 0;
@@ -1149,10 +1150,11 @@
         html[data-theme="light"] #login-screen::before,
         html[data-theme="light"] #login-screen.is-lit::before,
         html[data-theme="light"] #login-screen::after { display: none; }
-        html[data-theme="light"] .login-stage { width: min(100%, 440px); }
+        html[data-theme="light"] .login-stage { width: min(100%, 460px); }
         html[data-theme="light"] .login-box,
         html[data-theme="light"] #login-screen.is-lit .login-box {
-            width: 100%;
+            width: min(100%, 430px);
+            min-height: 450px;
             opacity: 1;
             visibility: visible;
             transform: none;
@@ -1160,10 +1162,10 @@
             animation: none;
             background: #ffffff;
             border: 1px solid #d7e5eb;
-            border-radius: 20px;
+            border-radius: 26px;
             box-shadow: 0 20px 50px rgba(15,23,42,0.12);
         }
-        html[data-theme="light"] .login-form-side { background: #ffffff !important; padding: 34px 32px 30px; }
+        html[data-theme="light"] .login-form-side { background: #ffffff !important; padding: 48px 56px 44px; }
         html[data-theme="light"] .login-brand,
         html[data-theme="light"] .login-form-side h3,
         html[data-theme="light"] .login-form-side p,
@@ -2016,6 +2018,484 @@
             #page-attendance .overflow-x-auto { max-width: 100%; }
         }
 
+        /* Attendance controls: structured panel with stable actions and spacing. */
+        #page-attendance > .glass-card:has(#quick-date) {
+            padding: 24px !important;
+            border: 1px solid #D8E5EA !important;
+            border-radius: 18px !important;
+            background: #FFFFFF !important;
+            box-shadow: 0 10px 28px rgba(15,23,42,0.08) !important;
+        }
+        #page-attendance > .glass-card:has(#quick-date)::before { display: none !important; }
+        #page-attendance > .glass-card:has(#quick-date) > div:first-child {
+            display: grid !important;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr) minmax(0, 1.35fr) auto !important;
+            align-items: end !important;
+            gap: 18px !important;
+        }
+        #page-attendance > .glass-card:has(#quick-date) > div:first-child > div:first-child {
+            display: grid !important;
+            grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+            gap: 14px !important;
+            width: auto !important;
+        }
+        #page-attendance > .glass-card:has(#quick-date) label {
+            display: block !important;
+            min-height: 28px !important;
+            margin: 0 0 7px !important;
+            padding-left: 2px !important;
+            color: #526579 !important;
+            font-size: 9px !important;
+            font-weight: 900 !important;
+            line-height: 1.25 !important;
+            letter-spacing: .12em !important;
+            text-transform: uppercase !important;
+        }
+        #page-attendance > .glass-card:has(#quick-date) #quick-date,
+        #page-attendance > .glass-card:has(#quick-date) #quick-ket-libur,
+        #page-attendance > .glass-card:has(#quick-date) #quick-day-name {
+            width: 100% !important;
+            min-height: 48px !important;
+            box-sizing: border-box !important;
+            border-radius: 12px !important;
+        }
+        #page-attendance > .glass-card:has(#quick-date) #quick-date,
+        #page-attendance > .glass-card:has(#quick-date) #quick-ket-libur {
+            padding: 0 14px !important;
+            border: 1px solid #D4E2E8 !important;
+            background: #F8FBFC !important;
+            color: #172033 !important;
+            font-size: 12px !important;
+        }
+        #page-attendance > .glass-card:has(#quick-date) #quick-date:focus,
+        #page-attendance > .glass-card:has(#quick-date) #quick-ket-libur:focus {
+            border-color: #00A3C7 !important;
+            box-shadow: 0 0 0 3px rgba(0,163,199,0.12) !important;
+            outline: none !important;
+        }
+        #page-attendance > .glass-card:has(#quick-date) #quick-day-name {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 0 14px !important;
+            background: #008EAD !important;
+            color: #FFFFFF !important;
+            font-size: 11px !important;
+            font-weight: 900 !important;
+            letter-spacing: .1em !important;
+            box-shadow: 0 6px 14px rgba(0,142,173,0.18) !important;
+        }
+        #page-attendance > .glass-card:has(#quick-date) > div:first-child > div:last-child {
+            display: grid !important;
+            grid-template-columns: minmax(108px, 1fr) 50px !important;
+            align-items: center !important;
+            gap: 10px !important;
+            width: auto !important;
+        }
+        #page-attendance > .glass-card:has(#quick-date) > div:first-child > div:last-child .btn-primary,
+        #page-attendance > .glass-card:has(#quick-date) > div:first-child > div:last-child > button {
+            min-height: 48px !important;
+            box-sizing: border-box !important;
+            border-radius: 12px !important;
+            padding: 0 16px !important;
+            white-space: nowrap !important;
+            font-size: 10px !important;
+            font-weight: 900 !important;
+            letter-spacing: .08em !important;
+        }
+        #page-attendance > .glass-card:has(#quick-date) > div:first-child > div:last-child .btn-primary {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            background: #00A3C7 !important;
+            color: #FFFFFF !important;
+            box-shadow: 0 6px 14px rgba(0,163,199,0.18) !important;
+        }
+        #page-attendance > .glass-card:has(#quick-date) > div:first-child > div:last-child > button[title] {
+            width: 50px !important;
+            padding: 0 !important;
+            background: #FFF4F5 !important;
+            border: 1px solid #FF9BA7 !important;
+            color: #F05A67 !important;
+        }
+        #page-attendance > .glass-card:has(#quick-date) > div:first-child > div:last-child > div { display: none !important; }
+        #page-attendance > .glass-card:has(#quick-date) > div:first-child > div:last-child > button:not([title]) {
+            grid-column: 3 / span 2 !important;
+            width: auto !important;
+            background: #FFFFFF !important;
+            border: 1px solid #198EBA !important;
+            color: #087B9F !important;
+        }
+        #page-attendance > .glass-card:has(#quick-date) > div:first-child > div:last-child > button:not([title]):last-child {
+            grid-column: 5 !important;
+            border-color: #F17883 !important;
+            color: #E04C5B !important;
+        }
+        @media (max-width: 1100px) {
+            #page-attendance > .glass-card:has(#quick-date) > div:first-child { grid-template-columns: 1fr !important; }
+            #page-attendance > .glass-card:has(#quick-date) > div:first-child > div:last-child {
+                grid-template-columns: minmax(120px, 1fr) 50px repeat(2, minmax(140px, 1fr)) !important;
+            }
+            #page-attendance > .glass-card:has(#quick-date) > div:first-child > div:last-child > button:not([title]),
+            #page-attendance > .glass-card:has(#quick-date) > div:first-child > div:last-child > button:not([title]):last-child { grid-column: auto !important; }
+        }
+        @media (max-width: 640px) {
+            #page-attendance > .glass-card:has(#quick-date) { padding: 16px !important; }
+            #page-attendance > .glass-card:has(#quick-date) > div:first-child > div:first-child {
+                grid-template-columns: 1fr !important;
+                gap: 12px !important;
+            }
+            #page-attendance > .glass-card:has(#quick-date) label { min-height: 0 !important; }
+            #page-attendance > .glass-card:has(#quick-date) > div:first-child > div:last-child { grid-template-columns: 1fr 52px !important; }
+            #page-attendance > .glass-card:has(#quick-date) > div:first-child > div:last-child > button:not([title]),
+            #page-attendance > .glass-card:has(#quick-date) > div:first-child > div:last-child > button:not([title]):last-child { grid-column: 1 / -1 !important; }
+        }
+
+        /* Correct the desktop split: fields on the left, actions on the right. */
+        #page-attendance > .glass-card:has(#quick-date) > div:first-child {
+            grid-template-columns: minmax(0, 1fr) auto !important;
+        }
+        #page-attendance > .glass-card:has(#quick-date) > div:first-child > div:last-child {
+            grid-template-columns: minmax(108px, 1fr) 50px minmax(130px, 1fr) minmax(130px, 1fr) !important;
+        }
+        #page-attendance > .glass-card:has(#quick-date) > div:first-child > div:last-child > button:not([title]),
+        #page-attendance > .glass-card:has(#quick-date) > div:first-child > div:last-child > button:not([title]):last-child {
+            grid-column: auto !important;
+        }
+        @media (max-width: 1100px) {
+            #page-attendance > .glass-card:has(#quick-date) > div:first-child {
+                grid-template-columns: 1fr !important;
+            }
+        }
+        @media (max-width: 640px) {
+            #page-attendance > .glass-card:has(#quick-date) > div:first-child > div:last-child {
+                grid-template-columns: 1fr 52px !important;
+            }
+            #page-attendance > .glass-card:has(#quick-date) > div:first-child > div:last-child > button:not([title]),
+            #page-attendance > .glass-card:has(#quick-date) > div:first-child > div:last-child > button:not([title]):last-child {
+                grid-column: 1 / -1 !important;
+            }
+        }
+
+        /* Simple modern attendance control panel. */
+        .attendance-control-panel {
+            padding: 22px !important;
+            border: 1px solid #D8E5EA;
+            border-radius: 18px;
+            background: #FFFFFF;
+            box-shadow: 0 10px 28px rgba(15,23,42,0.08);
+        }
+        .attendance-control-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #E6EEF1;
+        }
+        .attendance-control-heading h4 {
+            margin: 3px 0 0;
+            color: #172033;
+            font-size: 15px;
+            font-weight: 900;
+            line-height: 1.2;
+        }
+        .attendance-control-heading > svg {
+            width: 18px;
+            height: 18px;
+            color: #008EAD;
+        }
+        .attendance-control-kicker {
+            color: #008EAD;
+            font-size: 8px;
+            font-weight: 900;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+        }
+        .attendance-fields {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+            padding: 18px 0;
+        }
+        .attendance-field label {
+            display: block;
+            min-height: 24px;
+            margin-bottom: 7px;
+            color: #526579;
+            font-size: 9px;
+            font-weight: 900;
+            letter-spacing: .1em;
+            line-height: 1.3;
+            text-transform: uppercase;
+        }
+        .attendance-field label span {
+            color: #94A3B8;
+            font-weight: 700;
+            letter-spacing: 0;
+            text-transform: none;
+        }
+        .attendance-field input,
+        .attendance-day-status {
+            width: 100%;
+            height: 44px;
+            box-sizing: border-box;
+            border-radius: 11px;
+        }
+        .attendance-field input {
+            padding: 0 13px;
+            border: 1px solid #D4E2E8;
+            outline: none;
+            background: #F8FBFC;
+            color: #172033;
+            font-size: 11px;
+            font-weight: 700;
+        }
+        .attendance-field input:focus {
+            border-color: #00A3C7;
+            box-shadow: 0 0 0 3px rgba(0,163,199,0.12);
+        }
+        .attendance-field-holiday input { border-color: #F3C3C8; }
+        .attendance-field-holiday input:focus {
+            border-color: #E87480;
+            box-shadow: 0 0 0 3px rgba(232,116,128,0.12);
+        }
+        .attendance-day-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 12px;
+            background: #008EAD;
+            color: #FFFFFF;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: .08em;
+            text-align: center;
+        }
+        .attendance-actions {
+            display: grid;
+            grid-template-columns: minmax(120px, 1fr) 44px 1px minmax(145px, 1fr) minmax(145px, 1fr);
+            align-items: center;
+            gap: 9px;
+            padding-top: 16px;
+            border-top: 1px solid #E6EEF1;
+        }
+        .attendance-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            width: 100%;
+            height: 40px;
+            min-width: 0;
+            padding: 0 12px;
+            border-radius: 10px;
+            background: #FFFFFF;
+            cursor: pointer;
+            font-size: 9px;
+            font-weight: 900;
+            letter-spacing: .06em;
+            line-height: 1.1;
+            text-align: center;
+            text-transform: uppercase;
+            transition: background .2s ease, color .2s ease, transform .2s ease;
+        }
+        .attendance-action:hover { transform: translateY(-1px); }
+        .attendance-action svg {
+            width: 14px;
+            height: 14px;
+            flex: 0 0 14px;
+        }
+        .attendance-action-primary {
+            border: 1px solid #00A3C7;
+            background: #00A3C7;
+            color: #FFFFFF;
+            box-shadow: 0 5px 12px rgba(0,163,199,0.16);
+        }
+        .attendance-action-delete {
+            padding: 0;
+            border: 1px solid #F3A0A9;
+            background: #FFF5F6;
+            color: #E05A68;
+        }
+        .attendance-action-present {
+            border: 1px solid #198EBA;
+            color: #087B9F;
+        }
+        .attendance-action-present:hover { background: #EAF8FA; }
+        .attendance-action-holiday {
+            border: 1px solid #F17883;
+            color: #E04C5B;
+        }
+        .attendance-action-holiday:hover { background: #FFF1F2; }
+        .attendance-action-divider { width: 1px; height: 24px; background: #D8E5EA; }
+        @media (max-width: 800px) {
+            .attendance-control-panel { padding: 17px !important; }
+            .attendance-fields { grid-template-columns: 1fr; gap: 12px; padding: 16px 0; }
+            .attendance-field label { min-height: 0; }
+            .attendance-actions { grid-template-columns: 1fr 44px; }
+            .attendance-action-divider { display: none; }
+            .attendance-action-primary { grid-column: 1; }
+            .attendance-action-present,
+            .attendance-action-holiday { grid-column: 1 / -1; }
+        }
+        @media (max-width: 640px) {
+            .attendance-control-panel { padding: 15px !important; border-radius: 16px !important; }
+            .attendance-control-heading { padding-bottom: 13px; }
+            .attendance-control-heading h4 { font-size: 13px; }
+            .attendance-control-kicker { font-size: 7px; }
+            .attendance-fields {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                gap: 10px !important;
+                padding: 14px 0 !important;
+            }
+            .attendance-field-holiday { grid-column: 1 / -1; }
+            .attendance-field label { font-size: 8px; letter-spacing: .08em; }
+            .attendance-field input,
+            .attendance-day-status { height: 40px; border-radius: 10px; font-size: 10px; }
+            .attendance-actions {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                gap: 8px !important;
+                padding-top: 13px !important;
+            }
+            .attendance-action { height: 38px; font-size: 8px; padding: 0 8px; }
+            .attendance-action-primary { grid-column: 1 !important; }
+            .attendance-action-delete {
+                grid-column: 2 !important;
+                justify-self: end !important;
+                width: 44px !important;
+            }
+            .attendance-action-present,
+            .attendance-action-holiday { grid-column: auto !important; }
+            .attendance-action-present { grid-column: 1 !important; }
+            .attendance-action-holiday { grid-column: 2 !important; }
+            .attendance-action svg { width: 13px; height: 13px; flex-basis: 13px; }
+        }
+
+        /* Final compact toolbar: remove the extra heading and keep one clean control surface. */
+        .attendance-control-panel {
+            padding: 18px !important;
+            border-radius: 16px !important;
+        }
+        .attendance-control-heading { display: none !important; }
+        .attendance-fields {
+            padding: 0 0 14px !important;
+            gap: 12px !important;
+        }
+        .attendance-actions { padding-top: 14px !important; }
+        @media (max-width: 640px) {
+            .attendance-control-panel { padding: 14px !important; }
+            .attendance-fields { padding-bottom: 12px !important; }
+            .attendance-actions { padding-top: 12px !important; }
+        }
+
+        /* Attendance layout: date actions first, holiday confirmation underneath. */
+        .attendance-fields {
+            display: grid !important;
+            grid-template-columns: 1fr !important;
+            gap: 12px !important;
+            padding: 0 !important;
+        }
+        .attendance-date-row,
+        .attendance-holiday-row {
+            display: grid !important;
+            align-items: end !important;
+            gap: 10px !important;
+        }
+        .attendance-date-row {
+            grid-template-columns: minmax(220px, 1fr) minmax(110px, 0.55fr) minmax(145px, 0.75fr) 44px !important;
+        }
+        .attendance-holiday-row {
+            grid-template-columns: minmax(220px, 1fr) minmax(145px, 0.4fr) !important;
+            padding-top: 12px !important;
+            border-top: 1px solid #E6EEF1 !important;
+        }
+        .attendance-date-row .attendance-field,
+        .attendance-holiday-row .attendance-field { min-width: 0 !important; }
+        .attendance-date-row .attendance-action,
+        .attendance-holiday-row .attendance-action {
+            height: 42px !important;
+            min-height: 42px !important;
+            margin: 0 !important;
+        }
+        .attendance-date-row .attendance-action-delete {
+            width: 44px !important;
+            min-width: 44px !important;
+        }
+        .attendance-holiday-row .attendance-action-holiday {
+            background: #FFF5F6 !important;
+            border-color: #F17883 !important;
+            color: #E04C5B !important;
+        }
+        @media (max-width: 640px) {
+            .attendance-date-row {
+                grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 44px !important;
+            }
+            .attendance-date-row .attendance-field { grid-column: 1 / -1 !important; }
+            .attendance-date-row .attendance-action-primary { grid-column: 1 !important; }
+            .attendance-date-row .attendance-action-present { grid-column: 2 !important; }
+            .attendance-date-row .attendance-action-delete { grid-column: 3 !important; }
+            .attendance-holiday-row { grid-template-columns: minmax(0, 1fr) minmax(105px, 0.42fr) !important; }
+            .attendance-date-row .attendance-action,
+            .attendance-holiday-row .attendance-action { height: 38px !important; min-height: 38px !important; }
+            .attendance-holiday-row .attendance-field-holiday { grid-column: auto !important; }
+        }
+
+        /* The bulk actions apply the selected date directly; no separate Apply button. */
+        .attendance-date-row {
+            grid-template-columns: minmax(220px, 1fr) minmax(145px, 0.75fr) 44px !important;
+        }
+        @media (max-width: 640px) {
+            .attendance-date-row {
+                grid-template-columns: minmax(0, 1fr) 44px !important;
+            }
+            .attendance-date-row .attendance-field { grid-column: 1 / -1 !important; }
+            .attendance-date-row .attendance-action-present { grid-column: 1 !important; }
+            .attendance-date-row .attendance-action-delete { grid-column: 2 !important; }
+        }
+
+        @media (max-width: 640px) {
+            /* Keep date selection, bulk present, and delete together. */
+            .attendance-date-row {
+                grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 44px !important;
+            }
+            .attendance-date-row .attendance-field { grid-column: auto !important; }
+            .attendance-date-row .attendance-action-present { grid-column: auto !important; }
+            .attendance-date-row .attendance-action-delete { grid-column: auto !important; }
+        }
+
+        /* Compact attendance actions with centered icon and label. */
+        #page-attendance > .glass-card:has(#quick-date) > div:first-child > div:last-child .btn-primary,
+        #page-attendance > .glass-card:has(#quick-date) > div:first-child > div:last-child > button {
+            min-height: 42px !important;
+            height: 42px !important;
+            padding: 0 12px !important;
+            gap: 7px !important;
+            justify-content: center !important;
+            text-align: center !important;
+            font-size: 9px !important;
+            line-height: 1.1 !important;
+            letter-spacing: .06em !important;
+        }
+        #page-attendance > .glass-card:has(#quick-date) > div:first-child > div:last-child > button[title] {
+            width: 42px !important;
+            min-width: 42px !important;
+            padding: 0 !important;
+            display: grid !important;
+            place-items: center !important;
+        }
+        #page-attendance > .glass-card:has(#quick-date) > div:first-child > div:last-child button svg {
+            width: 14px !important;
+            height: 14px !important;
+            flex: 0 0 14px !important;
+        }
+        #page-attendance > .glass-card:has(#quick-date) > div:first-child > div:last-child button:not([title]) {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-align: center !important;
+        }
+
         /* Dashboard app shortcuts */
         #dashboard-shortcuts .shortcut-shell {
             display: grid;
@@ -2096,6 +2576,140 @@
             }
         }
 
+        .resource-badge {
+            width: 54px !important;
+            height: 64px !important;
+            border-radius: 8px 8px 16px 8px !important;
+            clip-path: polygon(0 0, 100% 0, 100% 78%, 82% 100%, 0 100%);
+            filter: drop-shadow(7px 5px 0 var(--badge-shadow, rgba(0,107,143,0.3)));
+            transform: rotate(-2deg);
+        }
+        .resource-card {
+            border-radius: 14px 14px 14px 6px !important;
+            box-shadow: 8px -6px 0 var(--card-shadow, rgba(0,107,143,0.25)), 0 8px 22px rgba(15,23,42,0.1);
+        }
+        .resource-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 8px -6px 0 var(--card-shadow, rgba(0,107,143,0.25)), 0 12px 26px rgba(15,23,42,0.14);
+        }
+        .resource-card {
+            align-items: center;
+            gap: 8px;
+            overflow: hidden !important;
+            background: #FFFFFF !important;
+            border: 1px solid var(--resource-border, #D7E5EB) !important;
+            box-shadow: 0 8px 22px rgba(15,23,42,0.08) !important;
+            border-radius: 16px 16px 16px 8px !important;
+            padding: 14px 12px 12px !important;
+            cursor: pointer;
+        }
+        .resource-card > div:first-child,
+        .resource-card > div:nth-child(3) {
+            display: none !important;
+        }
+        .resource-card > div:nth-child(2) {
+            width: 100%;
+            padding: 0 !important;
+        }
+        .resource-card > div:nth-child(2) > div {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            gap: 8px !important;
+        }
+        .resource-card > div:nth-child(2) > div > div:first-child {
+            width: 150px !important;
+            height: 170px !important;
+            border-radius: 6px 14px 14px 6px !important;
+            clip-path: none !important;
+            filter: none !important;
+            transform: none !important;
+            overflow: hidden;
+            position: relative;
+        }
+        .resource-card > div:nth-child(2) > div > div:first-child > i {
+            position: absolute;
+            top: 76px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .resource-card > div:nth-child(2) > div > div:first-child > span {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 12px;
+            text-align: center;
+        }
+        .resource-card > div:nth-child(2) > div > div:first-child::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 10px;
+            background: var(--resource-accent, #006B8F);
+        }
+        .resource-card > div:nth-child(2) > div > div:first-child > * {
+            position: relative;
+            z-index: 1;
+        }
+        .resource-card > div:nth-child(2) > div > div:nth-child(2) {
+            position: absolute;
+            top: 14px;
+            left: 50%;
+            z-index: 2;
+            width: 118px;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+        .resource-card > div:nth-child(2) > div > div:nth-child(2) > div:first-child {
+            display: -webkit-box;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            overflow: hidden;
+            color: #172033 !important;
+            font-size: 11px !important;
+            line-height: 1.2 !important;
+        }
+        .resource-card > div:nth-child(2) > div > div:nth-child(2) > div:last-child {
+            justify-content: center;
+            margin-top: 6px;
+        }
+        .resource-card > div:last-child {
+            padding: 0 !important;
+            margin-top: 0 !important;
+        }
+        .document-frame {
+            border: 1px solid #B8D7E0;
+            border-radius: 18px;
+            overflow: hidden;
+            background: #FFFFFF;
+        }
+        .document-frame > .document-frame-header {
+            border: 0 !important;
+            border-bottom: 1px solid #D7E5EB !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            margin: 0 !important;
+        }
+        .document-frame-header h2 { text-transform: uppercase; }
+        .document-frame > .document-frame-content {
+            padding: 20px;
+        }
+        .document-frame-note {
+            margin-top: 18px;
+            padding-top: 12px;
+            border-top: 1px solid #E2E8F0;
+            color: #64748B;
+            font-size: 10px;
+            font-weight: 700;
+            line-height: 1.5;
+        }
+        @media (max-width: 640px) {
+            .document-frame > .document-frame-content { padding: 14px; }
+        }
+
         /* Final light entry screens override legacy cinematic login rules. */
         html[data-theme="light"] #opening-screen {
             background: linear-gradient(135deg, #f8fcff 0%, #eef8fb 55%, #dceff4 100%) !important;
@@ -2124,11 +2738,12 @@
         html[data-theme="light"] #login-screen.is-lit::before,
         html[data-theme="light"] #login-screen::after { display: none !important; }
         html[data-theme="light"] #login-screen:not(.is-lit) .login-box { display: flex !important; }
-        html[data-theme="light"] .login-stage { width: min(100%, 440px) !important; }
+        html[data-theme="light"] .login-stage { width: min(100%, 460px) !important; }
         html[data-theme="light"] .login-stage::after { display: none !important; }
         html[data-theme="light"] .login-box,
         html[data-theme="light"] #login-screen.is-lit .login-box {
-            width: 100% !important;
+            width: min(100%, 430px) !important;
+            min-height: 450px !important;
             opacity: 1 !important;
             visibility: visible !important;
             transform: none !important;
@@ -2136,10 +2751,10 @@
             animation: none !important;
             background: #ffffff !important;
             border: 1px solid #d7e5eb !important;
-            border-radius: 20px !important;
+            border-radius: 26px !important;
             box-shadow: 0 20px 50px rgba(15,23,42,0.12) !important;
         }
-        html[data-theme="light"] .login-form-side { background: #ffffff !important; padding: 34px 32px 30px !important; }
+        html[data-theme="light"] .login-form-side { background: #ffffff !important; padding: 48px 56px 44px !important; }
         html[data-theme="light"] .login-brand,
         html[data-theme="light"] .login-form-side h3,
         html[data-theme="light"] .login-form-side p,
@@ -2156,6 +2771,11 @@
         html[data-theme="light"] .login-form-side p { color: #64748b !important; }
         html[data-theme="light"] .login-input-wrapper input { background: #f8fbfc !important; border-color: #c8dbe1 !important; color: #172033 !important; }
         html[data-theme="light"] .login-input-wrapper input:focus { border-color: #006b8f !important; box-shadow: 0 0 0 3px rgba(0,107,143,0.12) !important; }
+
+        @media (max-width: 600px) {
+            html[data-theme="light"] .login-box { min-height: 420px !important; }
+            html[data-theme="light"] .login-form-side { padding: 38px 24px 34px !important; }
+        }
 
         /* Elevated split entry experience. */
         @keyframes welcomePanelIn {
@@ -2232,6 +2852,244 @@
             font-size: 14px;
             line-height: 1.75;
             text-align: left;
+        }
+        .infographic-doc-card,
+        .resource-card {
+            --card-accent: #00A9CC;
+            position: relative;
+            width: 100%;
+            max-width: 156px;
+            min-width: 0;
+            min-height: 238px;
+            justify-self: center;
+            border: 0 !important;
+            border-radius: 28px !important;
+            overflow: hidden !important;
+            background: linear-gradient(180deg, #FFFFFF 0 68%, var(--card-accent) 68% 100%) !important;
+            box-shadow: 0 16px 24px rgba(148,163,184,0.34) !important;
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+        #ba-grid,
+        #ma-grid,
+        #cp-grid,
+        #prota-prosem-grid { justify-items: center; gap: 24px !important; }
+        .infographic-doc-card,
+        .resource-card { counter-increment: infographic-card; }
+        #ba-grid,
+        #ma-grid,
+        #cp-grid,
+        #prota-prosem-grid { counter-reset: infographic-card; }
+        .infographic-doc-card::before,
+        .resource-card::before {
+            content: counter(infographic-card, decimal-leading-zero);
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            z-index: 5;
+            width: 42px;
+            height: 42px;
+            transform: translateX(-50%);
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: #FFFFFF;
+            border: 0;
+            color: #1E293B;
+            font-size: 13px;
+            font-weight: 900;
+            box-shadow: 0 5px 12px rgba(15,23,42,0.18);
+        }
+        .infographic-doc-card::after,
+        .resource-card::after {
+            display: none !important;
+        }
+        .infographic-doc-card:hover,
+        .resource-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 26px rgba(15,23,42,0.16) !important;
+        }
+        .resource-card {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 0 !important;
+            padding: 0 0 12px !important;
+        }
+        .resource-card > div:nth-child(2) {
+            width: 100% !important;
+            height: 174px !important;
+            padding: 0 !important;
+        }
+        .resource-card > div:nth-child(2) > div {
+            position: relative !important;
+            width: 100% !important;
+            height: 174px !important;
+            display: block !important;
+        }
+        .resource-card > div:nth-child(2) > div > div:first-child {
+            display: none !important;
+        }
+        .resource-card > div:nth-child(2) > div > div:nth-child(2) {
+            position: relative !important;
+            top: auto !important;
+            left: auto !important;
+            right: auto !important;
+            width: 100% !important;
+            height: 174px !important;
+            padding: 66px 12px 0 !important;
+            transform: none !important;
+            text-align: center;
+        }
+        .resource-card > div:nth-child(2) > div > div:nth-child(2) > div:first-child {
+            max-height: 34px;
+            overflow: hidden;
+            color: #172033 !important;
+            font-size: 11px !important;
+            line-height: 1.2 !important;
+            text-align: center !important;
+        }
+        .resource-card > div:last-child {
+            position: absolute !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 10px !important;
+            z-index: 4 !important;
+            display: flex !important;
+            justify-content: center !important;
+            gap: 5px !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .resource-card > div:last-child > span {
+            display: none !important;
+        }
+        .resource-card > div:last-child > a,
+        .resource-card > div:last-child > button {
+            width: 34px !important;
+            height: 28px !important;
+            min-width: 34px !important;
+            padding: 0 !important;
+            border-radius: 9px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 0 !important;
+            font-size: 0 !important;
+        }
+        .resource-card > div:last-child > a svg,
+        .resource-card > div:last-child > button svg {
+            width: 13px !important;
+            height: 13px !important;
+        }
+        .infographic-doc-card > * ,
+        .resource-card > * { position: relative; z-index: 1; }
+        .infographic-doc-card > div:first-child {
+            width: 100% !important;
+            min-height: 170px;
+            background: transparent !important;
+            border: 0 !important;
+            padding: 14px 10px 0 !important;
+        }
+        .infographic-doc-card > div:first-child > div:first-child {
+            width: 100% !important;
+            height: auto !important;
+            min-height: 150px;
+            border: 0 !important;
+            background: transparent !important;
+            filter: none !important;
+            transform: none !important;
+        }
+        .infographic-doc-card > div:nth-child(2) {
+            width: 100% !important;
+            color: #172033 !important;
+            text-align: center;
+            padding: 0 10px 56px !important;
+        }
+        .infographic-doc-card > div:nth-child(2) > div {
+            color: #172033 !important;
+        }
+        .infographic-doc-card > div:nth-child(3) {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 10px;
+            justify-content: center;
+            z-index: 3;
+        }
+        .infographic-doc-card > div:nth-child(3) button {
+            width: 24px !important;
+            height: 24px !important;
+            border-radius: 50% !important;
+        }
+        .infographic-doc-card .resource-badge {
+            border-color: var(--card-accent) !important;
+        }
+        .infographic-doc-card .infographic-art {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: flex-start !important;
+            width: 100% !important;
+            min-height: 174px !important;
+            max-width: 100%;
+            padding: 48px 12px 10px !important;
+            border: 0 !important;
+            border-radius: 0 !important;
+            color: #172033;
+            text-align: center;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        .infographic-doc-card .infographic-title {
+            display: -webkit-box;
+            width: 100%;
+            margin-top: 10px;
+            overflow: hidden;
+            color: #172033 !important;
+            font-size: 10px;
+            font-weight: 900;
+            line-height: 1.2;
+            text-align: center;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow-wrap: anywhere;
+        }
+        .infographic-doc-card .infographic-meta {
+            width: 100%;
+            margin-top: 5px;
+            overflow: hidden;
+            color: #475569 !important;
+            font-size: 7px;
+            font-weight: 700;
+            line-height: 1.3;
+            text-align: center;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow-wrap: anywhere;
+        }
+        .infographic-doc-card .infographic-actions {
+            position: absolute !important;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            z-index: 4;
+            justify-content: center;
+            gap: 5px !important;
+        }
+        .infographic-doc-card .infographic-actions button,
+        .resource-card > div:last-child button {
+            background: #FFFFFF !important;
+            border-color: rgba(255,255,255,0.9) !important;
+            box-shadow: 0 2px 6px rgba(15,23,42,0.16);
+        }
+        .infographic-footer-icon {
+            display: none !important;
+        }
+        .infographic-footer-icon svg {
+            width: 28px;
+            height: 28px;
+            stroke-width: 1.5;
         }
         html[data-theme="light"] #opening-screen .loading-container {
             width: min(180px, 60vw);
@@ -2325,8 +3183,8 @@
         html[data-theme="light"] #opening-screen.entry-ready {
             inset: auto !important;
             top: 0 !important;
-            left: 0 !important;
-            width: 52% !important;
+            left: 44% !important;
+            width: 64% !important;
             height: 100% !important;
             align-items: flex-start !important;
             justify-content: center !important;
@@ -2355,7 +3213,7 @@
         html[data-theme="light"] #login-screen.entry-ready.is-lit {
             inset: auto !important;
             top: 0 !important;
-            left: 52% !important;
+            left: 8% !important;
             width: 48% !important;
             height: 100% !important;
             opacity: 1 !important;
@@ -2623,9 +3481,9 @@
         /* Final split direction override. */
         html[data-theme="light"] #opening-screen.entry-ready.entry-spread,
         html[data-theme="light"] #opening-screen.entry-ready.entry-center.entry-spread {
-            left: 0 !important;
+            left: 44% !important;
             top: 0 !important;
-            width: 52% !important;
+            width: 64% !important;
             height: 100% !important;
             transform: translateX(0) scale(1) !important;
             opacity: 1 !important;
@@ -2634,7 +3492,7 @@
         html[data-theme="light"] #login-screen.entry-ready.entry-spread.is-lit,
         html[data-theme="light"] #login-screen.entry-ready.entry-center.entry-spread,
         html[data-theme="light"] #login-screen.entry-ready.entry-center.entry-spread.is-lit {
-            left: 52% !important;
+            left: 8% !important;
             top: 0 !important;
             width: 48% !important;
             height: 100% !important;
@@ -2777,13 +3635,12 @@
             width: 26px;
             height: 26px;
             flex: 0 0 26px;
-            border: 1px solid;
-            border-radius: 8px;
             overflow: hidden;
+            border: 1px solid rgba(0,212,255,0.2);
+            border-radius: 8px;
             color: #006B8F;
         }
         .related-app-link-icon img { width: 20px; height: 20px; object-fit: contain; }
-        .related-app-link-label { min-width: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 10px; font-weight: 800; }
         .related-app-link-arrow { flex: 0 0 auto; opacity: .55; }
         #related-app-panel {
             position: fixed;
@@ -2823,6 +3680,702 @@
         @media (prefers-reduced-motion: reduce) {
             #related-app-panel, .related-app-link, .related-apps-list { transition: none !important; }
         }
+
+        /* Keep teaching-document cards readable and keep every action visible. */
+        .resource-card {
+            width: 100% !important;
+            max-width: none !important;
+            min-width: 0 !important;
+            min-height: 258px !important;
+            height: 100% !important;
+            overflow: hidden !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 0 !important;
+            padding: 0 0 12px !important;
+        }
+        .resource-card > div:first-child {
+            display: block !important;
+            width: 100% !important;
+            height: 3px !important;
+            min-height: 3px !important;
+            flex: 0 0 3px !important;
+        }
+        .resource-card > div:nth-child(2) {
+            width: 100% !important;
+            height: auto !important;
+            min-height: 0 !important;
+            flex: 1 1 auto !important;
+            padding: 18px 18px 12px !important;
+        }
+        .resource-card > div:nth-child(2) > div {
+            position: static !important;
+            width: 100% !important;
+            height: auto !important;
+            min-height: 0 !important;
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: flex-start !important;
+            gap: 12px !important;
+        }
+        .resource-card > div:nth-child(2) > div > div:first-child {
+            display: flex !important;
+            position: relative !important;
+            top: auto !important;
+            left: auto !important;
+            width: 54px !important;
+            height: 64px !important;
+            min-width: 54px !important;
+            flex: 0 0 54px !important;
+            padding: 0 !important;
+            overflow: hidden !important;
+        }
+        .resource-card > div:nth-child(2) > div > div:nth-child(2) {
+            position: static !important;
+            width: auto !important;
+            height: auto !important;
+            min-width: 0 !important;
+            flex: 1 1 auto !important;
+            padding: 0 !important;
+            transform: none !important;
+            text-align: left !important;
+        }
+        .resource-card > div:nth-child(2) > div > div:nth-child(2) > div:first-child {
+            display: -webkit-box !important;
+            max-height: 54px !important;
+            overflow: hidden !important;
+            overflow-wrap: anywhere !important;
+            word-break: break-word !important;
+            text-align: left !important;
+        }
+        .resource-card > div:nth-child(2) > div > div:nth-child(2) > div:last-child {
+            justify-content: flex-start !important;
+            margin-top: 6px !important;
+        }
+        .resource-card > div:nth-child(3) {
+            display: block !important;
+            width: auto !important;
+            height: 1px !important;
+            min-height: 1px !important;
+            flex: 0 0 1px !important;
+            margin: 0 18px !important;
+        }
+        .resource-card > div:last-child {
+            position: static !important;
+            left: auto !important;
+            right: auto !important;
+            bottom: auto !important;
+            z-index: 1 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: flex-end !important;
+            flex-wrap: wrap !important;
+            gap: 6px !important;
+            width: auto !important;
+            min-height: 38px !important;
+            padding: 10px 14px 0 !important;
+            margin: auto 0 0 !important;
+        }
+        .resource-card > div:last-child > span {
+            display: block !important;
+            min-width: 0 !important;
+            flex: 1 1 70px !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+            white-space: nowrap !important;
+        }
+        .resource-card > div:last-child > a,
+        .resource-card > div:last-child > button {
+            flex: 0 0 auto !important;
+            min-width: 30px !important;
+            min-height: 30px !important;
+            white-space: nowrap !important;
+        }
+        .resource-card > div:last-child > a { display: inline-flex !important; }
+        @media (max-width: 640px) {
+            #ba-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+            .resource-card { min-height: 246px !important; }
+            .resource-card > div:nth-child(2) { padding: 16px 14px 10px !important; }
+            .resource-card > div:last-child { padding-left: 10px !important; padding-right: 10px !important; }
+        }
+
+        /* Match document cards to the vertical cover shape used by Bahan Ajar. */
+        .resource-card {
+            position: relative !important;
+            width: 100% !important;
+            max-width: 156px !important;
+            min-height: 238px !important;
+            height: 238px !important;
+            justify-self: center !important;
+            overflow: hidden !important;
+            border: 0 !important;
+            border-radius: 28px !important;
+            background: linear-gradient(180deg, #FFFFFF 0 68%, var(--card-accent, #00A9CC) 68% 100%) !important;
+            box-shadow: 0 16px 24px rgba(148,163,184,0.34) !important;
+        }
+        .resource-card::before {
+            top: 12px !important;
+            left: 50% !important;
+            width: 42px !important;
+            height: 42px !important;
+            transform: translateX(-50%) !important;
+            display: grid !important;
+            place-items: center !important;
+            border-radius: 50% !important;
+            background: #FFFFFF !important;
+            color: #1E293B !important;
+            font-size: 13px !important;
+            font-weight: 900 !important;
+            box-shadow: 0 5px 12px rgba(15,23,42,0.18) !important;
+            z-index: 5 !important;
+        }
+        .resource-card > div:first-child {
+            display: none !important;
+        }
+        .resource-card > div:nth-child(2) {
+            position: relative !important;
+            z-index: 1 !important;
+            width: 100% !important;
+            height: 174px !important;
+            min-height: 174px !important;
+            flex: 0 0 174px !important;
+            padding: 58px 12px 0 !important;
+        }
+        .resource-card > div:nth-child(2) > div {
+            width: 100% !important;
+            height: 116px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: flex-start !important;
+            gap: 8px !important;
+        }
+        .resource-card > div:nth-child(2) > div > div:first-child {
+            display: flex !important;
+            width: 52px !important;
+            height: 52px !important;
+            min-width: 52px !important;
+            flex: 0 0 52px !important;
+            border-radius: 14px !important;
+            box-shadow: 0 5px 12px rgba(15,23,42,0.12) !important;
+        }
+        .resource-card > div:nth-child(2) > div > div:nth-child(2) {
+            width: 100% !important;
+            height: auto !important;
+            min-width: 0 !important;
+            flex: 0 0 auto !important;
+            text-align: center !important;
+        }
+        .resource-card > div:nth-child(2) > div > div:nth-child(2) > div:first-child {
+            display: -webkit-box !important;
+            max-height: 32px !important;
+            overflow: hidden !important;
+            text-align: center !important;
+            font-size: 10px !important;
+            line-height: 1.2 !important;
+            line-clamp: 2 !important;
+            -webkit-line-clamp: 2 !important;
+            -webkit-box-orient: vertical !important;
+        }
+        .resource-card > div:nth-child(2) > div > div:nth-child(2) > div:last-child {
+            justify-content: center !important;
+            margin-top: 5px !important;
+            max-height: 24px !important;
+            overflow: hidden !important;
+        }
+        .resource-card > div:nth-child(3) {
+            display: none !important;
+        }
+        .resource-card > div:last-child {
+            position: absolute !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 10px !important;
+            z-index: 4 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            flex-wrap: wrap !important;
+            gap: 5px !important;
+            min-height: 30px !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .resource-card > div:last-child > span {
+            display: none !important;
+        }
+        .resource-card > div:last-child > a,
+        .resource-card > div:last-child > button {
+            width: 30px !important;
+            height: 28px !important;
+            min-width: 30px !important;
+            min-height: 28px !important;
+            padding: 0 !important;
+            border-radius: 9px !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 0 !important;
+            font-size: 0 !important;
+            background: #FFFFFF !important;
+            border-color: rgba(255,255,255,0.9) !important;
+            box-shadow: 0 2px 6px rgba(15,23,42,0.16) !important;
+        }
+        .resource-card > div:last-child > a svg,
+        .resource-card > div:last-child > button svg {
+            width: 13px !important;
+            height: 13px !important;
+        }
+        @media (max-width: 640px) {
+            .resource-card { max-width: 156px !important; height: 238px !important; }
+        }
+
+        /* Simple document cards: clear hierarchy, predictable height, no overlap. */
+        .resource-card,
+        .infographic-doc-card {
+            position: relative !important;
+            width: 100% !important;
+            max-width: none !important;
+            min-width: 0 !important;
+            min-height: 260px !important;
+            height: auto !important;
+            overflow: hidden !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 0 !important;
+            padding: 18px !important;
+            border: 1px solid #C9D9E2 !important;
+            border-radius: 16px !important;
+            background: #FFFFFF !important;
+            box-shadow: 0 8px 20px rgba(15,23,42,0.08) !important;
+        }
+        .resource-card::before,
+        .infographic-doc-card::before {
+            display: none !important;
+        }
+        .resource-card > div:first-child {
+            display: none !important;
+        }
+        .resource-card > div:nth-child(2) {
+            width: 100% !important;
+            height: auto !important;
+            min-height: 0 !important;
+            flex: 1 1 auto !important;
+            padding: 0 !important;
+        }
+        .resource-card > div:nth-child(2) > div {
+            width: 100% !important;
+            height: auto !important;
+            min-height: 0 !important;
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: flex-start !important;
+            gap: 12px !important;
+        }
+        .resource-card > div:nth-child(2) > div > div:first-child {
+            display: flex !important;
+            position: relative !important;
+            width: 42px !important;
+            height: 42px !important;
+            min-width: 42px !important;
+            flex: 0 0 42px !important;
+            border-radius: 12px !important;
+            overflow: hidden !important;
+        }
+        .resource-card > div:nth-child(2) > div > div:nth-child(2) {
+            position: static !important;
+            width: auto !important;
+            height: auto !important;
+            min-width: 0 !important;
+            flex: 1 1 auto !important;
+            padding: 0 !important;
+            transform: none !important;
+            text-align: left !important;
+        }
+        .resource-card > div:nth-child(2) > div > div:nth-child(2) > div:first-child {
+            display: -webkit-box !important;
+            max-height: 44px !important;
+            overflow: hidden !important;
+            overflow-wrap: anywhere !important;
+            word-break: break-word !important;
+            font-size: 13px !important;
+            line-height: 1.35 !important;
+            text-align: left !important;
+            line-clamp: 2 !important;
+            -webkit-line-clamp: 2 !important;
+            -webkit-box-orient: vertical !important;
+        }
+        .resource-card > div:nth-child(2) > div > div:nth-child(2) > div:last-child {
+            justify-content: flex-start !important;
+            flex-wrap: wrap !important;
+            max-height: 52px !important;
+            margin-top: 8px !important;
+            overflow: hidden !important;
+        }
+        .resource-card > div:nth-child(3) {
+            display: none !important;
+        }
+        .resource-card > div:last-child {
+            position: static !important;
+            width: 100% !important;
+            min-height: 38px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: flex-end !important;
+            flex-wrap: nowrap !important;
+            gap: 6px !important;
+            padding: 16px 0 0 !important;
+            margin: auto 0 0 !important;
+        }
+        .resource-card > div:last-child > span {
+            display: block !important;
+            min-width: 0 !important;
+            flex: 1 1 auto !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+            white-space: nowrap !important;
+        }
+        .resource-card > div:last-child > a {
+            min-width: 92px !important;
+            height: 34px !important;
+            padding: 0 12px !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 5px !important;
+            border-radius: 10px !important;
+            font-size: 9px !important;
+            white-space: nowrap !important;
+            overflow: visible !important;
+        }
+        .resource-card > div:last-child > button {
+            width: 34px !important;
+            height: 34px !important;
+            min-width: 34px !important;
+            padding: 0 !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            border-radius: 10px !important;
+        }
+        .resource-card > div:last-child > a svg,
+        .resource-card > div:last-child > button svg {
+            width: 14px !important;
+            height: 14px !important;
+            flex: 0 0 auto !important;
+        }
+        .infographic-doc-card {
+            min-height: 260px !important;
+            background: #FFFFFF !important;
+        }
+        .infographic-doc-card .infographic-art {
+            width: 100% !important;
+            min-height: 0 !important;
+            flex: 1 1 auto !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            justify-content: flex-start !important;
+            padding: 0 !important;
+            overflow: visible !important;
+            text-align: left !important;
+        }
+        .infographic-doc-card .infographic-art > svg,
+        .infographic-doc-card .infographic-art > i {
+            width: 42px !important;
+            height: 42px !important;
+            margin-bottom: 18px !important;
+            padding: 10px !important;
+            border-radius: 12px !important;
+            background: #E4F3F7 !important;
+            box-sizing: content-box !important;
+        }
+        .infographic-doc-card .infographic-title {
+            width: 100% !important;
+            max-height: 44px !important;
+            margin-top: 0 !important;
+            font-size: 13px !important;
+            line-height: 1.35 !important;
+            text-align: left !important;
+            line-clamp: 2 !important;
+            -webkit-line-clamp: 2 !important;
+            -webkit-box-orient: vertical !important;
+        }
+        .infographic-doc-card .infographic-meta {
+            width: 100% !important;
+            max-height: 48px !important;
+            margin-top: 8px !important;
+            font-size: 9px !important;
+            line-height: 1.45 !important;
+            text-align: left !important;
+            white-space: normal !important;
+            overflow-wrap: anywhere !important;
+        }
+        .infographic-doc-card > div:nth-child(2) {
+            display: none !important;
+        }
+        .infographic-doc-card .infographic-actions {
+            position: static !important;
+            width: 100% !important;
+            min-height: 34px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: flex-end !important;
+            gap: 6px !important;
+            padding-top: 16px !important;
+            margin: auto 0 0 !important;
+        }
+        .infographic-doc-card .infographic-actions button {
+            width: 34px !important;
+            height: 34px !important;
+            min-width: 34px !important;
+            border-radius: 10px !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+        @media (max-width: 640px) {
+            .resource-card,
+            .infographic-doc-card { min-height: 252px !important; padding: 16px !important; }
+            .resource-card > div:last-child > a { min-width: 84px !important; padding: 0 8px !important; }
+        }
+
+        /* Long names must wrap and expand the card instead of disappearing. */
+        .resource-card > div:nth-child(2) > div > div:nth-child(2) > div:first-child,
+        .infographic-doc-card .infographic-title,
+        .infographic-doc-card .infographic-meta {
+            max-height: none !important;
+            height: auto !important;
+            overflow: visible !important;
+            line-clamp: unset !important;
+            -webkit-line-clamp: unset !important;
+            white-space: normal !important;
+        }
+        .resource-card > div:nth-child(2) > div > div:nth-child(2) > div:last-child {
+            max-height: none !important;
+            overflow: visible !important;
+        }
+        .resource-card > div:last-child,
+        .infographic-doc-card .infographic-actions {
+            flex-shrink: 0 !important;
+        }
+
+        /* Bahan Ajar: one metadata line and a single aligned action row. */
+        #page-bahan-ajar .document-frame-note { display: none !important; }
+        #ba-grid .infographic-doc-card {
+            min-height: 260px !important;
+            padding: 18px !important;
+        }
+        #ba-grid .infographic-art {
+            flex: 1 1 auto !important;
+            min-height: 0 !important;
+        }
+        #ba-grid .infographic-meta {
+            display: block !important;
+            max-height: 42px !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+            white-space: normal !important;
+            font-size: 9px !important;
+            font-weight: 700 !important;
+            line-height: 1.4 !important;
+        }
+        #ba-grid .infographic-actions {
+            position: static !important;
+            display: grid !important;
+            grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+            align-items: center !important;
+            justify-content: stretch !important;
+            gap: 7px !important;
+            width: 100% !important;
+            min-height: 38px !important;
+            margin: auto 0 0 !important;
+            padding: 12px 0 0 !important;
+            border-top: 1px solid #E2E8F0 !important;
+        }
+        #ba-grid .infographic-actions button {
+            width: 100% !important;
+            height: 36px !important;
+            min-width: 0 !important;
+            min-height: 36px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            display: grid !important;
+            place-items: center !important;
+            border-radius: 10px !important;
+            box-sizing: border-box !important;
+        }
+        #ba-grid .infographic-actions button svg {
+            width: 16px !important;
+            height: 16px !important;
+        }
+        #ba-grid .infographic-title {
+            font-size: 13px !important;
+            font-weight: 900 !important;
+            line-height: 1.3 !important;
+            text-align: center !important;
+        }
+        #ba-grid .infographic-art {
+            align-items: center !important;
+            text-align: center !important;
+        }
+        #ba-grid .infographic-meta {
+            text-align: center !important;
+        }
+        #ma-grid .infographic-art {
+            align-items: center !important;
+            text-align: center !important;
+        }
+        #ma-grid .infographic-doc-card {
+            min-height: 260px !important;
+        }
+        #ma-grid .infographic-title {
+            width: 100% !important;
+            font-size: 13px !important;
+            font-weight: 900 !important;
+            line-height: 1.3 !important;
+            text-align: center !important;
+        }
+        #ma-grid .infographic-meta {
+            display: block !important;
+            width: 100% !important;
+            max-height: 42px !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+            white-space: normal !important;
+            font-size: 9px !important;
+            font-weight: 700 !important;
+            line-height: 1.4 !important;
+            text-align: center !important;
+        }
+        #ma-grid .infographic-actions {
+            position: static !important;
+            display: grid !important;
+            grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+            align-items: center !important;
+            justify-content: stretch !important;
+            gap: 7px !important;
+            width: 100% !important;
+            min-height: 38px !important;
+            margin: auto 0 0 !important;
+            padding: 12px 0 0 !important;
+            border-top: 1px solid #E2E8F0 !important;
+        }
+        #ma-grid .infographic-actions a,
+        #ma-grid .infographic-actions button {
+            width: 100% !important;
+            height: 36px !important;
+            min-width: 0 !important;
+            min-height: 36px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            display: grid !important;
+            place-items: center !important;
+            border-radius: 10px !important;
+            box-sizing: border-box !important;
+            font-size: 0 !important;
+        }
+        #ma-grid .infographic-actions a svg,
+        #ma-grid .infographic-actions button svg {
+            width: 16px !important;
+            height: 16px !important;
+        }
+        #cp-grid,
+        #prota-prosem-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        }
+        #cp-grid .infographic-art,
+        #prota-prosem-grid .infographic-art {
+            align-items: center !important;
+            text-align: center !important;
+        }
+        #cp-grid .infographic-doc-card,
+        #prota-prosem-grid .infographic-doc-card {
+            min-height: 260px !important;
+        }
+        #cp-grid .infographic-title,
+        #prota-prosem-grid .infographic-title {
+            width: 100% !important;
+            font-size: 13px !important;
+            font-weight: 900 !important;
+            line-height: 1.3 !important;
+            text-align: center !important;
+        }
+        #cp-grid .infographic-meta,
+        #prota-prosem-grid .infographic-meta {
+            display: block !important;
+            width: 100% !important;
+            max-height: 42px !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+            white-space: normal !important;
+            font-size: 9px !important;
+            font-weight: 700 !important;
+            line-height: 1.4 !important;
+            text-align: center !important;
+        }
+        #cp-grid .infographic-actions,
+        #prota-prosem-grid .infographic-actions {
+            position: static !important;
+            display: grid !important;
+            grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+            align-items: center !important;
+            justify-content: stretch !important;
+            gap: 7px !important;
+            width: 100% !important;
+            min-height: 38px !important;
+            margin: auto 0 0 !important;
+            padding: 12px 0 0 !important;
+            border-top: 1px solid #E2E8F0 !important;
+        }
+        #cp-grid .infographic-actions a,
+        #cp-grid .infographic-actions button,
+        #prota-prosem-grid .infographic-actions a,
+        #prota-prosem-grid .infographic-actions button {
+            width: 100% !important;
+            height: 36px !important;
+            min-width: 0 !important;
+            min-height: 36px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            display: grid !important;
+            place-items: center !important;
+            border-radius: 10px !important;
+            box-sizing: border-box !important;
+            font-size: 0 !important;
+        }
+        #cp-grid .infographic-actions a svg,
+        #cp-grid .infographic-actions button svg,
+        #prota-prosem-grid .infographic-actions a svg,
+        #prota-prosem-grid .infographic-actions button svg {
+            width: 16px !important;
+            height: 16px !important;
+        }
+        @media (min-width: 768px) {
+            #cp-grid,
+            #prota-prosem-grid { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+        }
+        @media (min-width: 1024px) {
+            #cp-grid,
+            #prota-prosem-grid { grid-template-columns: repeat(6, minmax(0, 1fr)) !important; }
+        }
+        @media (max-width: 640px) {
+            #cp-grid,
+            #prota-prosem-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+        }
+        #ma-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        }
+        @media (min-width: 768px) {
+            #ma-grid { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+        }
+        @media (min-width: 1024px) {
+            #ma-grid { grid-template-columns: repeat(6, minmax(0, 1fr)) !important; }
+        }
+        @media (max-width: 640px) {
+            #ma-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+        }
         @media (max-width: 768px) {
             /* Keep mobile scrolling light by removing decorative infinite loops only. */
             body.app-ready [style*="animation:spin"],
@@ -2858,9 +4411,6 @@
             <div class="login-box">
                 <div class="login-form-side">
                     <div class="login-brand">
-                    <div class="login-brand-mark">
-                        <i data-lucide="graduation-cap" class="w-4 h-4"></i>
-                    </div>
                     <div>
                         <div class="login-brand-name">DLPK</div>
                         <div class="login-brand-sub">Administrasi Digital</div>
@@ -2875,9 +4425,9 @@
                         <input type="password" id="login-password" placeholder="Password Sistem" onkeyup="if(event.key === 'Enter') attemptLogin()">
                     </div>
 
-                    <button onclick="attemptLogin()" class="w-full btn-primary py-3.5 text-sm rounded-2xl shadow-lg shadow-[#00CEC9]/20 flex items-center justify-center gap-3">
+                    <button onclick="attemptLogin()" class="w-[200px] self-center btn-primary py-3 text-xs rounded-xl shadow-lg shadow-[#00CEC9]/20 flex items-center justify-center gap-2">
                         <span>Masuk Sekarang</span>
-                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                     </button>
                 </div>
             </div>
@@ -2997,8 +4547,8 @@
                     <span id="header-identity-guru" class="text-[8px] font-bold text-[var(--text-muted)] uppercase tracking-[0.1em] mt-0.5">...</span>
                 </div>
                 <div class="h-8 w-[1px] bg-[var(--border)] hidden sm:block"></div>
-                <div class="w-10 h-10 bg-[var(--primary)] rounded-xl flex items-center justify-center text-white shadow-lg transition-all">
-                    <i data-lucide="user-check" class="w-5 h-5"></i>
+                <div class="w-9 h-9 bg-[var(--primary)] rounded-xl flex items-center justify-center text-white shadow-lg transition-all">
+                    <i data-lucide="user-check" class="w-[18px] h-[18px]"></i>
                 </div>
             </div>
         </header>
@@ -3282,31 +4832,32 @@
                     </div>
                 </div>
                 
-                <div class="glass-card p-8 border-[var(--border)]">
-                    <div class="flex flex-col lg:flex-row items-end gap-6">
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 flex-1 w-full">
-                            <div class="space-y-2">
-                                <label class="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest pl-1 block">Lompat ke Tanggal</label>
-                                <input type="date" id="quick-date" onchange="updateQuickDay()" class="modern-input font-bold text-[var(--text-main)]">
-                            </div>
-                            <div class="space-y-2">
-                                <label class="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest pl-1 block">Status Hari</label>
-                                <div class="bg-[var(--primary)] text-white min-h-[46px] rounded-xl flex items-center justify-center text-center px-4 font-black text-xs tracking-[0.1em] uppercase shadow-lg shadow-[#00CEC9]/10" id="quick-day-name">PILIH TANGGAL</div>
-                            </div>
-                            <div class="space-y-2">
-                                <label class="text-[10px] font-black text-rose-400 uppercase tracking-widest pl-1 block">Keterangan Libur (Opsional)</label>
-                                <input type="text" id="quick-ket-libur" placeholder="Contoh: Libur Nasional" class="modern-input border-rose-500/30 focus:border-rose-500 text-rose-400 font-bold">
-                            </div>
+                <section class="attendance-control-panel" aria-label="Kontrol presensi">
+                    <div class="attendance-control-heading">
+                        <div>
+                            <div class="attendance-control-kicker">Kontrol Harian</div>
+                            <h4>Atur Kehadiran Siswa</h4>
                         </div>
-                        <div class="flex flex-wrap gap-3 w-full lg:w-auto">
-                            <button onclick="jumpToDate()" class="btn-primary flex-1 lg:flex-none py-4 px-8">Terapkan</button>
-                            <button onclick="deleteAttendanceDay()" class="bg-[rgba(239,68,68,0.1)] border border-rose-500 text-rose-400 hover:bg-rose-500 hover:text-white p-3.5 rounded-xl transition-all active:scale-90 shadow-sm" title="Hapus Data Tanggal"><i data-lucide="trash-2" class="w-5 h-5"></i></button>
-                            <div class="w-[1px] h-12 bg-[var(--border)] hidden lg:block mx-2"></div>
-                            <button onclick="bulkAbsen('H')" class="bg-[#F8FAFC] border border-[var(--primary)] text-[var(--primary)] hover:bg-[var(--primary)] hover:text-white px-6 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-sm transition-all transform hover:-translate-y-1 flex-1 lg:flex-none flex items-center justify-center gap-2"><i data-lucide="check-circle" class="w-4 h-4"></i> Hadir Semua</button>
-                            <button onclick="bulkAbsen('L')" class="bg-[#F8FAFC] border border-rose-500 text-rose-500 hover:bg-rose-500 hover:text-white px-6 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-sm transition-all transform hover:-translate-y-1 flex-1 lg:flex-none flex items-center justify-center gap-2"><i data-lucide="x-circle" class="w-4 h-4"></i> Setel Libur</button>
+                        <i data-lucide="sliders-horizontal" aria-hidden="true"></i>
+                    </div>
+                    <div class="attendance-fields">
+                        <div class="attendance-date-row">
+                            <div class="attendance-field">
+                                <label for="quick-date">Pilih Tanggal</label>
+                                <input type="date" id="quick-date" onchange="updateQuickDay()">
+                            </div>
+                            <button type="button" onclick="bulkAbsen('H')" class="attendance-action attendance-action-present"><i data-lucide="check-circle"></i><span>Hadir Semua</span></button>
+                            <button type="button" onclick="deleteAttendanceDay()" class="attendance-action attendance-action-delete" title="Hapus Data Tanggal" aria-label="Hapus data tanggal"><i data-lucide="trash-2"></i></button>
+                        </div>
+                        <div class="attendance-holiday-row">
+                            <div class="attendance-field attendance-field-holiday">
+                                <label for="quick-ket-libur">Keterangan Libur <span>(Opsional)</span></label>
+                                <input type="text" id="quick-ket-libur" placeholder="Contoh: Libur Nasional">
+                            </div>
+                            <button type="button" onclick="bulkAbsen('L')" class="attendance-action attendance-action-holiday"><i data-lucide="check-circle"></i><span>Setel Libur</span></button>
                         </div>
                     </div>
-                </div>
+                </section>
                 
                 <div class="glass-card border-[rgba(0,212,255,0.12)] overflow-hidden">
                     <div class="overflow-x-auto overflow-y-auto" style="max-height: 75vh;">
@@ -3409,8 +4960,9 @@
             </div>
 
             <div id="page-bahan-ajar" class="hidden space-y-6 page-transition">
+                <div class="document-frame">
                 <!-- Header -->
-                <div class="relative overflow-hidden rounded-3xl p-8" style="background:linear-gradient(135deg,#0d1829,#0a1628,#0f1f3d);border:1px solid rgba(0,212,255,0.15);">
+                <div class="document-frame-header relative overflow-hidden rounded-3xl p-8" style="background:linear-gradient(135deg,#0d1829,#0a1628,#0f1f3d);border:1px solid rgba(0,212,255,0.15);">
                     <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse at 80% 40%,rgba(0,212,255,0.08),transparent 55%);"></div>
                     <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                         <div class="flex items-center gap-5">
@@ -3430,7 +4982,11 @@
                 </div>
 
                 <!-- Bahan ajar grid -->
-                <div id="ba-grid" class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"></div>
+                <div class="document-frame-content">
+                    <div id="ba-grid" class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"></div>
+                    <div class="document-frame-note">Kelola dan buka dokumen bahan ajar per mata pelajaran.</div>
+                </div>
+                </div>
             </div>
 
             <!-- Modal Upload Bahan Ajar -->
@@ -3562,8 +5118,9 @@
             </div>
 
             <div id="page-modul-ajar" class="hidden space-y-6 page-transition">
+                <div class="document-frame">
                 <!-- Header -->
-                <div class="relative overflow-hidden rounded-3xl p-8" style="background:linear-gradient(135deg,#0d1829,#0a1628,#0f1f3d);border:1px solid rgba(124,58,237,0.2);">
+                <div class="document-frame-header relative overflow-hidden rounded-3xl p-8" style="background:linear-gradient(135deg,#0d1829,#0a1628,#0f1f3d);border:1px solid rgba(124,58,237,0.2);">
                     <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse at 80% 40%,rgba(124,58,237,0.08),transparent 55%);"></div>
                     <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                         <div class="flex items-center gap-5">
@@ -3582,11 +5139,16 @@
                     </div>
                 </div>
                 <!-- Grid modul ajar -->
-                <div id="ma-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+                <div class="document-frame-content">
+                    <div id="ma-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+                    <div class="document-frame-note">Kelola modul ajar sesuai mata pelajaran, kelas, dan semester.</div>
+                </div>
+                </div>
             </div>
 
             <div id="page-capaian-pembelajaran" class="hidden space-y-6 page-transition">
-                <div class="relative overflow-hidden rounded-3xl p-8" style="background:#FFFFFF;border:1px solid #B8D7E0;box-shadow:0 8px 24px rgba(15,23,42,0.08);">
+                <div class="document-frame">
+                <div class="document-frame-header relative overflow-hidden rounded-3xl p-8" style="background:#FFFFFF;border:1px solid #B8D7E0;box-shadow:0 8px 24px rgba(15,23,42,0.08);">
                     <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                         <div class="flex items-center gap-5">
                             <div class="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0" style="background:#E0F2FE;border:1px solid #8CCCDC;color:#006B8F;">
@@ -3603,11 +5165,16 @@
                         </button>
                     </div>
                 </div>
-                <div id="cp-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+                <div class="document-frame-content">
+                    <div id="cp-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+                    <div class="document-frame-note">Kelola dokumen CP/ATP dan buka berkas yang tersimpan.</div>
+                </div>
+                </div>
             </div>
 
             <div id="page-prota-prosem" class="hidden space-y-6 page-transition">
-                <div class="relative overflow-hidden rounded-3xl p-8" style="background:linear-gradient(135deg,#F8FAFC 0%,#EEF2FF 100%);border:1px solid #C7D2FE;box-shadow:0 8px 24px rgba(15,23,42,0.08);">
+                <div class="document-frame">
+                <div class="document-frame-header relative overflow-hidden rounded-3xl p-8" style="background:linear-gradient(135deg,#F8FAFC 0%,#EEF2FF 100%);border:1px solid #C7D2FE;box-shadow:0 8px 24px rgba(15,23,42,0.08);">
                     <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                         <div class="flex items-center gap-5">
                             <div class="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0" style="background:#EEF2FF;border:1px solid #C7D2FE;color:#4338CA;">
@@ -3624,7 +5191,11 @@
                         </button>
                     </div>
                 </div>
-                <div id="prota-prosem-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+                <div class="document-frame-content">
+                    <div id="prota-prosem-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+                    <div class="document-frame-note">Kelola dokumen Prota dan Prosem untuk kebutuhan administrasi kelas.</div>
+                </div>
+                </div>
             </div>
 
             <!-- Modal Tambah Modul Ajar -->
@@ -5664,22 +7235,8 @@
         }
 
         function setupDashboardScheduleScroll() {
-            const scrollArea = document.getElementById('main-scroll-area');
             const schedule = document.getElementById('dash-jadwal-hari-ini');
-            if (!scrollArea || !schedule || scrollArea.dataset.scheduleScrollReady === '1') return;
-            scrollArea.dataset.scheduleScrollReady = '1';
-            let previousScrollTop = scrollArea.scrollTop;
-            let directionTimer = null;
-            scrollArea.addEventListener('scroll', () => {
-                const currentScrollTop = scrollArea.scrollTop;
-                const delta = currentScrollTop - previousScrollTop;
-                if (Math.abs(delta) < 4) return;
-                previousScrollTop = currentScrollTop;
-                clearTimeout(directionTimer);
-                directionTimer = setTimeout(() => {
-                    schedule.classList.toggle('is-scroll-collapsed', delta > 0 && currentScrollTop > 24);
-                }, 30);
-            }, { passive: true });
+            if (schedule) schedule.classList.remove('is-scroll-collapsed');
         }
 
         // -- POPUP PERGANTIAN JAM --
@@ -5913,29 +7470,14 @@
                 ];
                 const [accent, bg, bdr] = bookColors[idx % bookColors.length];
                 return `
-                <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
-                    <!-- Icon buku besar -->
-                    <div style="position:relative;width:90px;height:110px;border-radius:6px 14px 14px 6px;background:${bg};border:1px solid ${bdr};border-left:none;overflow:hidden;cursor:pointer;" onclick="bukaPreviewBA('${id}')">
-                        <!-- Punggung buku -->
-                        <div style="position:absolute;left:0;top:0;bottom:0;width:10px;background:${accent};"></div>
-                        <!-- Garis halaman -->
-                        <div style="position:absolute;top:12px;left:18px;right:8px;height:1px;background:${accent};opacity:.2;"></div>
-                        <div style="position:absolute;top:17px;left:18px;right:12px;height:1px;background:${accent};opacity:.15;"></div>
-                        <div style="position:absolute;bottom:12px;left:18px;right:8px;height:1px;background:${accent};opacity:.2;"></div>
-                        <!-- Konten -->
-                        <div style="position:absolute;left:10px;right:0;top:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:8px 6px;">
-                            <i data-lucide="book-open" style="width:28px;height:28px;color:${accent};flex-shrink:0;"></i>
-                            <div style="text-align:center;line-height:1.3;">
-                                <div style="font-size:8px;font-weight:900;color:${accent};text-transform:uppercase;letter-spacing:.04em;">${v.mapel||''}</div>
-                                ${v.kelas ? `<div style="font-size:7px;font-weight:700;color:rgba(255,255,255,0.45);margin-top:1px;">${v.kelas}</div>` : ''}
-                                ${v.semester ? `<div style="font-size:7px;font-weight:700;color:rgba(255,255,255,0.35);">${v.semester}</div>` : ''}
-                            </div>
-                        </div>
+                <div class="infographic-doc-card" style="--card-accent:${accent};display:flex;flex-direction:column;align-items:center;gap:8px;" onclick="if (!event.target.closest('button')) bukaPreviewBA('${id}')">
+                    <div class="infographic-art" style="background:${bg};">
+                        <i data-lucide="book-open" style="width:28px;height:28px;color:${accent};"></i>
+                        <div class="infographic-title">${v.judul}</div>
+                        <div class="infographic-meta">${v.mapel || ''}${v.kelas ? ` · ${v.kelas}` : ''}</div>
                     </div>
-                    <!-- Judul -->
-                    <div style="font-size:9px;font-weight:800;color:#E5E7EB;text-align:center;line-height:1.3;width:90px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${v.judul}</div>
-                    <!-- Tombol aksi kecil -->
-                    <div style="display:flex;gap:5px;">
+                    <div class="infographic-footer-icon"><i data-lucide="book-open"></i></div>
+                    <div class="infographic-actions" style="display:flex;gap:5px;">
                         <button onclick="bukaPreviewBA('${id}')" style="width:26px;height:26px;border-radius:8px;background:${bg};border:1px solid ${bdr};cursor:pointer;display:flex;align-items:center;justify-content:center;" title="Preview">
                             <i data-lucide="eye" style="width:12px;height:12px;color:${accent};"></i>
                         </button>
@@ -6062,36 +7604,22 @@
             grid.innerHTML = items.map(([id, v], idx) => {
                 const [bg, bdr, accent] = colors[idx % colors.length];
                 return `
-                <div class="relative overflow-hidden rounded-2xl flex flex-col" style="background:#07101F;border:1px solid ${bdr};">
-                    <div style="height:3px;background:linear-gradient(90deg,${accent},transparent);"></div>
-                    <div style="padding:18px 18px 12px;">
-                        <div style="display:flex;align-items:flex-start;gap:12px;">
-                            <div style="width:44px;height:52px;border-radius:10px;background:linear-gradient(145deg,rgba(168,85,247,0.18),rgba(124,58,237,0.08));border:1px solid rgba(168,85,247,0.25);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;position:relative;">
-                                <i data-lucide="book-open-check" style="width:18px;height:18px;color:#A855F7;"></i>
-                                <span style="font-size:6px;font-weight:900;color:rgba(168,85,247,0.7);letter-spacing:.05em;margin-top:2px;">MODUL</span>
-                                <div style="position:absolute;top:0;right:0;width:10px;height:10px;background:#07101F;clip-path:polygon(100% 0,0 0,100% 100%);"></div>
-                            </div>
-                            <div style="flex:1;min-width:0;">
-                                <div style="font-size:13px;font-weight:900;color:#E5E7EB;line-height:1.3;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${v.judul}</div>
-                                <div style="display:flex;flex-wrap:wrap;gap:4px;">
-                                    ${v.mapel ? `<span style="font-size:8px;font-weight:800;padding:2px 8px;border-radius:100px;background:${bg};color:${accent};border:1px solid ${bdr};">${v.mapel}</span>` : ''}
-                                    ${v.kelas ? `<span style="font-size:8px;font-weight:800;padding:2px 8px;border-radius:100px;background:rgba(0,212,255,0.1);color:#00D4FF;border:1px solid rgba(0,212,255,0.2);">${v.kelas}</span>` : ''}
-                                    ${v.semester ? `<span style="font-size:8px;font-weight:800;padding:2px 8px;border-radius:100px;background:rgba(39,174,96,0.1);color:#27AE60;border:1px solid rgba(39,174,96,0.2);">TA ${v.semester}</span>` : ''}
-                                </div>
-                            </div>
-                        </div>
+                <div class="infographic-doc-card" style="--card-accent:${accent};display:flex;flex-direction:column;align-items:center;gap:8px;" onclick="if (!event.target.closest('button,a')) this.querySelector('a').click()">
+                    <div class="infographic-art" style="background:${bg};">
+                        <i data-lucide="book-open-check" style="width:28px;height:28px;color:${accent};"></i>
+                        <div class="infographic-title">${v.judul}</div>
+                        <div class="infographic-meta">${v.mapel || ''}${v.kelas ? ` · ${v.kelas}` : ''}</div>
                     </div>
-                    <div style="height:1px;background:linear-gradient(90deg,${bdr},transparent);margin:0 18px;"></div>
-                    <div style="padding:10px 14px 14px;display:flex;align-items:center;gap:8px;margin-top:auto;">
-                        <span style="font-size:8px;font-weight:700;color:rgba(255,255,255,0.2);flex:1;">${v.tanggal||''}</span>
-                        <a href="${v.url}" target="_blank" style="display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:10px;background:${bg};color:${accent};border:1px solid ${bdr};font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;">
-                            <i data-lucide="external-link" style="width:11px;height:11px;"></i> Buka
+                    <div class="infographic-footer-icon"><i data-lucide="book-open-check"></i></div>
+                    <div class="infographic-actions" style="display:flex;gap:5px;">
+                        <a href="${v.url}" target="_blank" onclick="event.stopPropagation()" style="background:${bg};border:1px solid ${bdr};" title="Buka Modul">
+                            <i data-lucide="eye" style="color:${accent};"></i>
                         </a>
-                        <button onclick="bukaEditModulAjar('${id}')" style="display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:10px;background:rgba(59,130,246,0.1);color:#3B82F6;border:1px solid rgba(59,130,246,0.2);font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;cursor:pointer;">
-                            <i data-lucide="pencil" style="width:11px;height:11px;"></i> Edit
+                        <button onclick="bukaEditModulAjar('${id}')" style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);" title="Edit">
+                            <i data-lucide="pencil" style="color:#3B82F6;"></i>
                         </button>
-                        <button onclick="hapusModulAjar('${id}')" style="width:30px;height:30px;border-radius:8px;background:rgba(239,68,68,0.08);color:#f87171;border:1px solid rgba(239,68,68,0.15);cursor:pointer;display:flex;align-items:center;justify-content:center;">
-                            <i data-lucide="trash-2" style="width:12px;height:12px;"></i>
+                        <button onclick="hapusModulAjar('${id}')" style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.15);" title="Hapus">
+                            <i data-lucide="trash-2" style="color:#f87171;"></i>
                         </button>
                     </div>
                 </div>`;
@@ -6184,23 +7712,18 @@
                 return;
             }
             grid.innerHTML = items.map(([id, v]) => `
-                <div class="relative overflow-hidden rounded-2xl flex flex-col" style="background:#FFFFFF;border:1px solid #B8D7E0;box-shadow:0 4px 16px rgba(15,23,42,0.08);">
-                    <div style="height:3px;background:#006B8F;"></div>
-                    <div style="padding:18px 18px 12px;">
-                        <div style="display:flex;align-items:flex-start;gap:12px;">
-                            <div style="width:44px;height:52px;border-radius:10px;background:#E0F2FE;border:1px solid #8CCCDC;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#006B8F;"><i data-lucide="target" style="width:20px;height:20px;"></i></div>
-                            <div style="flex:1;min-width:0;">
-                                <div style="font-size:13px;font-weight:900;color:#172033;line-height:1.3;margin-bottom:6px;">${v.judul || '-'}</div>
-                                <div style="display:flex;flex-wrap:wrap;gap:4px;">
-                                    ${v.mapel ? `<span style="font-size:8px;font-weight:800;padding:2px 8px;border-radius:100px;background:#E0F2FE;color:#006B8F;border:1px solid #8CCCDC;">${v.mapel}</span>` : ''}
-                                    ${v.kelas ? `<span style="font-size:8px;font-weight:800;padding:2px 8px;border-radius:100px;background:#F1F5F9;color:#334155;border:1px solid #CBD5E1;">${v.kelas}</span>` : ''}
-                                    ${v.tahun ? `<span style="font-size:8px;font-weight:800;padding:2px 8px;border-radius:100px;background:#ECFDF5;color:#047857;border:1px solid #A7F3D0;">TA ${v.tahun}</span>` : ''}
-                                </div>
-                            </div>
-                        </div>
+                <div class="infographic-doc-card" style="--card-accent:#006B8F;display:flex;flex-direction:column;align-items:center;gap:8px;" onclick="if (!event.target.closest('button,a')) this.querySelector('a').click()">
+                    <div class="infographic-art" style="background:#E0F2FE;">
+                        <i data-lucide="target" style="width:28px;height:28px;color:#006B8F;"></i>
+                        <div class="infographic-title">${v.judul || '-'}</div>
+                        <div class="infographic-meta">${v.mapel || ''}${v.kelas ? ` · ${v.kelas}` : ''}</div>
                     </div>
-                    <div style="height:1px;background:#E2E8F0;margin:0 18px;"></div>
-                    <div style="padding:10px 14px 14px;display:flex;align-items:center;gap:8px;margin-top:auto;"><span style="font-size:8px;font-weight:700;color:#64748B;flex:1;">${v.tanggal || ''}</span><a href="${v.url}" target="_blank" style="display:inline-flex;align-items:center;gap:5px;padding:6px 10px;border-radius:10px;background:#E0F2FE;color:#006B8F;border:1px solid #8CCCDC;font-size:9px;font-weight:900;text-transform:uppercase;text-decoration:none;"><i data-lucide="external-link" style="width:11px;height:11px;"></i> Buka</a><button onclick="bukaEditCapaianPembelajaran('${id}')" style="width:30px;height:30px;border-radius:8px;background:#EFF6FF;color:#2563EB;border:1px solid #BFDBFE;cursor:pointer;display:flex;align-items:center;justify-content:center;" title="Edit"><i data-lucide="pencil" style="width:12px;height:12px;"></i></button><button onclick="hapusCapaianPembelajaran('${id}')" style="width:30px;height:30px;border-radius:8px;background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;cursor:pointer;display:flex;align-items:center;justify-content:center;" title="Hapus"><i data-lucide="trash-2" style="width:12px;height:12px;"></i></button></div>
+                    <div class="infographic-footer-icon"><i data-lucide="target"></i></div>
+                    <div class="infographic-actions" style="display:flex;gap:5px;">
+                        <a href="${v.url}" target="_blank" onclick="event.stopPropagation()" style="background:#E0F2FE;border:1px solid #8CCCDC;" title="Buka CP/ATP"><i data-lucide="eye" style="color:#006B8F;"></i></a>
+                        <button onclick="bukaEditCapaianPembelajaran('${id}')" style="background:#EFF6FF;border:1px solid #BFDBFE;" title="Edit"><i data-lucide="pencil" style="color:#2563EB;"></i></button>
+                        <button onclick="hapusCapaianPembelajaran('${id}')" style="background:#FEF2F2;border:1px solid #FECACA;" title="Hapus"><i data-lucide="trash-2" style="color:#DC2626;"></i></button>
+                    </div>
                 </div>`).join('');
             lucide.createIcons();
         }
@@ -6282,23 +7805,18 @@
                 return;
             }
             grid.innerHTML = items.map(([id, v]) => `
-                <div class="relative overflow-hidden rounded-2xl flex flex-col" style="background:#FFFFFF;border:1px solid #C7D2FE;box-shadow:0 4px 16px rgba(15,23,42,0.08);">
-                    <div style="height:3px;background:#4338CA;"></div>
-                    <div style="padding:18px 18px 12px;">
-                        <div style="display:flex;align-items:flex-start;gap:12px;">
-                            <div style="width:44px;height:52px;border-radius:10px;background:#EEF2FF;border:1px solid #C7D2FE;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#4338CA;"><i data-lucide="calendar-range" style="width:20px;height:20px;"></i></div>
-                            <div style="flex:1;min-width:0;">
-                                <div style="font-size:13px;font-weight:900;color:#172033;line-height:1.3;margin-bottom:6px;">${v.judul || '-'}</div>
-                                <div style="display:flex;flex-wrap:wrap;gap:4px;">
-                                    ${v.mapel ? `<span style="font-size:8px;font-weight:800;padding:2px 8px;border-radius:100px;background:#EEF2FF;color:#4338CA;border:1px solid #C7D2FE;">${v.mapel}</span>` : ''}
-                                    ${v.kelas ? `<span style="font-size:8px;font-weight:800;padding:2px 8px;border-radius:100px;background:#F1F5F9;color:#334155;border:1px solid #CBD5E1;">${v.kelas}</span>` : ''}
-                                    ${v.tahun ? `<span style="font-size:8px;font-weight:800;padding:2px 8px;border-radius:100px;background:#ECFDF5;color:#047857;border:1px solid #A7F3D0;">TA ${v.tahun}</span>` : ''}
-                                </div>
-                            </div>
-                        </div>
+                <div class="infographic-doc-card" style="--card-accent:#4338CA;display:flex;flex-direction:column;align-items:center;gap:8px;" onclick="if (!event.target.closest('button,a')) this.querySelector('a').click()">
+                    <div class="infographic-art" style="background:#EEF2FF;">
+                        <i data-lucide="calendar-range" style="width:28px;height:28px;color:#4338CA;"></i>
+                        <div class="infographic-title">${v.judul || '-'}</div>
+                        <div class="infographic-meta">${v.mapel || ''}${v.kelas ? ` · ${v.kelas}` : ''}</div>
                     </div>
-                    <div style="height:1px;background:#E2E8F0;margin:0 18px;"></div>
-                    <div style="padding:10px 14px 14px;display:flex;align-items:center;gap:8px;margin-top:auto;"><span style="font-size:8px;font-weight:700;color:#64748B;flex:1;">${v.tanggal || ''}</span><a href="${v.url}" target="_blank" style="display:inline-flex;align-items:center;gap:5px;padding:6px 10px;border-radius:10px;background:#EEF2FF;color:#4338CA;border:1px solid #C7D2FE;font-size:9px;font-weight:900;text-transform:uppercase;text-decoration:none;"><i data-lucide="external-link" style="width:11px;height:11px;"></i> Buka</a><button onclick="bukaEditProtaProsem('${id}')" style="width:30px;height:30px;border-radius:8px;background:#EFF6FF;color:#2563EB;border:1px solid #BFDBFE;cursor:pointer;display:flex;align-items:center;justify-content:center;" title="Edit"><i data-lucide="pencil" style="width:12px;height:12px;"></i></button><button onclick="hapusProtaProsem('${id}')" style="width:30px;height:30px;border-radius:8px;background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;cursor:pointer;display:flex;align-items:center;justify-content:center;" title="Hapus"><i data-lucide="trash-2" style="width:12px;height:12px;"></i></button></div>
+                    <div class="infographic-footer-icon"><i data-lucide="calendar-range"></i></div>
+                    <div class="infographic-actions" style="display:flex;gap:5px;">
+                        <a href="${v.url}" target="_blank" onclick="event.stopPropagation()" style="background:#EEF2FF;border:1px solid #C7D2FE;" title="Buka Prota/Prosem"><i data-lucide="eye" style="color:#4338CA;"></i></a>
+                        <button onclick="bukaEditProtaProsem('${id}')" style="background:#EFF6FF;border:1px solid #BFDBFE;" title="Edit"><i data-lucide="pencil" style="color:#2563EB;"></i></button>
+                        <button onclick="hapusProtaProsem('${id}')" style="background:#FEF2F2;border:1px solid #FECACA;" title="Hapus"><i data-lucide="trash-2" style="color:#DC2626;"></i></button>
+                    </div>
                 </div>`).join('');
             lucide.createIcons();
         }
