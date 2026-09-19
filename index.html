@@ -7,7 +7,7 @@
     <!-- Use 'default' so the iOS status bar remains visible and not overlapped -->
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#0A1931">
+    <meta name="theme-color" content="#F7FBFF">
     <link rel="manifest" href="manifest.json?v=4">
     <link rel="icon" type="image/png" sizes="192x192" href="icon_dlpk_192.png?v=4">
     <link rel="icon" type="image/png" sizes="512x512" href="icon_dlpk_512.png?v=4">
@@ -252,11 +252,11 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* Opening Screen - Dark Futuristic */
+        /* Opening Screen - Light Welcome */
         #opening-screen { 
             position: fixed; 
             inset: 0; 
-            background: radial-gradient(circle at 50% 42%, #12283b 0%, #091321 38%, #050a12 100%);
+            background: linear-gradient(135deg, #f7fbff 0%, #edf6fb 52%, #dff1f5 100%);
             z-index: 9999; 
             flex-direction: column; 
             align-items: center; 
@@ -268,15 +268,14 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background: linear-gradient(115deg, transparent 20%, rgba(0,212,255,0.035) 50%, transparent 80%);
-            animation: openingLight 8s ease-in-out infinite;
+            background: linear-gradient(135deg, rgba(255,255,255,0.72), transparent 60%);
         }
         #opening-screen::after {
             content: '';
             position: absolute;
             width: 440px; height: 440px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(0,212,255,0.12), transparent 68%);
+            background: radial-gradient(circle, rgba(0,107,143,0.08), transparent 68%);
             top: 50%; left: 50%; transform: translate(-50%,-50%);
             pointer-events: none;
         }
@@ -326,12 +325,12 @@
             pointer-events: none;
         }
         .opening-content h1 {
-            margin: 0 0 34px 0.18em !important;
+            margin: 0 0 10px 0 !important;
             background: none !important;
-            -webkit-text-fill-color: #f4f8fb !important;
-            color: #f4f8fb !important;
-            font-size: clamp(2.2rem, 8vw, 3.2rem) !important;
-            letter-spacing: 0.18em !important;
+            -webkit-text-fill-color: #172033 !important;
+            color: #172033 !important;
+            font-size: clamp(2rem, 8vw, 3rem) !important;
+            letter-spacing: 0.08em !important;
             line-height: 1 !important;
             animation: openingTitleIn 0.9s 0.2s both ease-out;
         }
@@ -341,6 +340,22 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+        }
+        .opening-kicker {
+            margin-bottom: 10px;
+            color: #006b8f;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+        .opening-welcome {
+            max-width: 360px;
+            margin: 0 0 24px;
+            color: #475569;
+            font-size: 14px;
+            line-height: 1.7;
+            text-align: center;
         }
         .loading-container {
             margin-top: 0;
@@ -1104,6 +1119,67 @@
         .seg-dot { width:6px; height:6px; border-radius:50%; background:#7dd3fc; box-shadow:0 0 10px rgba(125,211,252,0.7); }
         /* Override background login pakai file yang sama dengan halaman utama */
         #login-screen { background-image: none !important; }
+
+        /* Direct light login: the form is ready without an extra interaction. */
+        html[data-theme="light"] #opening-screen {
+            background: linear-gradient(135deg, #f8fcff 0%, #eef8fb 55%, #dceff4 100%) !important;
+        }
+        html[data-theme="light"] #opening-screen::before { background: rgba(255,255,255,0.48); }
+        html[data-theme="light"] #opening-screen::after { background: radial-gradient(circle, rgba(0,107,143,0.09), transparent 68%); }
+        html[data-theme="light"] .opening-logo {
+            border-color: rgba(0,107,143,0.14);
+            background: #ffffff;
+            box-shadow: 0 16px 38px rgba(15,23,42,0.12);
+            animation: none;
+        }
+        html[data-theme="light"] .opening-logo::before,
+        html[data-theme="light"] .login-stage::after { display: none; }
+        html[data-theme="light"] .pulse-icon,
+        html[data-theme="light"] .loading-container,
+        html[data-theme="light"] .loading-text,
+        html[data-theme="light"] .loading-bar::after { animation: none; }
+        html[data-theme="light"] .loading-bar { background: #c9e2e9; }
+        html[data-theme="light"] .loading-bar::after { left: 0; background: #006b8f; }
+        html[data-theme="light"] #login-screen,
+        html[data-theme="light"] body #login-screen:not(.is-lit),
+        html[data-theme="light"] body #login-screen.is-lit {
+            background: linear-gradient(135deg, #f7fbff 0%, #edf6fb 100%) !important;
+            background-image: none !important;
+        }
+        html[data-theme="light"] #login-screen::before,
+        html[data-theme="light"] #login-screen.is-lit::before,
+        html[data-theme="light"] #login-screen::after { display: none; }
+        html[data-theme="light"] .login-stage { width: min(100%, 440px); }
+        html[data-theme="light"] .login-box,
+        html[data-theme="light"] #login-screen.is-lit .login-box {
+            width: 100%;
+            opacity: 1;
+            visibility: visible;
+            transform: none;
+            pointer-events: auto;
+            animation: none;
+            background: #ffffff;
+            border: 1px solid #d7e5eb;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(15,23,42,0.12);
+        }
+        html[data-theme="light"] .login-form-side { background: #ffffff !important; padding: 34px 32px 30px; }
+        html[data-theme="light"] .login-brand,
+        html[data-theme="light"] .login-form-side h3,
+        html[data-theme="light"] .login-form-side p,
+        html[data-theme="light"] .login-input-wrapper,
+        html[data-theme="light"] .login-form-side > button {
+            opacity: 1;
+            transform: none;
+            animation: none;
+        }
+        html[data-theme="light"] .login-brand { margin-bottom: 28px; border-color: #e2edf1; }
+        html[data-theme="light"] .login-brand-mark { background: #e7f6f8; border-color: #b9dfe5; color: #006b8f; }
+        html[data-theme="light"] .login-brand-name,
+        html[data-theme="light"] .login-form-side h3 { color: #172033; }
+        html[data-theme="light"] .login-form-side p { color: #64748b; }
+        html[data-theme="light"] .login-input-wrapper input { background: #f8fbfc; border-color: #c8dbe1; color: #172033; }
+        html[data-theme="light"] .login-input-wrapper input:focus { border-color: #006b8f; box-shadow: 0 0 0 3px rgba(0,107,143,0.12); }
 
         * { touch-action: manipulation; }
         a, button, label, [onclick] { touch-action: manipulation; cursor: pointer; }
@@ -2019,16 +2095,756 @@
                 font-size: 0.58rem;
             }
         }
+
+        /* Final light entry screens override legacy cinematic login rules. */
+        html[data-theme="light"] #opening-screen {
+            background: linear-gradient(135deg, #f8fcff 0%, #eef8fb 55%, #dceff4 100%) !important;
+        }
+        html[data-theme="light"] #opening-screen::before { background: rgba(255,255,255,0.48) !important; }
+        html[data-theme="light"] #opening-screen::after { background: radial-gradient(circle, rgba(0,107,143,0.09), transparent 68%) !important; }
+        html[data-theme="light"] .opening-logo {
+            border-color: rgba(0,107,143,0.14) !important;
+            background: #ffffff !important;
+            box-shadow: 0 16px 38px rgba(15,23,42,0.12) !important;
+            animation: none !important;
+        }
+        html[data-theme="light"] .opening-logo::before { display: none !important; }
+        html[data-theme="light"] .pulse-icon,
+        html[data-theme="light"] .loading-container,
+        html[data-theme="light"] .loading-text,
+        html[data-theme="light"] .loading-bar::after { animation: none !important; }
+        html[data-theme="light"] .loading-bar { background: #c9e2e9 !important; }
+        html[data-theme="light"] .loading-bar::after { left: 0 !important; background: #006b8f !important; }
+        html[data-theme="light"] #login-screen,
+        html[data-theme="light"] #login-screen.is-lit {
+            background: linear-gradient(135deg, #f7fbff 0%, #edf6fb 100%) !important;
+            background-image: none !important;
+        }
+        html[data-theme="light"] #login-screen::before,
+        html[data-theme="light"] #login-screen.is-lit::before,
+        html[data-theme="light"] #login-screen::after { display: none !important; }
+        html[data-theme="light"] #login-screen:not(.is-lit) .login-box { display: flex !important; }
+        html[data-theme="light"] .login-stage { width: min(100%, 440px) !important; }
+        html[data-theme="light"] .login-stage::after { display: none !important; }
+        html[data-theme="light"] .login-box,
+        html[data-theme="light"] #login-screen.is-lit .login-box {
+            width: 100% !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: none !important;
+            pointer-events: auto !important;
+            animation: none !important;
+            background: #ffffff !important;
+            border: 1px solid #d7e5eb !important;
+            border-radius: 20px !important;
+            box-shadow: 0 20px 50px rgba(15,23,42,0.12) !important;
+        }
+        html[data-theme="light"] .login-form-side { background: #ffffff !important; padding: 34px 32px 30px !important; }
+        html[data-theme="light"] .login-brand,
+        html[data-theme="light"] .login-form-side h3,
+        html[data-theme="light"] .login-form-side p,
+        html[data-theme="light"] .login-input-wrapper,
+        html[data-theme="light"] .login-form-side > button {
+            opacity: 1 !important;
+            transform: none !important;
+            animation: none !important;
+        }
+        html[data-theme="light"] .login-brand { margin-bottom: 28px !important; border-color: #e2edf1 !important; }
+        html[data-theme="light"] .login-brand-mark { background: #e7f6f8 !important; border-color: #b9dfe5 !important; color: #006b8f !important; }
+        html[data-theme="light"] .login-brand-name,
+        html[data-theme="light"] .login-form-side h3 { color: #172033 !important; }
+        html[data-theme="light"] .login-form-side p { color: #64748b !important; }
+        html[data-theme="light"] .login-input-wrapper input { background: #f8fbfc !important; border-color: #c8dbe1 !important; color: #172033 !important; }
+        html[data-theme="light"] .login-input-wrapper input:focus { border-color: #006b8f !important; box-shadow: 0 0 0 3px rgba(0,107,143,0.12) !important; }
+
+        /* Elevated split entry experience. */
+        @keyframes welcomePanelIn {
+            from { opacity: 0; transform: translateX(-28px) scale(0.985); }
+            to { opacity: 1; transform: translateX(0) scale(1); }
+        }
+        @keyframes loginPanelIn {
+            from { opacity: 0; transform: translateX(28px) translateY(10px) scale(0.97); }
+            to { opacity: 1; transform: translateX(0) translateY(0) scale(1); }
+        }
+        html[data-theme="light"] #opening-screen {
+            inset: 0 48% 0 0 !important;
+            z-index: 10000;
+            justify-content: center;
+            align-items: flex-start;
+            padding: clamp(34px, 9vw, 110px) clamp(28px, 8vw, 120px);
+            overflow: hidden;
+            background: linear-gradient(145deg, #073b66 0%, #086d91 58%, #08a5b3 100%) !important;
+            color: #ffffff;
+            box-shadow: 18px 0 46px rgba(7, 59, 102, 0.16);
+            animation: welcomePanelIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        html[data-theme="light"] #opening-screen::before {
+            inset: 0;
+            width: auto;
+            height: auto;
+            background: linear-gradient(135deg, rgba(255,255,255,0.14), transparent 48%, rgba(5,31,67,0.12)) !important;
+            pointer-events: none;
+        }
+        html[data-theme="light"] #opening-screen::after {
+            width: 420px;
+            height: 420px;
+            top: auto;
+            left: auto;
+            right: -180px;
+            bottom: -190px;
+            background: radial-gradient(circle, rgba(117,239,235,0.28), transparent 68%) !important;
+        }
+        html[data-theme="light"] #opening-screen .opening-content {
+            position: relative;
+            width: min(100%, 430px);
+            align-items: flex-start;
+            text-align: left;
+            z-index: 1;
+        }
+        html[data-theme="light"] #opening-screen .opening-kicker {
+            color: rgba(255,255,255,0.78);
+            font-size: 10px;
+            letter-spacing: 0.16em;
+        }
+        html[data-theme="light"] #opening-screen .opening-logo {
+            width: 82px;
+            height: 82px;
+            margin: 0 0 28px;
+            padding: 5px;
+            border-radius: 22px;
+            border-color: rgba(255,255,255,0.24) !important;
+            background: rgba(255,255,255,0.12) !important;
+            box-shadow: 0 18px 36px rgba(2,24,54,0.24) !important;
+        }
+        html[data-theme="light"] #opening-screen .pulse-icon { border-radius: 17px; }
+        html[data-theme="light"] #opening-screen h1 {
+            margin: 0 0 18px !important;
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
+            font-size: clamp(2.1rem, 5vw, 3.6rem) !important;
+            line-height: 1.04 !important;
+            letter-spacing: -0.04em !important;
+        }
+        html[data-theme="light"] #opening-screen .opening-welcome {
+            max-width: 350px;
+            margin: 0 0 30px;
+            color: rgba(235,250,255,0.82);
+            font-size: 14px;
+            line-height: 1.75;
+            text-align: left;
+        }
+        html[data-theme="light"] #opening-screen .loading-container {
+            width: min(180px, 60vw);
+            margin: 0;
+        }
+        html[data-theme="light"] #opening-screen .loading-bar { background: rgba(255,255,255,0.2) !important; }
+        html[data-theme="light"] #opening-screen .loading-bar::after { background: #a8f3ed !important; }
+        html[data-theme="light"] #opening-screen .loading-text { color: rgba(255,255,255,0.72); }
+        html[data-theme="light"] #login-screen,
+        html[data-theme="light"] #login-screen.is-lit {
+            inset: 0 0 0 52% !important;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(24px, 6vw, 80px);
+            background: #f7fbff !important;
+            background-image: none !important;
+        }
+        html[data-theme="light"] #login-screen .login-stage {
+            width: min(100%, 440px) !important;
+            animation: loginPanelIn 0.85s 0.16s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        html[data-theme="light"] #login-screen .login-box,
+        html[data-theme="light"] #login-screen.is-lit .login-box {
+            border-radius: 24px !important;
+            box-shadow: 0 24px 60px rgba(15,23,42,0.14), 0 3px 10px rgba(15,23,42,0.05) !important;
+        }
+        @media (max-width: 768px) {
+            html[data-theme="light"] #opening-screen {
+                inset: 0 0 54% 0 !important;
+                min-height: 46vh;
+                padding: 28px 28px 22px;
+                align-items: center;
+                box-shadow: 0 16px 36px rgba(7,59,102,0.16);
+            }
+            html[data-theme="light"] #opening-screen .opening-content { align-items: center; text-align: center; }
+            html[data-theme="light"] #opening-screen .opening-logo { width: 64px; height: 64px; margin-bottom: 16px; }
+            html[data-theme="light"] #opening-screen h1 { font-size: clamp(1.9rem, 9vw, 2.6rem) !important; margin-bottom: 10px !important; }
+            html[data-theme="light"] #opening-screen .opening-welcome { margin-bottom: 14px; text-align: center; font-size: 12px; line-height: 1.5; }
+            html[data-theme="light"] #opening-screen .loading-container { display: none; }
+            html[data-theme="light"] #login-screen,
+            html[data-theme="light"] #login-screen.is-lit {
+                inset: 46% 0 0 0 !important;
+                align-items: flex-start;
+                padding: 22px 18px 18px;
+                overflow-y: auto;
+            }
+            html[data-theme="light"] #login-screen .login-stage { animation-delay: 0.08s; }
+            html[data-theme="light"] .login-form-side { padding: 24px 20px 22px !important; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html[data-theme="light"] #opening-screen,
+            html[data-theme="light"] #login-screen .login-stage { animation: none !important; }
+        }
+
+        /* Center splash, then expand into the two-panel entry screen. */
+        @keyframes entryLogoSplash {
+            0% { opacity: 0; transform: scale(0.72) translateY(12px); filter: blur(8px); }
+            65% { opacity: 1; transform: scale(1.04) translateY(-2px); filter: blur(0); }
+            100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+        }
+        @keyframes entryCopySplash {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        html[data-theme="light"] #opening-screen {
+            inset: auto !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: auto !important;
+            bottom: auto !important;
+            width: 100% !important;
+            height: 100% !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 30px !important;
+            transition: width 0.92s cubic-bezier(0.22, 1, 0.36, 1), height 0.92s cubic-bezier(0.22, 1, 0.36, 1), padding 0.92s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.92s ease !important;
+            animation: none !important;
+        }
+        html[data-theme="light"] #opening-screen .opening-content {
+            align-items: center !important;
+            text-align: center !important;
+            transform: translateX(0) !important;
+            transition: align-items 0.92s ease, text-align 0.92s ease, transform 0.92s cubic-bezier(0.22, 1, 0.36, 1) !important;
+        }
+        html[data-theme="light"] #opening-screen .opening-logo { animation: entryLogoSplash 0.9s cubic-bezier(0.22, 1, 0.36, 1) both !important; }
+        html[data-theme="light"] #opening-screen .opening-kicker,
+        html[data-theme="light"] #opening-screen h1,
+        html[data-theme="light"] #opening-screen .opening-welcome { animation: entryCopySplash 0.72s 0.18s cubic-bezier(0.22, 1, 0.36, 1) both; }
+        html[data-theme="light"] #opening-screen.entry-ready {
+            inset: auto !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 52% !important;
+            height: 100% !important;
+            align-items: flex-start !important;
+            justify-content: center !important;
+            padding: clamp(34px, 9vw, 110px) clamp(28px, 8vw, 120px) !important;
+            box-shadow: 18px 0 46px rgba(7, 59, 102, 0.16);
+        }
+        html[data-theme="light"] #opening-screen.entry-ready .opening-content {
+            align-items: flex-start !important;
+            text-align: left !important;
+            transform: translateX(0) !important;
+        }
+        html[data-theme="light"] #login-screen,
+        html[data-theme="light"] #login-screen.is-lit {
+            inset: auto !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+            transform: translateX(0) !important;
+            transition: left 0.92s cubic-bezier(0.22, 1, 0.36, 1), width 0.92s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.38s ease, visibility 0s linear 0.92s !important;
+        }
+        html[data-theme="light"] #login-screen.entry-ready,
+        html[data-theme="light"] #login-screen.entry-ready.is-lit {
+            inset: auto !important;
+            top: 0 !important;
+            left: 52% !important;
+            width: 48% !important;
+            height: 100% !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
+            transition: inset 0.92s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s 0.12s ease, visibility 0s linear 0s !important;
+        }
+        html[data-theme="light"] #login-screen.entry-ready .login-stage {
+            animation: none !important;
+        }
+        html[data-theme="light"] #login-screen.entry-ready .login-box,
+        html[data-theme="light"] #login-screen.entry-ready.is-lit .login-box {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: translateX(0) scale(1) !important;
+            animation: loginPanelIn 0.78s 0.26s cubic-bezier(0.22, 1, 0.36, 1) both !important;
+        }
+        @media (max-width: 768px) {
+            html[data-theme="light"] #opening-screen.entry-ready {
+                inset: auto !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100% !important;
+                height: 50vh !important;
+                min-height: 0 !important;
+                max-height: 50vh !important;
+                padding: 28px !important;
+                align-items: center !important;
+            }
+            html[data-theme="light"] #opening-screen.entry-ready .opening-content { align-items: center !important; text-align: center !important; }
+            html[data-theme="light"] #login-screen.entry-ready,
+            html[data-theme="light"] #login-screen.entry-ready.is-lit {
+                inset: auto !important;
+                top: 50vh !important;
+                left: 0 !important;
+                width: 100% !important;
+                height: 50vh !important;
+                align-items: flex-start;
+                padding: 22px 18px 18px;
+            }
+            html[data-theme="light"] #login-screen.entry-ready .login-box { animation-delay: 0.22s !important; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html[data-theme="light"] #opening-screen,
+            html[data-theme="light"] #opening-screen .opening-logo,
+            html[data-theme="light"] #opening-screen .opening-kicker,
+            html[data-theme="light"] #opening-screen h1,
+            html[data-theme="light"] #opening-screen .opening-welcome,
+            html[data-theme="light"] #login-screen,
+            html[data-theme="light"] #login-screen .login-box { animation: none !important; transition: none !important; }
+        }
+
+        /* Final sequence: logo and progress first, copy and login second. */
+        @keyframes splashProgress {
+            from { left: -100%; }
+            to { left: 0; }
+        }
+        @keyframes welcomeCopyReveal {
+            from { opacity: 0; transform: translateX(24px) scale(0.9); }
+            to { opacity: 1; transform: translateX(0) scale(1); }
+        }
+        html[data-theme="light"] #opening-screen .opening-kicker,
+        html[data-theme="light"] #opening-screen h1,
+        html[data-theme="light"] #opening-screen .opening-welcome {
+            opacity: 0 !important;
+            transform: translateX(24px) scale(0.9) !important;
+            animation: none !important;
+            transition: none !important;
+        }
+        html[data-theme="light"] #opening-screen .loading-container {
+            opacity: 1 !important;
+            transform: none !important;
+            transition: opacity 0.35s ease, transform 0.35s ease !important;
+        }
+        html[data-theme="light"] #opening-screen .loading-text { display: none !important; }
+        html[data-theme="light"] #opening-screen .loading-bar::after {
+            left: -100% !important;
+            animation: splashProgress 1.1s cubic-bezier(0.65, 0, 0.35, 1) forwards !important;
+        }
+        html[data-theme="light"] #opening-screen.entry-ready .opening-kicker,
+        html[data-theme="light"] #opening-screen.entry-ready h1,
+        html[data-theme="light"] #opening-screen.entry-ready .opening-welcome {
+            opacity: 1 !important;
+            transform: translateX(0) scale(1) !important;
+            animation: welcomeCopyReveal 0.72s 0.14s cubic-bezier(0.22, 1, 0.36, 1) both !important;
+        }
+        html[data-theme="light"] #opening-screen.entry-ready .loading-container {
+            opacity: 0 !important;
+            transform: translateY(8px) !important;
+            pointer-events: none;
+        }
+        html[data-theme="light"] #login-screen.entry-ready .login-box,
+        html[data-theme="light"] #login-screen.entry-ready.is-lit .login-box {
+            animation: loginPanelIn 0.8s 0.12s cubic-bezier(0.22, 1, 0.36, 1) both !important;
+        }
+        @media (max-width: 768px) {
+            html[data-theme="light"] #opening-screen .opening-kicker,
+            html[data-theme="light"] #opening-screen h1,
+            html[data-theme="light"] #opening-screen .opening-welcome {
+                transform: translateY(22px) scale(0.9) !important;
+            }
+            html[data-theme="light"] #opening-screen.entry-ready .opening-kicker,
+            html[data-theme="light"] #opening-screen.entry-ready h1,
+            html[data-theme="light"] #opening-screen.entry-ready .opening-welcome {
+                transform: translateY(0) scale(1) !important;
+                animation-name: welcomeCopyReveal !important;
+            }
+        }
+
+        /* Final motion tuning for the entry sequence. */
+        @keyframes splashBarFill {
+            0% { transform: translateX(-100%); opacity: 0.35; }
+            15% { opacity: 1; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes splashBarSheen {
+            from { transform: translateX(-140%); }
+            to { transform: translateX(260%); }
+        }
+        @keyframes logoBreath {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.025); }
+        }
+        html[data-theme="light"] #opening-screen .opening-logo {
+            width: clamp(132px, 16vw, 176px) !important;
+            height: clamp(132px, 16vw, 176px) !important;
+            padding: 8px !important;
+            border-radius: 36px !important;
+            margin-bottom: 24px !important;
+            animation: entryLogoSplash 0.82s cubic-bezier(0.22, 1, 0.36, 1) both, logoBreath 3.2s 0.82s ease-in-out infinite !important;
+            will-change: transform, opacity;
+        }
+        html[data-theme="light"] #opening-screen .pulse-icon { border-radius: 28px !important; }
+        html[data-theme="light"] #opening-screen .loading-container {
+            width: min(250px, 58vw) !important;
+            height: 8px !important;
+            margin: 0 !important;
+            animation: none !important;
+        }
+        html[data-theme="light"] #opening-screen .loading-bar {
+            height: 8px !important;
+            border-radius: 99px !important;
+            background: rgba(255,255,255,0.22) !important;
+            box-shadow: inset 0 1px 2px rgba(2,24,54,0.16), 0 0 0 1px rgba(255,255,255,0.12) !important;
+        }
+        html[data-theme="light"] #opening-screen .loading-bar::after {
+            left: 0 !important;
+            width: 100% !important;
+            border-radius: inherit !important;
+            background: linear-gradient(90deg, #a8f3ed 0%, #ffffff 48%, #72dedb 100%) !important;
+            box-shadow: 0 0 14px rgba(168,243,237,0.62) !important;
+            transform: translateX(-100%);
+            animation: splashBarFill 1.15s cubic-bezier(0.65, 0, 0.35, 1) forwards !important;
+        }
+        html[data-theme="light"] #opening-screen .loading-bar::before {
+            content: '';
+            position: absolute;
+            inset: 0 auto 0 -40%;
+            width: 36%;
+            border-radius: inherit;
+            background: rgba(255,255,255,0.72);
+            filter: blur(4px);
+            z-index: 1;
+            animation: splashBarSheen 1.15s 0.08s cubic-bezier(0.65, 0, 0.35, 1) forwards !important;
+            pointer-events: none;
+        }
+        html[data-theme="light"] #opening-screen.entry-ready .opening-logo {
+            width: 88px !important;
+            height: 88px !important;
+            padding: 5px !important;
+            border-radius: 24px !important;
+            margin-bottom: 24px !important;
+            animation: entryLogoToPanel 0.76s cubic-bezier(0.22, 1, 0.36, 1) both !important;
+        }
+        @keyframes entryLogoToPanel {
+            from { opacity: 1; transform: scale(1.18); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        html[data-theme="light"] #opening-screen.entry-ready .pulse-icon { border-radius: 18px !important; }
+        html[data-theme="light"] #opening-screen,
+        html[data-theme="light"] #login-screen,
+        html[data-theme="light"] #login-screen.is-lit {
+            will-change: width, height, left, top, opacity;
+        }
+        html[data-theme="light"] #login-screen.entry-ready,
+        html[data-theme="light"] #login-screen.entry-ready.is-lit {
+            transition: left 0.86s cubic-bezier(0.22, 1, 0.36, 1), width 0.86s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s 0.08s ease, visibility 0s linear 0s !important;
+        }
+        @media (max-width: 768px) {
+            html[data-theme="light"] #opening-screen .opening-logo {
+                width: 108px !important;
+                height: 108px !important;
+                border-radius: 28px !important;
+            }
+            html[data-theme="light"] #opening-screen .pulse-icon { border-radius: 21px !important; }
+            html[data-theme="light"] #opening-screen.entry-ready .opening-logo {
+                width: 64px !important;
+                height: 64px !important;
+                border-radius: 18px !important;
+            }
+            html[data-theme="light"] #opening-screen.entry-ready .pulse-icon { border-radius: 13px !important; }
+            html[data-theme="light"] #opening-screen .loading-container { width: min(210px, 62vw) !important; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html[data-theme="light"] #opening-screen .opening-logo,
+            html[data-theme="light"] #opening-screen .loading-bar::after,
+            html[data-theme="light"] #opening-screen .loading-bar::before { animation: none !important; transform: none !important; }
+        }
+
+        /* Two faces separate from the center line into their final positions. */
+        html[data-theme="light"] #opening-screen.entry-ready,
+        html[data-theme="light"] #login-screen.entry-ready,
+        html[data-theme="light"] #login-screen.entry-ready.is-lit {
+            transition: transform 0.86s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.42s ease, width 0.86s cubic-bezier(0.22, 1, 0.36, 1), left 0.86s cubic-bezier(0.22, 1, 0.36, 1) !important;
+            will-change: transform, opacity;
+        }
+        html[data-theme="light"] #opening-screen.entry-ready.entry-center {
+            transform: translateX(100%) scale(0.94) !important;
+            opacity: 1 !important;
+        }
+        html[data-theme="light"] #login-screen.entry-ready.entry-center,
+        html[data-theme="light"] #login-screen.entry-ready.entry-center.is-lit {
+            transform: translateX(-100%) scale(0.94) !important;
+            opacity: 1 !important;
+        }
+        html[data-theme="light"] #opening-screen.entry-ready.entry-spread,
+        html[data-theme="light"] #login-screen.entry-ready.entry-spread,
+        html[data-theme="light"] #login-screen.entry-ready.entry-spread.is-lit {
+            transform: translateX(0) scale(1) !important;
+            opacity: 1 !important;
+        }
+        html[data-theme="light"] #opening-screen.entry-center .opening-content,
+        html[data-theme="light"] #login-screen.entry-center .login-box {
+            filter: blur(2px);
+        }
+        html[data-theme="light"] #opening-screen.entry-spread .opening-content,
+        html[data-theme="light"] #login-screen.entry-spread .login-box {
+            filter: blur(0);
+            transition: filter 0.55s 0.12s ease;
+        }
+        @media (max-width: 768px) {
+            html[data-theme="light"] #opening-screen.entry-ready,
+            html[data-theme="light"] #login-screen.entry-ready,
+            html[data-theme="light"] #login-screen.entry-ready.is-lit {
+                transition: transform 0.78s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.42s ease !important;
+            }
+            html[data-theme="light"] #opening-screen.entry-ready.entry-center {
+                transform: translateY(100%) scale(0.94) !important;
+            }
+            html[data-theme="light"] #login-screen.entry-ready.entry-center,
+            html[data-theme="light"] #login-screen.entry-ready.entry-center.is-lit {
+                transform: translateY(-100%) scale(0.94) !important;
+            }
+            html[data-theme="light"] #opening-screen.entry-ready.entry-spread,
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread,
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread.is-lit {
+                transform: translateY(0) scale(1) !important;
+            }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html[data-theme="light"] #opening-screen.entry-ready,
+            html[data-theme="light"] #login-screen.entry-ready,
+            html[data-theme="light"] #login-screen.entry-ready.is-lit { transform: none !important; opacity: 1 !important; }
+        }
+        /* Final split direction override. */
+        html[data-theme="light"] #opening-screen.entry-ready.entry-spread,
+        html[data-theme="light"] #opening-screen.entry-ready.entry-center.entry-spread {
+            left: 0 !important;
+            top: 0 !important;
+            width: 52% !important;
+            height: 100% !important;
+            transform: translateX(0) scale(1) !important;
+            opacity: 1 !important;
+        }
+        html[data-theme="light"] #login-screen.entry-ready.entry-spread,
+        html[data-theme="light"] #login-screen.entry-ready.entry-spread.is-lit,
+        html[data-theme="light"] #login-screen.entry-ready.entry-center.entry-spread,
+        html[data-theme="light"] #login-screen.entry-ready.entry-center.entry-spread.is-lit {
+            left: 52% !important;
+            top: 0 !important;
+            width: 48% !important;
+            height: 100% !important;
+            transform: translateX(0) scale(1) !important;
+            opacity: 1 !important;
+        }
+        @media (max-width: 768px) {
+            html[data-theme="light"] #opening-screen.entry-ready.entry-spread,
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread,
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread.is-lit,
+            html[data-theme="light"] #opening-screen.entry-ready.entry-center.entry-spread,
+            html[data-theme="light"] #login-screen.entry-ready.entry-center.entry-spread,
+            html[data-theme="light"] #login-screen.entry-ready.entry-center.entry-spread.is-lit {
+                left: 0 !important;
+                top: 50vh !important;
+                width: 100% !important;
+                height: 50vh !important;
+                transform: translateY(0) scale(1) !important;
+                opacity: 1 !important;
+            }
+        }
+
+        /* Keep the panels dimensionally stable; animate only their travel. */
+        html[data-theme="light"] #opening-screen.entry-ready.entry-center,
+        html[data-theme="light"] #login-screen.entry-ready.entry-center,
+        html[data-theme="light"] #login-screen.entry-ready.entry-center.is-lit {
+            transition: none !important;
+            will-change: transform;
+        }
+        html[data-theme="light"] #opening-screen.entry-ready.entry-spread,
+        html[data-theme="light"] #login-screen.entry-ready.entry-spread,
+        html[data-theme="light"] #login-screen.entry-ready.entry-spread.is-lit {
+            transition: transform 1.08s cubic-bezier(0.16, 1, 0.3, 1) !important;
+            will-change: transform;
+        }
+        html[data-theme="light"] #opening-screen.entry-ready.entry-center,
+        html[data-theme="light"] #login-screen.entry-ready.entry-center,
+        html[data-theme="light"] #login-screen.entry-ready.entry-center.is-lit {
+            opacity: 1 !important;
+        }
+        html[data-theme="light"] #opening-screen.entry-ready.entry-center .opening-content,
+        html[data-theme="light"] #login-screen.entry-ready.entry-center .login-box,
+        html[data-theme="light"] #opening-screen.entry-ready.entry-spread .opening-content,
+        html[data-theme="light"] #login-screen.entry-ready.entry-spread .login-box {
+            filter: none !important;
+        }
+        html[data-theme="light"] #login-screen.entry-ready.entry-center .login-box,
+        html[data-theme="light"] #login-screen.entry-ready.entry-spread .login-box {
+            animation: none !important;
+        }
+        @media (max-width: 768px) {
+            html[data-theme="light"] #opening-screen.entry-ready.entry-spread,
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread,
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread.is-lit {
+                transition: transform 0.98s cubic-bezier(0.16, 1, 0.3, 1) !important;
+            }
+        }
+
+        /* Lightweight post-login motion and dashboard controls. */
+        @keyframes appPageEnter {
+            from { opacity: 0; transform: translateY(16px) scale(0.985); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .app-page-enter { opacity: 0; transform: translateY(16px) scale(0.985); }
+        .app-page-enter-active { animation: appPageEnter 0.72s cubic-bezier(0.22, 1, 0.36, 1) both; will-change: transform, opacity; }
+        #dash-jadwal-hari-ini.is-scroll-collapsed #dash-schedule-header,
+        #dash-jadwal-hari-ini.is-scroll-collapsed #dash-jadwal-active-block,
+        #dash-jadwal-hari-ini.is-scroll-collapsed #dash-jadwal-rail-wrap { display: none !important; }
+        #dash-jadwal-hari-ini.is-scroll-collapsed {
+            min-height: 58px;
+            height: 58px;
+            overflow: visible !important;
+            transition: height .42s cubic-bezier(0.22, 1, 0.36, 1), min-height .42s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        #dash-jadwal-hari-ini:not(.is-scroll-collapsed) {
+            transition: height .48s cubic-bezier(0.22, 1, 0.36, 1), min-height .48s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        html[data-theme="light"] .toast {
+            border: 1px solid #D2E3E8 !important;
+            background: rgba(255,255,255,0.98) !important;
+            color: #172033 !important;
+            box-shadow: 0 18px 42px rgba(15,23,42,0.16) !important;
+            backdrop-filter: none !important;
+        }
+        html[data-theme="light"] .toast-title { color: #172033 !important; }
+        html[data-theme="light"] .toast-message { color: #475569 !important; }
+        html[data-theme="light"] .toast-close { color: #64748B !important; }
+        html[data-theme="light"] .cp-modal > div,
+        html[data-theme="light"] [id^="m-"] > div {
+            box-shadow: 0 24px 60px rgba(15,23,42,0.18) !important;
+        }
+        html[data-theme="light"] #main-scroll-area [style*="color:rgba(0,212,255,0.2)"],
+        html[data-theme="light"] #main-scroll-area [style*="color:rgba(0,212,255,0.3)"],
+        html[data-theme="light"] #main-scroll-area [style*="color:rgba(0,212,255,0.4)"],
+        html[data-theme="light"] #main-scroll-area [style*="color:rgba(156,163,175"],
+        html[data-theme="light"] #main-scroll-area [style*="color:rgba(148,163,184"] {
+            color: #526579 !important;
+        }
+        html[data-theme="light"] #dash-jadwal-hari-ini [style*="color:rgba(0,212,255,0.2)"],
+        html[data-theme="light"] #dash-jadwal-hari-ini [style*="color:rgba(0,212,255,0.3)"],
+        html[data-theme="light"] #dash-jadwal-hari-ini [style*="color:rgba(0,212,255,0.4)"],
+        html[data-theme="light"] #dash-jadwal-hari-ini [style*="color:rgba(0,212,255,0.5)"] {
+            color: #3C7182 !important;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .app-page-enter-active { animation: none !important; opacity: 1; transform: none; }
+        }
+
+        .related-apps-list {
+            display: grid;
+            gap: 3px;
+            margin: 2px 0 10px 12px;
+            padding-left: 10px;
+            border-left: 1px solid rgba(0,212,255,0.18);
+            overflow: hidden;
+            max-height: 240px;
+            opacity: 1;
+            transition: max-height .32s cubic-bezier(0.22, 1, 0.36, 1), opacity .2s ease;
+        }
+        .related-apps-list.is-collapsed { max-height: 0; opacity: 0; margin-bottom: 0; }
+        .related-app-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            min-width: 0;
+            padding: 7px 8px;
+            border: 0;
+            border-radius: 9px;
+            background: transparent;
+            color: #334155;
+            text-align: left;
+            cursor: pointer;
+            transition: background .2s ease, transform .2s ease, color .2s ease;
+        }
+        .related-app-link:hover { background: #EAF8FA; color: #005B78; transform: translateX(2px); }
+        .related-app-link-icon {
+            display: grid;
+            place-items: center;
+            width: 26px;
+            height: 26px;
+            flex: 0 0 26px;
+            border: 1px solid;
+            border-radius: 8px;
+            overflow: hidden;
+            color: #006B8F;
+        }
+        .related-app-link-icon img { width: 20px; height: 20px; object-fit: contain; }
+        .related-app-link-label { min-width: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 10px; font-weight: 800; }
+        .related-app-link-arrow { flex: 0 0 auto; opacity: .55; }
+        #related-app-panel {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            bottom: 16px;
+            z-index: 80;
+            display: flex;
+            flex-direction: column;
+            width: min(440px, calc(100vw - 32px));
+            overflow: hidden;
+            border: 1px solid #D3E4E9;
+            border-radius: 18px;
+            background: #FFFFFF;
+            box-shadow: 0 24px 70px rgba(15,23,42,0.2);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(28px) scale(.985);
+            transition: opacity .34s ease, transform .46s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear .46s;
+        }
+        #related-app-panel.is-open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0) scale(1);
+            transition-delay: 0s;
+        }
+        .related-app-panel-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; border-bottom: 1px solid #E1EDF0; background: #FFFFFF; }
+        .related-app-panel-kicker { color: #398093; font-size: 8px; font-weight: 900; letter-spacing: .18em; text-transform: uppercase; }
+        .related-app-panel-title { margin-top: 3px; color: #172033; font-size: 13px; font-weight: 900; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .related-app-panel-close { display: grid; place-items: center; width: 32px; height: 32px; flex: 0 0 32px; border: 1px solid #D3E4E9; border-radius: 10px; background: #F4FAFC; color: #526579; cursor: pointer; transition: background .2s ease, transform .2s ease; }
+        .related-app-panel-close:hover { background: #EAF8FA; color: #005B78; transform: scale(1.04); }
+        .related-app-panel-body { flex: 1; min-height: 0; background: #F7FBFF; }
+        #related-app-frame { display: block; width: 100%; height: 100%; border: 0; background: #FFFFFF; }
+        @media (max-width: 768px) {
+            #related-app-panel { top: 10px; right: 10px; bottom: 10px; width: calc(100vw - 20px); border-radius: 16px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            #related-app-panel, .related-app-link, .related-apps-list { transition: none !important; }
+        }
+        @media (max-width: 768px) {
+            /* Keep mobile scrolling light by removing decorative infinite loops only. */
+            body.app-ready [style*="animation:spin"],
+            body.app-ready [style*="animation:shimmer"],
+            body.app-ready [style*="animation:pulse"] { animation: none !important; }
+            body.app-ready .glass-card,
+            body.app-ready .header-glass,
+            body.app-ready #main-sidebar { contain: content; }
+            body.app-ready #main-scroll-area { overscroll-behavior-y: contain; }
+        }
     </style>
 </head>
 <body class="h-full flex">
 
     <div id="opening-screen" class="flex">
         <div class="opening-content">
+            <div class="opening-kicker">DLPK &bull; Administrasi Digital</div>
             <div class="opening-logo">
                 <img src="icon_dlpk.svg" alt="DLPK Icon" class="pulse-icon">
             </div>
-            <h1 class="text-[var(--text-main)] text-5xl font-black tracking-tighter uppercase shimmer-text">DLPK</h1>
+            <h1 class="text-[var(--text-main)] text-5xl font-black tracking-tighter">Selamat Datang!</h1>
+            <p class="opening-welcome">Kelola administrasi kelas dengan lebih rapi, cepat, dan terintegrasi dalam satu ruang kerja digital.</p>
             <div class="loading-container">
                 <div class="loading-bar"></div>
                 <div class="loading-text" id="loading-status">Menginisialisasi Sistem</div>
@@ -2039,15 +2855,6 @@
     <!-- Final Minimal Login Screen -->
     <div id="login-screen" class="hidden flex">
         <div class="login-stage">
-            <div class="login-lamp" aria-label="Lampu login">
-                    <span class="login-lamp__cord"></span>
-                    <span class="login-lamp__shade"></span>
-                    <span class="login-lamp__bulb"></span>
-                    <span class="login-lamp__glow"></span>
-                    <span class="login-lamp__switch"></span>
-                    <span class="login-lamp__pull-cord"></span>
-                    <button type="button" class="login-lamp__pull" aria-label="Tarik tali untuk menyalakan lampu" onclick="releaseLoginLamp()" onpointerdown="startLoginLampPull(event)" onpointerup="finishLoginLampPull(event)" onpointercancel="finishLoginLampPull(event)"></button>
-            </div>
             <div class="login-box">
                 <div class="login-form-side">
                     <div class="login-brand">
@@ -2137,6 +2944,10 @@
             <button onclick="switchPage('print')" class="sidebar-link w-full flex items-center gap-3 px-3 py-2.5 text-xs font-semibold rounded-xl mb-0.5" data-page="print">
                 <i data-lucide="printer" class="w-4 h-4 flex-shrink-0"></i><span>Pusat Cetak</span>
             </button>
+            <button type="button" onclick="toggleRelatedApps()" class="sidebar-link w-full flex items-center gap-3 px-3 py-2.5 text-xs font-semibold rounded-xl mb-0.5" aria-controls="sidebar-related-apps-list" aria-expanded="true">
+                <i data-lucide="layout-grid" class="w-4 h-4 flex-shrink-0"></i><span class="flex-1 text-left">Aplikasi Terkait</span><i data-lucide="chevron-down" class="related-apps-chevron w-3.5 h-3.5"></i>
+            </button>
+            <div id="sidebar-related-apps-list" class="related-apps-list"></div>
             <button onclick="switchPage('settings')" class="sidebar-link w-full flex items-center gap-3 px-3 py-2.5 text-xs font-semibold rounded-xl mb-0.5" data-page="settings">
                 <i data-lucide="settings" class="w-4 h-4 flex-shrink-0"></i><span>Pengaturan</span>
             </button>
@@ -2244,7 +3055,7 @@
                     <div style="position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(0,212,255,0.05),transparent 65%);top:-100px;right:-80px;pointer-events:none;z-index:0;"></div>
 
                     <!-- Jam digital modern yang lebih jelas dan mudah dibaca -->
-                    <div style="position:absolute;top:-22px;left:50%;transform:translateX(-50%);z-index:10;display:flex;flex-direction:column;align-items:center;">
+                    <div id="dash-schedule-clock" style="position:absolute;top:-22px;left:50%;transform:translateX(-50%);z-index:10;display:flex;flex-direction:column;align-items:center;">
                         <div style="position:relative;display:inline-flex;align-items:center;gap:0;padding:10px 16px 9px;border-radius:12px;background:linear-gradient(180deg, rgba(11,18,32,0.98), rgba(8,18,31,0.96));border:1px solid rgba(0,212,255,0.28);box-shadow:0 0 20px rgba(0,212,255,0.08),0 6px 18px rgba(0,0,0,0.55);">
                             <div style="position:absolute;inset:0;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);pointer-events:none;"></div>
                             <div class="seg-display" id="seg-clock-display">
@@ -2267,7 +3078,7 @@
                     <div id="dash-clock-ss" style="display:none;">00</div>
 
                     <!-- Header -->
-                    <div style="position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:32px 18px 10px;">
+                    <div id="dash-schedule-header" style="position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:32px 18px 10px;">
                         <div style="display:flex;align-items:center;gap:10px;">
                             <div style="width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(0,212,255,0.18),rgba(124,58,237,0.12));border:1px solid rgba(0,212,255,0.25);flex-shrink:0;">
                                 <i data-lucide="calendar-clock" style="width:16px;height:16px;color:#00D4FF;"></i>
@@ -2308,8 +3119,6 @@
                         <div id="dash-jadwal-list"></div>
                     </div>
                 </div>
-
-                <div id="dashboard-shortcuts" class="mt-6 space-y-3"></div>
 
                 <!-- Identitas Sekolah -->
                 <div class="relative overflow-hidden rounded-2xl" style="background:rgba(13,24,41,0.9);border:1px solid rgba(168,85,247,0.12);">
@@ -3579,40 +4388,81 @@
             }, 150);
 
             loadFirebaseData();
-            setTimeout(() => { 
-                const screen = document.getElementById('opening-screen');
-                screen.style.transition = 'all 0.5s ease-out';
-                screen.style.opacity = '0';
-                screen.style.transform = 'scale(1.05)';
-                setTimeout(() => {
-                    screen.style.display = 'none';
-                    // Cek session  jika sudah login sebelumnya, langsung masuk
-                    if (sessionStorage.getItem('dlpk_logged_in') === '1') {
-                        masukDashboard();
-                    } else {
-                        const loginScreen = document.getElementById('login-screen');
-                        loginScreen.classList.remove('hidden');
-                        resetLoginLamp();
-                    }
-                    lucide.createIcons();
-                }, 500);
-            }, 1200);
+            setTimeout(() => {
+                // Reveal both entry panels after the logo splash completes.
+                if (sessionStorage.getItem('dlpk_logged_in') === '1') {
+                    masukDashboard();
+                } else {
+                    const loginScreen = document.getElementById('login-screen');
+                    const openingScreen = document.getElementById('opening-screen');
+                    loginScreen.classList.remove('hidden');
+                    openingScreen.classList.add('entry-ready', 'entry-center');
+                    loginScreen.classList.add('entry-ready', 'entry-center');
+                    loginScreen.setAttribute('aria-hidden', 'false');
+                    const mobileEntry = window.matchMedia('(max-width: 768px)').matches;
+                    const centerGeometry = mobileEntry
+                        ? { top: '25vh', left: '0', width: '100%', height: '50vh' }
+                        : { top: '0', left: '25%', width: '50%', height: '100%' };
+                    const openingGeometry = mobileEntry
+                        ? { top: '0', left: '0', width: '100%', height: '50vh' }
+                        : { top: '0', left: '0', width: '52%', height: '100%' };
+                    const loginGeometry = mobileEntry
+                        ? { top: '50vh', left: '0', width: '100%', height: '50vh' }
+                        : { top: '0', left: '52%', width: '48%', height: '100%' };
+                    const setGeometry = (element, geometry) => Object.entries(geometry).forEach(([property, value]) => element.style.setProperty(property, value, 'important'));
+                    const disableMotion = element => {
+                        element.getAnimations().forEach(animation => animation.cancel());
+                        element.style.setProperty('transform', 'none', 'important');
+                        element.style.setProperty('animation', 'none', 'important');
+                    };
+                    disableMotion(openingScreen);
+                    disableMotion(loginScreen);
+                    setGeometry(openingScreen, centerGeometry);
+                    setGeometry(loginScreen, centerGeometry);
+                    openingScreen.style.setProperty('z-index', '10000', 'important');
+                    loginScreen.style.setProperty('z-index', '10001', 'important');
+                    loginScreen.style.setProperty('background', 'transparent', 'important');
+                    loginScreen.style.setProperty('transition', 'none', 'important');
+                    openingScreen.style.setProperty('transition', 'none', 'important');
+                    void openingScreen.offsetWidth;
+                    void loginScreen.offsetWidth;
+                    setTimeout(() => {
+                        const duration = mobileEntry ? 1.7 : 1.9;
+                        const easing = 'cubic-bezier(0.22, 1, 0.36, 1)';
+                        const transition = `top ${duration}s ${easing}, left ${duration}s ${easing}, width ${duration}s ${easing}, height ${duration}s ${easing}`;
+                        openingScreen.style.setProperty('transition', transition, 'important');
+                        loginScreen.style.setProperty('transition', transition, 'important');
+                        setGeometry(openingScreen, openingGeometry);
+                        setGeometry(loginScreen, loginGeometry);
+                        loginScreen.style.setProperty('background', '#f7fbff', 'important');
+                    }, 80);
+                    setTimeout(() => document.getElementById('login-password')?.focus(), 2100);
+                }
+                lucide.createIcons();
+            }, 1150);
         };
 
         function masukDashboard() {
             document.body.classList.add('app-ready');
+            document.getElementById('opening-screen')?.classList.add('hidden');
             const loginScreen = document.getElementById('login-screen');
             loginScreen.classList.add('hidden');
             loginScreen.classList.remove('is-lit');
             loginScreen.setAttribute('aria-hidden', 'true');
             document.querySelectorAll('main > div > div').forEach(d => d.classList.add('hidden'));
             const dashPage = document.getElementById('page-dashboard');
-            if (dashPage) { dashPage.classList.remove('hidden'); dashPage.classList.add('page-transition'); }
+            if (dashPage) {
+                dashPage.classList.remove('hidden');
+                dashPage.classList.add('page-transition', 'app-page-enter');
+                requestAnimationFrame(() => dashPage.classList.add('app-page-enter-active'));
+                setTimeout(() => dashPage.classList.remove('app-page-enter', 'app-page-enter-active'), 900);
+            }
             document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
             document.querySelector('[data-page="dashboard"]')?.classList.add('active');
             document.getElementById('main-sidebar').classList.remove('hidden');
             document.querySelector('header').classList.remove('hidden');
             document.getElementById('main-scroll-area').classList.remove('hidden');
+            setupDashboardScheduleScroll();
             lucide.createIcons();
         }
 
@@ -3726,23 +4576,30 @@
 
         function openShortcutModal(url, label) {
             const safeUrl = /^https?:\/\//i.test(url || '') ? url : 'about:blank';
+            if (safeUrl === 'about:blank') {
+                showToast('Shortcut belum diset', 'info');
+                return;
+            }
             const appWindow = window.open(safeUrl, '_blank', 'noopener,noreferrer');
             if (!appWindow) showToast('Izinkan pop-up untuk membuka aplikasi.', 'info');
         }
 
+        function toggleRelatedApps() {
+            const list = document.getElementById('sidebar-related-apps-list');
+            const button = document.querySelector('[aria-controls="sidebar-related-apps-list"]');
+            if (!list) return;
+            const collapsed = list.classList.toggle('is-collapsed');
+            if (button) button.setAttribute('aria-expanded', String(!collapsed));
+        }
+
         function renderDashboardShortcuts() {
-            const wrap = document.getElementById('dashboard-shortcuts');
+            const wrap = document.getElementById('sidebar-related-apps-list');
             if (!wrap) return;
             const items = Array.isArray(config.shortcuts) && config.shortcuts.length ? config.shortcuts : [
                 { label: 'Aplikasi Saya', url: '#', iconUrl: '' }
             ];
 
             wrap.innerHTML = `
-                <div class="flex items-center gap-2 px-1">
-                    <div class="w-1 h-4 rounded-full" style="background:linear-gradient(to bottom,#00D4FF,#7C3AED);"></div>
-                    <span class="text-[10px] font-black uppercase tracking-[.2em]" style="color:#00D4FF;">Shortcut Aplikasi</span>
-                </div>
-                <div class="shortcut-shell">
                     ${items.map((item, idx) => {
                         const safeUrl = item.url && item.url !== '#' ? item.url : 'javascript:void(0)';
                         const safeLabel = item.label || `Aplikasi ${idx + 1}`;
@@ -3751,22 +4608,11 @@
                         const accent = item.accent || '#00D4FF';
                         const tone = item.tone || 'rgba(0,212,255,0.12)';
                         const action = isDisabled ? 'showToast(\'Shortcut belum diset\',\'info\')' : `openShortcutModal('${safeUrl.replace(/'/g, "\\'")}', '${safeLabel.replace(/'/g, "\\'")}')`;
-                        return `
-                            <button type="button" onclick="${action}" class="shortcut-item group" style="background:linear-gradient(135deg, rgba(10,18,33,0.92), rgba(17,26,44,0.9)); box-shadow:none; ${isDisabled ? 'opacity:0.7;' : ''}">
-                                <div class="absolute inset-0 opacity-60" style="background:linear-gradient(135deg, ${tone}, transparent 72%);"></div>
-                                <div class="relative flex items-center gap-3">
-                                    <div class="shortcut-icon" style="background:${tone}; border-color:${accent}66;">
-                                        ${safeIconUrl ? `<img src="${safeIconUrl}" alt="Ikon ${safeLabel}" class="h-8 w-8 rounded-lg object-contain" loading="lazy">` : '<i data-lucide="app-window" class="h-5 w-5" style="color:#00A9CC;"></i>'}
-                                    </div>
-                                    <div class="min-w-0">
-                                        <div class="shortcut-tag" style="color:${accent};">Aplikasi</div>
-                                        <div class="shortcut-label" style="color:var(--text-main);">${safeLabel}</div>
-                                    </div>
-                                </div>
-                            </button>
-                        `;
+                        return `<button type="button" onclick="${action}" class="related-app-link" style="${isDisabled ? 'opacity:0.55;' : ''}">
+                            <span class="related-app-link-icon" style="background:${tone};border-color:${accent}66;">${safeIconUrl ? `<img src="${safeIconUrl}" alt="" loading="lazy">` : '<i data-lucide="app-window" class="w-4 h-4"></i>'}</span>
+                            <span class="related-app-link-label">${safeLabel}</span><i data-lucide="arrow-up-right" class="related-app-link-arrow w-3.5 h-3.5"></i>
+                        </button>`;
                     }).join('')}
-                </div>
             `;
             lucide.createIcons();
         }
@@ -4815,6 +5661,25 @@
                     ${suffix}
                 </div>`;
             }).join('');
+        }
+
+        function setupDashboardScheduleScroll() {
+            const scrollArea = document.getElementById('main-scroll-area');
+            const schedule = document.getElementById('dash-jadwal-hari-ini');
+            if (!scrollArea || !schedule || scrollArea.dataset.scheduleScrollReady === '1') return;
+            scrollArea.dataset.scheduleScrollReady = '1';
+            let previousScrollTop = scrollArea.scrollTop;
+            let directionTimer = null;
+            scrollArea.addEventListener('scroll', () => {
+                const currentScrollTop = scrollArea.scrollTop;
+                const delta = currentScrollTop - previousScrollTop;
+                if (Math.abs(delta) < 4) return;
+                previousScrollTop = currentScrollTop;
+                clearTimeout(directionTimer);
+                directionTimer = setTimeout(() => {
+                    schedule.classList.toggle('is-scroll-collapsed', delta > 0 && currentScrollTop > 24);
+                }, 30);
+            }, { passive: true });
         }
 
         // -- POPUP PERGANTIAN JAM --
