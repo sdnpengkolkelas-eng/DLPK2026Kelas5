@@ -1154,7 +1154,7 @@
         html[data-theme="light"] .login-box,
         html[data-theme="light"] #login-screen.is-lit .login-box {
             width: min(100%, 430px);
-            min-height: 450px;
+            min-height: 0;
             opacity: 1;
             visibility: visible;
             transform: none;
@@ -1165,7 +1165,7 @@
             border-radius: 26px;
             box-shadow: 0 20px 50px rgba(15,23,42,0.12);
         }
-        html[data-theme="light"] .login-form-side { background: #ffffff !important; padding: 48px 56px 44px; }
+        html[data-theme="light"] .login-form-side { background: #ffffff !important; padding: 34px 40px 32px; }
         html[data-theme="light"] .login-brand,
         html[data-theme="light"] .login-form-side h3,
         html[data-theme="light"] .login-form-side p,
@@ -2773,8 +2773,8 @@
         html[data-theme="light"] .login-input-wrapper input:focus { border-color: #006b8f !important; box-shadow: 0 0 0 3px rgba(0,107,143,0.12) !important; }
 
         @media (max-width: 600px) {
-            html[data-theme="light"] .login-box { min-height: 420px !important; }
-            html[data-theme="light"] .login-form-side { padding: 38px 24px 34px !important; }
+            html[data-theme="light"] .login-box { min-height: 0 !important; }
+            html[data-theme="light"] .login-form-side { padding: 30px 24px 28px !important; }
         }
 
         /* Elevated split entry experience. */
@@ -4386,6 +4386,39 @@
             body.app-ready #main-sidebar { contain: content; }
             body.app-ready #main-scroll-area { overscroll-behavior-y: contain; }
         }
+
+        html[data-theme="light"] body:not(.app-ready)::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 9997;
+            pointer-events: none;
+            background: linear-gradient(145deg, #073b66 0%, #086d91 58%, #08a5b3 100%);
+        }
+        html[data-theme="light"] #opening-screen,
+        html[data-theme="light"] #login-screen,
+        html[data-theme="light"] #login-screen.is-lit {
+            background: transparent !important;
+            background-image: none !important;
+        }
+        html[data-theme="light"] #opening-screen::before,
+        html[data-theme="light"] #opening-screen::after,
+        html[data-theme="light"] #login-screen::before,
+        html[data-theme="light"] #login-screen::after {
+            background: transparent !important;
+        }
+        html[data-theme="light"] #login-screen .login-box,
+        html[data-theme="light"] #login-screen.is-lit .login-box {
+            min-height: 0 !important;
+        }
+        html[data-theme="light"] #login-screen .login-form-side {
+            padding: 34px 40px 32px !important;
+        }
+        @media (max-width: 600px) {
+            html[data-theme="light"] #login-screen .login-form-side {
+                padding: 30px 24px 28px !important;
+            }
+        }
     </style>
 </head>
 <body class="h-full flex">
@@ -4410,13 +4443,6 @@
         <div class="login-stage">
             <div class="login-box">
                 <div class="login-form-side">
-                    <div class="login-brand">
-                    <div>
-                        <div class="login-brand-name">DLPK</div>
-                        <div class="login-brand-sub">Administrasi Digital</div>
-                    </div>
-                </div>
-
                     <h3>Log In Guru</h3>
                     <p>Masukkan password Anda untuk melanjutkan.</p>
 
@@ -6005,7 +6031,7 @@
                         loginScreen.style.setProperty('transition', transition, 'important');
                         setGeometry(openingScreen, openingGeometry);
                         setGeometry(loginScreen, loginGeometry);
-                        loginScreen.style.setProperty('background', '#f7fbff', 'important');
+                        loginScreen.style.setProperty('background', 'transparent', 'important');
                     }, 80);
                     setTimeout(() => document.getElementById('login-password')?.focus(), 2100);
                 }
