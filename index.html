@@ -62,51 +62,106 @@
             /* Respect iOS safe area to avoid covering system status bar */
             padding-top: constant(safe-area-inset-top);
             padding-top: env(safe-area-inset-top);
-            overflow: hidden; 
+            position: fixed !important;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden !important;
+            overflow-x: hidden !important;
+            overflow-y: hidden !important;
+            overscroll-behavior: none !important;
             -webkit-font-smoothing: antialiased;
             font-size: 13px;
             line-height: 1.5;
         }
 
-        html, body { min-width: 0; min-height: 100%; }
+        html, body { min-width: 0; min-height: 100%; overflow-x: hidden !important; overflow-y: hidden !important; }
+        html {
+            position: fixed !important;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden !important;
+            overscroll-behavior: none !important;
+        }
+        #opening-screen,
+        #login-screen,
+        #login-screen *,
+        #login-screen .login-box,
+        #login-screen .login-form-side {
+            overflow: hidden !important;
+            overflow-x: hidden !important;
+            overflow-y: hidden !important;
+            overscroll-behavior: none !important;
+            touch-action: none !important;
+        }
         main { min-width: 0; min-height: 0; }
         #main-scroll-area { min-width: 0; min-height: 0; scrollbar-gutter: stable; }
         #main-sidebar { flex-shrink: 0; }
         .page-transition { min-width: 0; }
 
-        /* Sidebar - Futuristic Dark */
+        /* Sidebar - Modern Professional Blue */
         #main-sidebar {
-            background: rgba(11,18,32,0.95);
-            border-right: 1px solid rgba(0,212,255,0.12);
-            box-shadow: 4px 0 30px rgba(0,0,0,0.5);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: linear-gradient(180deg, #006B8F 0%, #0C7FA3 34%, #005C79 100%) !important;
+            border-right: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.04);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
         }
-        .sidebar-link { 
-            transition: all 0.3s ease; 
-            color: #9CA3AF;
+        #main-sidebar .sidebar-link {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.72rem;
+            transition: all 0.22s ease;
+            color: #edf6ff !important;
             border-radius: 12px;
-            margin-bottom: 2px;
-            padding: 0.7rem 1rem;
-            border: 1px solid transparent;
-        }
-        .sidebar-link i, .sidebar-link svg { 
-            color: inherit;
-            stroke: currentColor;
-            width: 1.25rem; 
-            height: 1.25rem;
-        }
-        .sidebar-link:hover { 
-            background: rgba(0,212,255,0.08);
-            color: #00D4FF;
-            border-color: rgba(0,212,255,0.2);
-        }
-        .sidebar-link.active { 
-            background: linear-gradient(135deg,rgba(0,212,255,0.18),rgba(59,130,246,0.12));
-            color: #00D4FF;
+            margin-bottom: 4px;
+            padding: 0.7rem 0.8rem;
+            border: 1px solid rgba(148, 163, 184, 0.08);
+            background: rgba(255,255,255,0.02) !important;
             font-weight: 700;
-            border-color: rgba(0,212,255,0.35);
-            box-shadow: 0 0 20px rgba(0,212,255,0.15), inset 0 0 20px rgba(0,212,255,0.05);
+            letter-spacing: 0.01em;
+            box-shadow: none;
+        }
+        #main-sidebar .sidebar-link i,
+        #main-sidebar .sidebar-link svg,
+        #main-sidebar .sidebar-link span {
+            color: inherit !important;
+            stroke: currentColor !important;
+            fill: none !important;
+        }
+        #main-sidebar .sidebar-link i,
+        #main-sidebar .sidebar-link svg {
+            width: 1.2rem;
+            height: 1.2rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.18rem;
+            border-radius: 9px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(148, 163, 184, 0.08);
+            opacity: 1;
+            box-sizing: border-box;
+        }
+        #main-sidebar .sidebar-link span {
+            color: #f8fbff !important;
+            line-height: 1.2;
+        }
+        #main-sidebar .sidebar-link:hover {
+            background: rgba(148, 163, 184, 0.06) !important;
+            color: #ffffff !important;
+            border-color: rgba(148, 163, 184, 0.18);
+            transform: none;
+            box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.03);
+        }
+        #main-sidebar .sidebar-link.active {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.08)) !important;
+            color: #ffffff !important;
+            font-weight: 800;
+            border-color: rgba(255, 255, 255, 0.18);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
         }
 
         /* Glass Card - Futuristic */
@@ -444,13 +499,30 @@
         }
         
         .header-glass {
-            background: rgba(11,18,32,0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+            background: rgba(255,255,255,0.96) !important;
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
             /* Ensure header doesn't sit under the system status bar on iOS PWA */
             padding-top: env(safe-area-inset-top);
+        }
+        #main-sidebar.sidebar-collapsed {
+            transform: translateX(-102%);
+        }
+        #main-sidebar.sidebar-expanded {
+            transform: translateX(0);
+        }
+        body.sidebar-open main {
+            margin-left: 16rem;
+        }
+        body.sidebar-closed main {
+            margin-left: 0;
+        }
+        @media (min-width: 768px) {
+            body.app-ready main {
+                transition: margin-left 0.28s ease;
+            }
         }
         
         /* Custom Scrollbar */
@@ -531,7 +603,7 @@
 
         /* Mobile Responsive Utilities */
         @media (max-width: 768px) {
-            body { overflow: auto; }
+            body { overflow: hidden; }
             .glass-card { padding: 1.25rem !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; box-shadow: none !important; }
             .glass-card:hover { transform: none !important; box-shadow: none !important; }
             .header-glass, #main-sidebar { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; box-shadow: none !important; }
@@ -631,53 +703,39 @@
         .login-box {
             display: flex;
             width: min(100%, 420px);
-            background: rgba(11,18,32,0.86);
-            border-radius: 26px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 18px 44px rgba(15, 61, 74, 0.16), 0 0 0 1px rgba(255,255,255,0.72), 0 0 34px rgba(0,212,255,0.12);
+            box-shadow: 0 18px 38px rgba(15, 23, 42, 0.10);
             border: 1px solid rgba(148, 163, 184, 0.24);
             position: relative;
             z-index: 1;
-            backdrop-filter: none;
-            -webkit-backdrop-filter: none;
             isolation: isolate;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(28px) scale(0.94);
-            pointer-events: none;
-            transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.5s ease;
+            opacity: 1;
+            visibility: visible;
+            transform: none;
+            pointer-events: auto;
+            transition: box-shadow 0.25s ease, transform 0.25s ease;
         }
         #login-screen.is-lit .login-box {
             opacity: 1;
             visibility: visible;
-            transform: translateY(0) scale(1);
+            transform: none;
             pointer-events: auto;
-            animation: loginPanelIn 0.72s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
         .login-stage {
             position: relative;
             z-index: 1;
-            width: min(100%, 560px);
+            width: min(100%, 420px);
             display: flex;
             flex-direction: column;
             align-items: center;
         }
         .login-stage::after {
-            content: 'Tarik tali lampu untuk masuk';
-            margin-top: 14px;
-            color: rgba(226, 232, 240, 0.72);
-            font-size: 10px;
-            font-weight: 800;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            display: none;
         }
-        #login-screen.is-lit .login-stage::after {
-            opacity: 0;
-            transform: translateY(-8px);
-        }
-        html[data-theme="light"] .login-stage::after { color: #475569; }
-        .login-stage .login-lamp { margin-bottom: 12px; }
+        .login-stage .login-lamp { display: none !important; }
+        html[data-theme="light"] .login-stage::after { display: none; }
         .login-brand {
             display: flex;
             align-items: center;
@@ -743,11 +801,11 @@
         html[data-theme="light"] #login-screen:not(.is-lit) .login-box { display: none !important; }
         .login-form-side {
             width: 100%;
-            padding: 24px 22px 22px;
+            padding: 28px 24px 24px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            background: #0F172A;
+            background: #ffffff;
             position: relative;
         }
         .login-lamp {
@@ -1004,34 +1062,36 @@
             .login-brand { animation: none !important; }
         }
         .login-form-side h3 {
-            font-size: 22px;
+            font-size: clamp(2rem, 3vw, 2.3rem);
             font-weight: 800;
-            color: var(--text-main);
-            margin-bottom: 6px;
+            color: #0f172a;
+            margin: 0 0 8px;
             text-align: center;
-            letter-spacing: -0.02em;
-            opacity: 0;
-            transform: translateY(10px);
+            letter-spacing: -0.04em;
+            line-height: 1.15;
+            opacity: 1;
+            transform: none;
         }
         #login-screen.is-lit .login-form-side h3 {
             animation: loginContentIn 0.55s 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         .login-form-side p {
-            color: var(--text-muted);
-            font-size: 13px;
-            margin-bottom: 18px;
+            color: #64748b;
+            font-size: 0.92rem;
+            margin: 0 0 20px;
             text-align: center;
-            opacity: 0;
-            transform: translateY(10px);
+            line-height: 1.55;
+            opacity: 1;
+            transform: none;
         }
         #login-screen.is-lit .login-form-side p {
             animation: loginContentIn 0.55s 0.31s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         .login-input-wrapper {
             position: relative;
-            margin-bottom: 14px;
-            opacity: 0;
-            transform: translateY(10px);
+            margin: 0 0 16px;
+            opacity: 1;
+            transform: none;
         }
         #login-screen.is-lit .login-input-wrapper {
             animation: loginContentIn 0.55s 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -1041,38 +1101,48 @@
             left: 14px;
             top: 50%;
             transform: translateY(-50%);
-            color: var(--text-muted);
-            width: 16px;
-            height: 16px;
+            color: #64748b;
+            width: 18px;
+            height: 18px;
         }
         .login-input-wrapper input {
             width: 100%;
-            padding: 12px 14px 12px 40px;
+            padding: 14px 16px 14px 42px;
             border-radius: 12px;
-            border: 1px solid var(--border);
-            background: rgba(255,255,255,0.04);
+            border: 1px solid #dfe7ef;
+            background: #f8fafc;
             font-weight: 600;
-            color: var(--text-main);
-            transition: all 0.3s ease;
+            color: #0f172a;
+            transition: all 0.25s ease;
+            box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.03);
         }
         .login-input-wrapper input:focus {
-            border-color: var(--primary);
-            background: rgba(0,212,255,0.05);
+            border-color: #0ea5c3;
+            background: #ffffff;
             outline: none;
-            box-shadow: 0 0 0 3px rgba(0,212,255,0.08), var(--glow);
+            box-shadow: 0 0 0 4px rgba(14, 165, 195, 0.10);
         }
-        .login-input-wrapper input::placeholder { color: var(--text-muted); }
+        .login-input-wrapper input::placeholder { color: #94a3b8; }
         .login-form-side > button {
-            opacity: 0;
-            transform: translateY(10px);
-            transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+            width: 100%;
+            margin-top: 4px;
+            border: none;
+            background: linear-gradient(135deg, #0ea5c3 0%, #0f9bc8 100%);
+            color: #ffffff;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            border-radius: 12px;
+            padding: 14px 18px;
+            box-shadow: 0 12px 24px rgba(14, 165, 195, 0.18);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
         }
         #login-screen.is-lit .login-form-side > button {
             animation: loginContentIn 0.55s 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         .login-form-side > button:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.06);
+            transform: translateY(-1px);
+            filter: brightness(1.04);
+            box-shadow: 0 14px 26px rgba(14, 165, 195, 0.23);
         }
         
         @media (max-width: 768px) {
@@ -1185,6 +1255,22 @@
 
         * { touch-action: manipulation; }
         a, button, label, [onclick] { touch-action: manipulation; cursor: pointer; }
+        #login-screen,
+        #login-screen *,
+        #login-screen input,
+        #login-screen button,
+        #login-screen .login-box,
+        #login-screen .login-form-side {
+            touch-action: none !important;
+            overscroll-behavior: none !important;
+            -webkit-overflow-scrolling: auto !important;
+        }
+        #login-screen {
+            overflow: hidden !important;
+            overflow-x: hidden !important;
+            overflow-y: hidden !important;
+            overscroll-behavior: none !important;
+        }
 
         @media (max-width: 768px) {
             body { background-image: none; }
@@ -1236,13 +1322,34 @@
         }
         html[data-theme="light"] #main-sidebar,
         html[data-theme="light"] .header-glass {
-            background: rgba(255, 255, 255, 0.96) !important;
-            border-color: rgba(15, 23, 42, 0.14) !important;
-            box-shadow: 4px 0 24px rgba(15, 23, 42, 0.08) !important;
+            background-color: #ffffff !important;
+            background-image: none !important;
+            border-color: rgba(148, 163, 184, 0.2) !important;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08) !important;
         }
-        html[data-theme="light"] .sidebar-link { color: #475569; }
-        html[data-theme="light"] .sidebar-link:hover,
-        html[data-theme="light"] .sidebar-link.active { color: #005B78; background: #DDF4FA; border-color: #8CCCDC; box-shadow: none; }
+        html[data-theme="light"] #main-sidebar {
+            background-color: #006B8F !important;
+            background-image: linear-gradient(180deg, #006B8F 0%, #0C7FA3 34%, #005C79 100%) !important;
+            border-color: rgba(255, 255, 255, 0.14) !important;
+            box-shadow: none !important;
+        }
+        html[data-theme="light"] .sidebar-link {
+            color: #f8fbff;
+            background: rgba(255,255,255,0.04);
+            border-color: rgba(191, 219, 254, 0.08);
+        }
+        html[data-theme="light"] .sidebar-link:hover {
+            color: #ffffff;
+            background: linear-gradient(135deg, rgba(96, 165, 250, 0.2), rgba(14, 165, 233, 0.12));
+            border-color: rgba(147, 197, 253, 0.32);
+            box-shadow: inset 0 0 0 1px rgba(147,197,253,0.15);
+        }
+        html[data-theme="light"] .sidebar-link.active {
+            color: #ffffff;
+            background: linear-gradient(135deg, #2563eb 0%, #0ea5e9 100%);
+            border-color: rgba(191, 219, 254, 0.32);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.18);
+        }
         html[data-theme="light"] .glass-card,
         html[data-theme="light"] .modern-input,
         html[data-theme="light"] [style*="#07101F"],
@@ -1449,10 +1556,14 @@
         }
         
         /* Sidebar navigation fixes */
-        html[data-theme="light"] #main-sidebar { background: rgba(255, 255, 255, 0.96) !important; border-color: rgba(15, 23, 42, 0.14) !important; }
-        html[data-theme="light"] #main-sidebar [style*="border-bottom"] { border-color: rgba(15, 23, 42, 0.08) !important; }
-        html[data-theme="light"] #main-sidebar [style*="border-right"] { border-color: rgba(15, 23, 42, 0.08) !important; }
-        html[data-theme="light"] #main-sidebar [style*="color:rgba(255,255,255,0.2"] { color: rgba(15, 23, 42, 0.3) !important; }
+        html[data-theme="light"] #main-sidebar {
+            background-color: #006B8F !important;
+            background-image: linear-gradient(180deg, #006B8F 0%, #0C7FA3 34%, #005C79 100%) !important;
+            border-color: rgba(255, 255, 255, 0.14) !important;
+        }
+        html[data-theme="light"] #main-sidebar [style*="border-bottom"] { border-color: rgba(255, 255, 255, 0.14) !important; }
+        html[data-theme="light"] #main-sidebar [style*="border-right"] { border-color: rgba(255, 255, 255, 0.14) !important; }
+        html[data-theme="light"] #main-sidebar [style*="color:rgba(255,255,255,0.2"] { color: rgba(255, 255, 255, 0.9) !important; }
         
         /* Input placeholder and focus states */
         html[data-theme="light"] .modern-input:focus {
@@ -1606,13 +1717,26 @@
         
         /* Specific ID overrides */
         html[data-theme="light"] #sidebar-overlay { background: rgba(15, 23, 42, 0.4) !important; backdrop-filter: blur(4px); }
-        html[data-theme="light"] .sidebar-link { color: #475569; border-radius: 12px; }
-        html[data-theme="light"] .sidebar-link:hover { background: #E0F2FE; color: #006B8F; border-color: #99D5E7; }
-        html[data-theme="light"] .sidebar-link.active { 
-            background: linear-gradient(135deg, #E0F2FE, #E0F7FA);
-            color: #006B8F; 
-            font-weight: 700; 
-            border-color: #99D5E7;
+        html[data-theme="light"] #main-sidebar {
+            background-color: #006B8F !important;
+            background-image: linear-gradient(180deg, #006B8F 0%, #0C7FA3 34%, #005C79 100%) !important;
+            border-color: rgba(255, 255, 255, 0.14) !important;
+        }
+        html[data-theme="light"] .sidebar-link {
+            color: #f8fbff !important;
+            background: rgba(255,255,255,0.04) !important;
+            border-radius: 12px;
+        }
+        html[data-theme="light"] .sidebar-link:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.09), rgba(205, 241, 250, 0.14)) !important;
+            color: #ffffff !important;
+            border-color: rgba(255, 255, 255, 0.18);
+        }
+        html[data-theme="light"] .sidebar-link.active {
+            background: linear-gradient(135deg, #005C79 0%, #0C7FA3 100%) !important;
+            color: #ffffff !important;
+            font-weight: 800;
+            border-color: rgba(255, 255, 255, 0.2);
         }
         
         /* Ensure glassy card effects work in light mode */
@@ -1925,12 +2049,13 @@
         }
         
         /* Page title and breadcrumb */
-        html[data-theme="light"] #page-title { color: #006B8F !important; }
-        html[data-theme="light"] #breadcrumb-active { color: #172033 !important; }
+        html[data-theme="light"] #page-title { color: #0f172a !important; }
+        html[data-theme="light"] #breadcrumb-active { color: #1f2937 !important; }
         
         /* Header identity text */
-        html[data-theme="light"] #header-identity-sch { color: #172033 !important; }
+        html[data-theme="light"] #header-identity-sch { color: #0f172a !important; }
         html[data-theme="light"] #header-identity-guru { color: #475569 !important; }
+        html[data-theme="light"] header .w-9.h-9 { background: #0f172a !important; color: #ffffff !important; }
         
         /* Close button in modals */
         html[data-theme="light"] [style*="color:#f87171"],
@@ -1994,8 +2119,11 @@
         
         @media (max-width: 768px) {
             html[data-theme="light"] .glass-card,
-            html[data-theme="light"] #main-sidebar,
             html[data-theme="light"] .header-glass { background: #FFFFFF !important; }
+            html[data-theme="light"] #main-sidebar {
+                background-color: #006B8F !important;
+                background-image: linear-gradient(180deg, #006B8F 0%, #0C7FA3 34%, #005C79 100%) !important;
+            }
             html[data-theme="light"] #main-scroll-area [style*="rgba(13, 24, 41"],
             html[data-theme="light"] #main-scroll-area [style*="rgba(15, 23, 42"],
             html[data-theme="light"] #main-scroll-area [style*="rgba(11, 18, 32"] { background: #FFFFFF !important; }
@@ -3136,7 +3264,16 @@
                 inset: 46% 0 0 0 !important;
                 align-items: flex-start;
                 padding: 22px 18px 18px;
-                overflow-y: auto;
+                overflow: hidden !important;
+                overflow-x: hidden !important;
+                overflow-y: hidden !important;
+                touch-action: none !important;
+                overscroll-behavior: none !important;
+            }
+            html[data-theme="light"] #login-screen,
+            html[data-theme="light"] #login-screen * {
+                overflow: hidden !important;
+                touch-action: none !important;
             }
             html[data-theme="light"] #login-screen .login-stage { animation-delay: 0.08s; }
             html[data-theme="light"] .login-form-side { padding: 24px 20px 22px !important; }
@@ -3623,24 +3760,26 @@
             border: 0;
             border-radius: 9px;
             background: transparent;
-            color: #334155;
+            color: #eaf3ff;
             text-align: left;
             cursor: pointer;
             transition: background .2s ease, transform .2s ease, color .2s ease;
         }
-        .related-app-link:hover { background: #EAF8FA; color: #005B78; transform: translateX(2px); }
+        .related-app-link:hover { background: rgba(96, 165, 250, 0.12); color: #ffffff; transform: translateX(2px); }
         .related-app-link-icon {
             display: grid;
             place-items: center;
-            width: 26px;
-            height: 26px;
-            flex: 0 0 26px;
+            width: 1.7rem;
+            height: 1.7rem;
+            flex: 0 0 1.7rem;
             overflow: hidden;
-            border: 1px solid rgba(0,212,255,0.2);
-            border-radius: 8px;
-            color: #006B8F;
+            border: 1px solid rgba(191, 219, 254, 0.18);
+            border-radius: 0.72rem;
+            background: rgba(255,255,255,0.06);
+            color: #f8fbff;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
         }
-        .related-app-link-icon img { width: 20px; height: 20px; object-fit: contain; }
+        .related-app-link-icon img { width: 1.05rem; height: 1.05rem; object-fit: contain; }
         .related-app-link-arrow { flex: 0 0 auto; opacity: .55; }
         #related-app-panel {
             position: fixed;
@@ -4463,21 +4602,21 @@
     <!-- Add Overlay for Mobile -->
     <div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 z-40 hidden md:hidden backdrop-blur-sm transition-opacity opacity-0"></div>
 
-    <aside id="main-sidebar" class="hidden w-64 flex flex-col z-50 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 h-full" style="background:#060D1F;border-right:1px solid rgba(0,212,255,0.1);">
+    <aside id="main-sidebar" class="hidden w-64 flex flex-col z-50 absolute inset-y-0 left-0 h-full sidebar-collapsed md:fixed" style="background:linear-gradient(180deg,#081b31 0%,#0d2444 38%,#0b1d36 100%);border-right:1px solid rgba(146,179,255,0.18);box-shadow:18px 0 40px rgba(7,17,32,0.42);transition:transform .28s ease, opacity .28s ease;">
         <!-- Logo -->
-        <div style="padding:20px 20px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(0,212,255,0.08);">
-            <div style="width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,rgba(0,212,255,0.2),rgba(59,130,246,0.15));border:1px solid rgba(0,212,255,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                <i data-lucide="graduation-cap" style="width:20px;height:20px;color:#00D4FF;"></i>
+        <div style="padding:18px 18px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(165,200,255,0.16);background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0));">
+            <div style="width:40px;height:40px;border-radius:14px;background:linear-gradient(135deg,rgba(96,165,250,0.32),rgba(14,165,233,0.22));border:1px solid rgba(191,219,254,0.38);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 10px 26px rgba(14,165,233,0.18);">
+                <i data-lucide="graduation-cap" style="width:21px;height:21px;color:#ffffff;"></i>
             </div>
             <div>
-                <div style="font-size:16px;font-weight:900;color:#E5E7EB;letter-spacing:.05em;line-height:1;">DLPK</div>
-                <div style="font-size:8px;font-weight:700;color:rgba(0,212,255,0.5);text-transform:uppercase;letter-spacing:.2em;margin-top:2px;">Administrasi Digital</div>
+                <div style="font-size:15px;font-weight:900;color:#f8fbff;letter-spacing:.06em;line-height:1;">DLPK</div>
+                <div style="font-size:8px;font-weight:800;color:rgba(219,234,254,0.9);text-transform:uppercase;letter-spacing:.2em;margin-top:3px;">Administrasi Digital</div>
             </div>
         </div>
 
-        <nav class="flex-1 overflow-y-auto" style="padding:12px 10px;">
+        <nav class="flex-1 overflow-y-auto" style="padding:14px 10px 12px;">
             <!-- Label -->
-            <div style="font-size:8px;font-weight:900;color:rgba(255,255,255,0.2);text-transform:uppercase;letter-spacing:.25em;padding:0 10px;margin-bottom:6px;margin-top:4px;">Menu Utama</div>
+            <div style="font-size:8px;font-weight:900;color:rgba(219,234,254,0.82);text-transform:uppercase;letter-spacing:.25em;padding:0 10px;margin-bottom:8px;margin-top:4px;">Menu Utama</div>
 
             <button onclick="switchPage('dashboard')" class="sidebar-link active w-full flex items-center gap-3 px-3 py-2.5 text-xs font-semibold rounded-xl mb-0.5" data-page="dashboard">
                 <i data-lucide="layout-dashboard" class="w-4 h-4 flex-shrink-0"></i><span>Dashboard</span>
@@ -4499,7 +4638,7 @@
             </button>
 
             <!-- Label konten -->
-            <div style="font-size:8px;font-weight:900;color:rgba(255,255,255,0.2);text-transform:uppercase;letter-spacing:.25em;padding:0 10px;margin-bottom:6px;margin-top:14px;">Konten Ajar</div>
+            <div style="font-size:8px;font-weight:900;color:rgba(219,234,254,0.82);text-transform:uppercase;letter-spacing:.25em;padding:0 10px;margin-bottom:8px;margin-top:16px;">Konten Ajar</div>
 
             <button onclick="switchPage('bahan-ajar')" class="sidebar-link w-full flex items-center gap-3 px-3 py-2.5 text-xs font-semibold rounded-xl mb-0.5" data-page="bahan-ajar">
                 <i data-lucide="file-text" class="w-4 h-4 flex-shrink-0"></i><span>Bahan Ajar</span>
@@ -4515,7 +4654,7 @@
             </button>
 
             <!-- Label system -->
-            <div style="font-size:8px;font-weight:900;color:rgba(255,255,255,0.2);text-transform:uppercase;letter-spacing:.25em;padding:0 10px;margin-bottom:6px;margin-top:14px;">Sistem</div>
+            <div style="font-size:8px;font-weight:900;color:rgba(219,234,254,0.82);text-transform:uppercase;letter-spacing:.25em;padding:0 10px;margin-bottom:8px;margin-top:16px;">Sistem</div>
 
             <button onclick="switchPage('print')" class="sidebar-link w-full flex items-center gap-3 px-3 py-2.5 text-xs font-semibold rounded-xl mb-0.5" data-page="print">
                 <i data-lucide="printer" class="w-4 h-4 flex-shrink-0"></i><span>Pusat Cetak</span>
@@ -4530,20 +4669,20 @@
         </nav>
 
         <!-- User info -->
-        <div style="padding:12px 10px;border-top:1px solid rgba(0,212,255,0.08);">
-            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;background:rgba(0,212,255,0.05);border:1px solid rgba(0,212,255,0.1);margin-bottom:8px;">
+        <div style="padding:12px 10px;border-top:1px solid rgba(165,200,255,0.16);background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(13,36,68,0.18));">
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;background:linear-gradient(135deg,rgba(59,130,246,0.16),rgba(14,165,233,0.09));border:1px solid rgba(147,197,253,0.22);margin-bottom:8px;box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);">
                 <div style="position:relative;flex-shrink:0;">
-                    <div style="width:32px;height:32px;border-radius:50%;background:rgba(0,212,255,0.12);border:1px solid rgba(0,212,255,0.25);display:flex;align-items:center;justify-content:center;">
-                        <i data-lucide="user" style="width:15px;height:15px;color:#00D4FF;"></i>
+                    <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,rgba(125,211,252,0.16),rgba(59,130,246,0.10));border:1px solid rgba(147,197,253,0.28);display:flex;align-items:center;justify-content:center;">
+                        <i data-lucide="user" style="width:15px;height:15px;color:#ffffff;"></i>
                     </div>
-                    <div style="position:absolute;bottom:-1px;right:-1px;width:9px;height:9px;background:#00D4FF;border:2px solid #060D1F;border-radius:50%;"></div>
+                    <div style="position:absolute;bottom:-1px;right:-1px;width:9px;height:9px;background:#34d399;border:2px solid #0b1d36;border-radius:50%;"></div>
                 </div>
                 <div style="flex:1;min-width:0;">
-                    <div id="side-guru-nama" style="font-size:10px;font-weight:800;color:#E5E7EB;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">...</div>
-                    <div style="font-size:8px;font-weight:700;color:rgba(0,212,255,0.6);text-transform:uppercase;letter-spacing:.1em;">Admin</div>
+                    <div id="side-guru-nama" style="font-size:10px;font-weight:800;color:#f8fbff;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:0.04em;">...</div>
+                    <div style="font-size:8px;font-weight:800;color:rgba(219,234,254,0.95);text-transform:uppercase;letter-spacing:.1em;">Admin</div>
                 </div>
             </div>
-            <button onclick="logout()" style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px;border-radius:12px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);color:#f87171;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;cursor:pointer;">
+            <button onclick="logout()" style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px;border-radius:12px;background:linear-gradient(135deg,#ef4444,#dc2626);border:1px solid rgba(185,28,28,0.7);color:#fff7f7;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.12em;cursor:pointer;transition:all .2s ease;box-shadow:0 10px 22px rgba(220,38,38,0.24);">
                 <i data-lucide="log-out" style="width:14px;height:14px;"></i> Keluar Sistem
             </button>
         </div>
@@ -4554,11 +4693,13 @@
         <div style="position:fixed;inset:0;z-index:0;background-image:none;pointer-events:none;"></div>
         <div style="position:fixed;inset:0;z-index:0;background:rgba(7,16,31,0.88);pointer-events:none;"></div>
         <header class="hidden h-20 header-glass flex items-center px-4 md:px-10 justify-between sticky top-0 z-20 shadow-sm">
-            <div class="flex items-center gap-4">
-                <button onclick="toggleSidebar()" class="p-2 bg-[rgba(255,255,255,0.06)] hover:bg-[rgba(0,212,255,0.1)] rounded-lg md:hidden text-[var(--text-main)] border border-[var(--border)] transition-all active:scale-95">
-                    <i data-lucide="menu" class="w-5 h-5"></i>
+            <div class="flex items-center gap-3 md:gap-4 min-w-0">
+                <button id="sidebar-toggle-fab" type="button" onclick="toggleSidebar()" class="flex items-center justify-center transition-all active:scale-95 md:flex" aria-label="Tampilkan menu" style="background:#f1f5f9;border:1px solid #e2e8f0;border-radius:10px;box-shadow:none;padding:0;width:36px;height:36px;line-height:1;cursor:pointer;flex-shrink:0;margin-top:2px;display:flex;visibility:visible;opacity:1;color:#334155;">
+                    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="display:block;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;">
+                        <path d="M4 7h16M4 12h16M4 17h16"></path>
+                    </svg>
                 </button>
-                <div class="flex flex-col">
+                <div class="flex flex-col min-w-0">
                     <h2 id="page-title" class="text-[10px] font-black text-[var(--primary)] uppercase tracking-[0.3em] mb-0.5 mt-1 md:mt-0">DASHBOARD</h2>
                     <div class="flex items-center gap-2 text-[var(--text-muted)]">
                         <i data-lucide="home" class="w-3 h-3 hidden sm:block"></i>
@@ -5738,8 +5879,8 @@
         <div id="custom-confirm-box" style="position:relative;width:min(100%,420px);margin:0 auto;border-radius:22px;overflow:hidden;background:rgba(15,23,42,0.96);border:1px solid rgba(148,163,184,0.18);box-shadow:0 24px 60px rgba(2,6,23,0.45);animation:fadeIn .25s ease;">
             <div style="padding:22px 22px 18px;">
                 <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:18px;">
-                    <div style="width:42px;height:42px;border-radius:12px;background:rgba(56,189,248,0.10);border:1px solid rgba(56,189,248,0.22);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7dd3fc" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                    <div style="width:42px;height:42px;border-radius:12px;background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.32);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
                     </div>
                     <button id="custom-confirm-close" style="width:30px;height:30px;border-radius:10px;border:1px solid rgba(148,163,184,0.18);background:rgba(255,255,255,0.02);color:#94a3b8;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;line-height:1;">×</button>
                 </div>
@@ -5748,7 +5889,7 @@
 
                 <div style="display:flex;gap:10px;justify-content:flex-end;">
                     <button id="custom-confirm-cancel" style="min-width:110px;padding:12px 18px;border-radius:12px;border:1px solid rgba(148,163,184,0.18);background:rgba(255,255,255,0.02);color:#cbd5e1;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;cursor:pointer;">Batal</button>
-                    <button id="custom-confirm-ok" style="min-width:140px;padding:12px 18px;border-radius:12px;border:none;background:linear-gradient(135deg,#38bdf8,#7c3aed);color:#f8fafc;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.12em;cursor:pointer;box-shadow:0 10px 20px rgba(59,130,246,0.18);">Ya, Lanjutkan</button>
+                    <button id="custom-confirm-ok" style="min-width:140px;padding:12px 18px;border-radius:12px;border:none;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff7f7;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.12em;cursor:pointer;box-shadow:0 12px 24px rgba(220,38,38,0.28);">Ya, Keluar</button>
                 </div>
             </div>
         </div>
@@ -6054,11 +6195,17 @@
                 requestAnimationFrame(() => dashPage.classList.add('app-page-enter-active'));
                 setTimeout(() => dashPage.classList.remove('app-page-enter', 'app-page-enter-active'), 900);
             }
-            document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
-            document.querySelector('[data-page="dashboard"]')?.classList.add('active');
-            document.getElementById('main-sidebar').classList.remove('hidden');
+            const sidebar = document.getElementById('main-sidebar');
+            if (sidebar) {
+                sidebar.classList.remove('hidden');
+                sidebar.classList.add('sidebar-collapsed');
+                sidebar.classList.remove('sidebar-expanded');
+            }
             document.querySelector('header').classList.remove('hidden');
             document.getElementById('main-scroll-area').classList.remove('hidden');
+            if (window.innerWidth >= 768) {
+                setDesktopSidebarState(false);
+            }
             setupDashboardScheduleScroll();
             lucide.createIcons();
         }
@@ -6086,33 +6233,27 @@
             dlpkConfirm('Apakah Anda yakin ingin keluar dari sistem?', function() {
                 sessionStorage.removeItem('dlpk_logged_in');
                 document.body.classList.remove('app-ready');
-                // Sembunyikan elemen utama
-                document.getElementById('main-sidebar').classList.add('hidden');
-                document.querySelector('header').classList.add('hidden');
-                document.getElementById('main-scroll-area').classList.add('hidden');
-                
-                // Tutup sidebar mobile jika sedang terbuka
+
                 const sidebar = document.getElementById('main-sidebar');
-                sidebar.classList.add('-translate-x-full');
                 const overlay = document.getElementById('sidebar-overlay');
-                overlay.classList.add('hidden');
-                overlay.classList.add('opacity-0');
-                
-                // Munculkan kembali halaman login
-                const loginScreen = document.getElementById('login-screen');
-                loginScreen.classList.remove('hidden');
-                        loginScreen.removeAttribute('aria-hidden');
-                loginScreen.removeAttribute('aria-hidden');
-                resetLoginLamp();
-                
-                // Reset input password
-                const passInput = document.getElementById('login-password');
-                if(passInput) {
-                    passInput.value = "";
+                if (sidebar) {
+                    sidebar.classList.add('sidebar-collapsed');
+                    sidebar.classList.remove('sidebar-expanded');
                 }
-                
-                showToast('Anda telah keluar', 'info');
-                lucide.createIcons();
+                if (overlay) {
+                    overlay.classList.add('hidden');
+                    overlay.classList.add('opacity-0');
+                }
+
+                try {
+                    window.close();
+                } catch (e) {}
+
+                setTimeout(() => {
+                    if (!window.closed) {
+                        window.location.href = 'about:blank';
+                    }
+                }, 150);
             });
         }
 
@@ -6321,19 +6462,92 @@
             });
         }
 
+        function setDesktopSidebarState(expanded) {
+            const sidebar = document.getElementById('main-sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            const fab = document.getElementById('sidebar-toggle-fab');
+            const body = document.body;
+
+            if (!sidebar) return;
+
+            if (fab) {
+                fab.setAttribute('aria-label', expanded ? 'Sembunyikan menu' : 'Tampilkan menu');
+            }
+
+            if (expanded) {
+                sidebar.classList.remove('sidebar-collapsed');
+                sidebar.classList.add('sidebar-expanded');
+                body.classList.add('sidebar-open');
+                body.classList.remove('sidebar-closed');
+                if (overlay) { overlay.classList.add('hidden'); overlay.classList.add('opacity-0'); }
+                if (fab) {
+                    fab.style.display = 'flex';
+                    fab.style.visibility = 'visible';
+                    fab.style.opacity = '1';
+                    fab.setAttribute('aria-label', 'Sembunyikan menu');
+                }
+            } else {
+                sidebar.classList.add('sidebar-collapsed');
+                sidebar.classList.remove('sidebar-expanded');
+                body.classList.add('sidebar-closed');
+                body.classList.remove('sidebar-open');
+                if (fab) {
+                    fab.style.display = 'flex';
+                    fab.style.visibility = 'visible';
+                    fab.style.opacity = '1';
+                    fab.setAttribute('aria-label', 'Tampilkan menu');
+                }
+                if (overlay) { overlay.classList.add('hidden'); overlay.classList.add('opacity-0'); }
+            }
+
+            const btn = document.querySelector('header [onclick*="toggleSidebar"]');
+            if (btn) btn.setAttribute('aria-expanded', String(expanded));
+        }
+
         function toggleSidebar() {
             const sidebar = document.getElementById('main-sidebar');
             const overlay = document.getElementById('sidebar-overlay');
-            if(sidebar.classList.contains('-translate-x-full')) {
+            if (!sidebar) return;
+
+            if (window.innerWidth >= 768) {
+                const expanded = !sidebar.classList.contains('sidebar-expanded');
+                setDesktopSidebarState(expanded);
+                return;
+            }
+
+            const isHidden = sidebar.classList.contains('sidebar-collapsed') || sidebar.classList.contains('-translate-x-full');
+            if (isHidden) {
+                sidebar.classList.remove('sidebar-collapsed');
                 sidebar.classList.remove('-translate-x-full');
-                overlay.classList.remove('hidden');
-                setTimeout(() => overlay.classList.remove('opacity-0'), 10);
+                sidebar.classList.add('sidebar-expanded');
+                if (overlay) {
+                    overlay.classList.remove('hidden');
+                    setTimeout(() => overlay.classList.remove('opacity-0'), 10);
+                }
             } else {
+                sidebar.classList.add('sidebar-collapsed');
                 sidebar.classList.add('-translate-x-full');
-                overlay.classList.add('opacity-0');
-                setTimeout(() => overlay.classList.add('hidden'), 300);
+                sidebar.classList.remove('sidebar-expanded');
+                if (overlay) {
+                    overlay.classList.add('opacity-0');
+                    setTimeout(() => overlay.classList.add('hidden'), 300);
+                }
             }
         }
+
+        document.addEventListener('pointerdown', function (event) {
+            const sidebar = document.getElementById('main-sidebar');
+            const fab = document.getElementById('sidebar-toggle-fab');
+            const headerButton = document.querySelector('header [onclick*="toggleSidebar"]');
+            if (window.innerWidth < 768 || !sidebar || sidebar.classList.contains('sidebar-collapsed')) return;
+            const clickedInsideSidebar = sidebar.contains(event.target);
+            const clickedToggle = fab && fab.contains(event.target);
+            const clickedHeaderButton = headerButton && headerButton.contains(event.target);
+
+            if (!clickedInsideSidebar && !clickedToggle && !clickedHeaderButton) {
+                setDesktopSidebarState(false);
+            }
+        });
 
         let _switchingPage = false;
         function switchPage(p) {
@@ -6383,11 +6597,17 @@
             if(p === 'print') populatePrintMenu();
             lucide.createIcons();
             
-            if(window.innerWidth < 768) {
-                const sidebar = document.getElementById('main-sidebar');
-                if(!sidebar.classList.contains('-translate-x-full')) {
-                    toggleSidebar();
+            const sidebar = document.getElementById('main-sidebar');
+            if (sidebar && !sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.add('-translate-x-full');
+                sidebar.classList.remove('translate-x-0');
+                const overlay = document.getElementById('sidebar-overlay');
+                if (overlay) {
+                    overlay.classList.add('opacity-0');
+                    setTimeout(() => overlay.classList.add('hidden'), 240);
                 }
+                const btn = document.querySelector('header [onclick*="toggleSidebar"]');
+                if (btn) btn.setAttribute('aria-expanded', 'false');
             }
         }
 
