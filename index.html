@@ -6504,6 +6504,24 @@
             if (btn) btn.setAttribute('aria-expanded', String(expanded));
         }
 
+        function closeMobileSidebar() {
+            const sidebar = document.getElementById('main-sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            if (!sidebar) return;
+
+            sidebar.classList.add('sidebar-collapsed');
+            sidebar.classList.add('-translate-x-full');
+            sidebar.classList.remove('sidebar-expanded');
+
+            if (overlay) {
+                overlay.classList.add('opacity-0');
+                setTimeout(() => overlay.classList.add('hidden'), 240);
+            }
+
+            const btn = document.querySelector('header [onclick*="toggleSidebar"]');
+            if (btn) btn.setAttribute('aria-expanded', 'false');
+        }
+
         function toggleSidebar() {
             const sidebar = document.getElementById('main-sidebar');
             const overlay = document.getElementById('sidebar-overlay');
@@ -6524,14 +6542,10 @@
                     overlay.classList.remove('hidden');
                     setTimeout(() => overlay.classList.remove('opacity-0'), 10);
                 }
+                const btn = document.querySelector('header [onclick*="toggleSidebar"]');
+                if (btn) btn.setAttribute('aria-expanded', 'true');
             } else {
-                sidebar.classList.add('sidebar-collapsed');
-                sidebar.classList.add('-translate-x-full');
-                sidebar.classList.remove('sidebar-expanded');
-                if (overlay) {
-                    overlay.classList.add('opacity-0');
-                    setTimeout(() => overlay.classList.add('hidden'), 300);
-                }
+                closeMobileSidebar();
             }
         }
 
@@ -6539,13 +6553,27 @@
             const sidebar = document.getElementById('main-sidebar');
             const fab = document.getElementById('sidebar-toggle-fab');
             const headerButton = document.querySelector('header [onclick*="toggleSidebar"]');
-            if (window.innerWidth < 768 || !sidebar || sidebar.classList.contains('sidebar-collapsed')) return;
+
+            if (window.innerWidth >= 768) {
+                if (!sidebar || sidebar.classList.contains('sidebar-collapsed')) return;
+                const clickedInsideSidebar = sidebar.contains(event.target);
+                const clickedToggle = fab && fab.contains(event.target);
+                const clickedHeaderButton = headerButton && headerButton.contains(event.target);
+
+                if (!clickedInsideSidebar && !clickedToggle && !clickedHeaderButton) {
+                    setDesktopSidebarState(false);
+                }
+                return;
+            }
+
+            if (!sidebar || sidebar.classList.contains('sidebar-collapsed') || sidebar.classList.contains('-translate-x-full')) return;
+
             const clickedInsideSidebar = sidebar.contains(event.target);
             const clickedToggle = fab && fab.contains(event.target);
             const clickedHeaderButton = headerButton && headerButton.contains(event.target);
 
             if (!clickedInsideSidebar && !clickedToggle && !clickedHeaderButton) {
-                setDesktopSidebarState(false);
+                closeMobileSidebar();
             }
         });
 
@@ -6599,15 +6627,7 @@
             
             const sidebar = document.getElementById('main-sidebar');
             if (sidebar && !sidebar.classList.contains('-translate-x-full')) {
-                sidebar.classList.add('-translate-x-full');
-                sidebar.classList.remove('translate-x-0');
-                const overlay = document.getElementById('sidebar-overlay');
-                if (overlay) {
-                    overlay.classList.add('opacity-0');
-                    setTimeout(() => overlay.classList.add('hidden'), 240);
-                }
-                const btn = document.querySelector('header [onclick*="toggleSidebar"]');
-                if (btn) btn.setAttribute('aria-expanded', 'false');
+                closeMobileSidebar();
             }
         }
 
