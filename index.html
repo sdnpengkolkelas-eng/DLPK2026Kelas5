@@ -508,18 +508,19 @@
             padding-top: env(safe-area-inset-top);
         }
         #main-sidebar.sidebar-collapsed {
-            transform: translateX(-102%);
+            transform: translateX(-100%);
         }
         #main-sidebar.sidebar-expanded {
             transform: translateX(0);
         }
-        body.sidebar-open main {
-            margin-left: 16rem;
-        }
-        body.sidebar-closed main {
+        body.app-ready.sidebar-closed main {
             margin-left: 0;
+            transition: none;
         }
         @media (min-width: 768px) {
+            body.sidebar-open main {
+                margin-left: 16rem;
+            }
             body.app-ready main {
                 transition: margin-left 0.28s ease;
             }
@@ -1475,10 +1476,6 @@
         html[data-theme="light"] #dash-jadwal-list > div span {
             color: #334155 !important;
         }
-        html[data-theme="light"] #dash-jadwal-list > div:first-child {
-            background: #F3FAFC !important;
-            border-color: #8CCCDC !important;
-        }
         html[data-theme="light"] #main-scroll-area [style*="linear-gradient(135deg,#0d1829"],
         html[data-theme="light"] #main-scroll-area [style*="linear-gradient(135deg,#0F172A"],
         html[data-theme="light"] #main-scroll-area [style*="linear-gradient(135deg,rgba(15,23,42"] {
@@ -1621,6 +1618,27 @@
             border-color: rgba(15, 23, 42, 0.12) !important;
             color: #334155 !important;
         }
+        #custom-confirm-msg { color: #F8FAFC !important; }
+        #custom-confirm-detail { color: #CBD5E1; }
+        #custom-confirm-box.confirm-attendance #custom-confirm-icon {
+            background: rgba(0,212,255,0.12) !important;
+            border-color: rgba(0,212,255,0.38) !important;
+        }
+        #custom-confirm-box.confirm-attendance #custom-confirm-icon svg { stroke: #00D4FF !important; }
+        #custom-confirm-box.confirm-attendance #custom-confirm-ok {
+            background: linear-gradient(135deg,#007D9E,#006B8F) !important;
+            color: #FFFFFF !important;
+            box-shadow: 0 10px 22px rgba(0,107,143,0.3) !important;
+        }
+        html[data-theme="light"] #custom-confirm-detail { color: #475569 !important; }
+        html[data-theme="light"] #custom-confirm-title { color: #006B8F !important; }
+        html[data-theme="light"] #custom-confirm-box.confirm-attendance #custom-confirm-msg { color: #123B50 !important; }
+        html[data-theme="light"] #custom-confirm-box.confirm-attendance #custom-confirm-detail { color: #334155 !important; }
+        html[data-theme="light"] #custom-confirm-box.confirm-attendance #custom-confirm-icon {
+            background: #D7EEF6 !important;
+            border-color: #8CCCDC !important;
+        }
+        html[data-theme="light"] #custom-confirm-box.confirm-attendance #custom-confirm-icon svg { stroke: #006B8F !important; }
         html[data-theme="light"] [style*="background:#0F172A"] {
             background: #FFFFFF !important;
         }
@@ -1934,32 +1952,6 @@
         }
         html[data-theme="light"] [style*="border:1px solid rgba(0,212,255"] {
             border-color: #8CCCDC !important;
-        }
-        
-        /* Active/Live badges */
-        html[data-theme="light"] #dash-jadwal-now-badge {
-            background: #D7EEF6 !important;
-            border-color: #8CCCDC !important;
-            color: #006B8F !important;
-        }
-        
-        /* Schedule header section */
-        html[data-theme="light"] #dash-jadwal-active-block {
-            background: #E8F6FB !important;
-            border-color: #8CCCDC !important;
-        }
-        
-        /* Active schedule name gradient */
-        html[data-theme="light"] #dash-jadwal-active-name {
-            background: linear-gradient(90deg, #D97706, #CA8A04, #B45309) !important;
-            -webkit-background-clip: text !important;
-            background-clip: text !important;
-            -webkit-text-fill-color: transparent !important;
-        }
-        
-        /* Progress bar */
-        html[data-theme="light"] #dash-jadwal-progress {
-            background: linear-gradient(90deg, #0086A8, #006B8F) !important;
         }
         
         /* List item colors */
@@ -3696,7 +3688,6 @@
         .app-page-enter { opacity: 0; transform: translateY(16px) scale(0.985); }
         .app-page-enter-active { animation: appPageEnter 0.72s cubic-bezier(0.22, 1, 0.36, 1) both; will-change: transform, opacity; }
         #dash-jadwal-hari-ini.is-scroll-collapsed #dash-schedule-header,
-        #dash-jadwal-hari-ini.is-scroll-collapsed #dash-jadwal-active-block,
         #dash-jadwal-hari-ini.is-scroll-collapsed #dash-jadwal-rail-wrap { display: none !important; }
         #dash-jadwal-hari-ini.is-scroll-collapsed {
             min-height: 58px;
@@ -3717,6 +3708,36 @@
         html[data-theme="light"] .toast-title { color: #172033 !important; }
         html[data-theme="light"] .toast-message { color: #475569 !important; }
         html[data-theme="light"] .toast-close { color: #64748B !important; }
+        #dash-jadwal-list > .dash-jadwal-current {
+            position: relative;
+            background: linear-gradient(100deg, rgba(0,212,255,0.22), rgba(124,58,237,0.14)) !important;
+            border: 1px solid rgba(0,212,255,0.72) !important;
+            box-shadow: inset 0 0 0 1px rgba(0,212,255,0.16), 0 6px 20px rgba(0,212,255,0.16);
+            opacity: 1 !important;
+        }
+        #dash-jadwal-list > .dash-jadwal-current .dash-jadwal-current-time,
+        #dash-jadwal-list > .dash-jadwal-current .dash-jadwal-current-name {
+            color: #F8FAFC !important;
+        }
+        #dash-jadwal-list > .dash-jadwal-current .dash-jadwal-current-status {
+            background: #00A9CC !important;
+            border: 1px solid #67E8F9 !important;
+            color: #082F49 !important;
+        }
+        html[data-theme="light"] #dash-jadwal-list > .dash-jadwal-current {
+            background: linear-gradient(100deg, #D9F3FA, #E8E6FF) !important;
+            border: 2px solid #0786A3 !important;
+            box-shadow: inset 4px 0 0 #0786A3, 0 5px 16px rgba(7,134,163,0.18) !important;
+        }
+        html[data-theme="light"] #dash-jadwal-list > .dash-jadwal-current .dash-jadwal-current-time,
+        html[data-theme="light"] #dash-jadwal-list > .dash-jadwal-current .dash-jadwal-current-name {
+            color: #123B50 !important;
+        }
+        html[data-theme="light"] #dash-jadwal-list > .dash-jadwal-current .dash-jadwal-current-status {
+            background: #006B8F !important;
+            border-color: #006B8F !important;
+            color: #FFFFFF !important;
+        }
         html[data-theme="light"] .cp-modal > div,
         html[data-theme="light"] [id^="m-"] > div {
             box-shadow: 0 24px 60px rgba(15,23,42,0.18) !important;
@@ -4558,6 +4579,461 @@
                 padding: 30px 24px 28px !important;
             }
         }
+
+        html[data-theme="light"] #opening-screen.entry-ready.entry-spread,
+        html[data-theme="light"] #opening-screen.entry-ready.entry-center.entry-spread,
+        html[data-theme="light"] #login-screen.entry-ready.entry-spread,
+        html[data-theme="light"] #login-screen.entry-ready.entry-spread.is-lit,
+        html[data-theme="light"] #login-screen.entry-ready.entry-center.entry-spread,
+        html[data-theme="light"] #login-screen.entry-ready.entry-center.entry-spread.is-lit {
+            background: transparent !important;
+            background-color: transparent !important;
+            background-image: none !important;
+        }
+        @media (max-width: 768px) {
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread .login-input-wrapper,
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread.is-lit .login-input-wrapper {
+                transition: transform 0.18s ease, margin 0.18s ease;
+                transform-origin: center;
+            }
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread .login-input-wrapper:focus-within,
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread.is-lit .login-input-wrapper:focus-within {
+                z-index: 2;
+                transform: scale(1.035);
+            }
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread .login-input-wrapper input,
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread.is-lit .login-input-wrapper input {
+                min-height: 46px !important;
+                font-size: 16px !important;
+                transition: min-height 0.18s ease, padding 0.18s ease, box-shadow 0.18s ease;
+                touch-action: auto !important;
+                pointer-events: auto !important;
+            }
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread .login-input-wrapper input:focus,
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread.is-lit .login-input-wrapper input:focus {
+                min-height: 58px !important;
+                padding-top: 16px !important;
+                padding-bottom: 16px !important;
+                box-shadow: 0 0 0 3px rgba(0,107,143,0.2), 0 6px 16px rgba(0,72,102,0.14) !important;
+            }
+        }
+
+        header.header-glass {
+            background: linear-gradient(110deg, #006B8F 0%, #0C7FA3 55%, #005C79 100%) !important;
+            background-color: #006B8F !important;
+            border-bottom-color: rgba(255,255,255,0.24) !important;
+            box-shadow: 0 8px 24px rgba(0,58,82,0.22) !important;
+            color: #FFFFFF !important;
+        }
+        html[data-theme="light"] header.header-glass {
+            background: linear-gradient(110deg, #006B8F 0%, #0C7FA3 55%, #005C79 100%) !important;
+            background-color: #006B8F !important;
+        }
+        body.sidebar-open header.header-glass,
+        html[data-theme="light"] body.sidebar-open header.header-glass {
+            background: #FFFFFF !important;
+            background-image: none !important;
+            background-color: #FFFFFF !important;
+            border-bottom-color: #D8E5EA !important;
+            box-shadow: 0 6px 20px rgba(15,23,42,0.08) !important;
+            color: #172033 !important;
+        }
+        header.header-glass #page-title { color: #FFFFFF !important; }
+        header.header-glass #breadcrumb-active { color: #E0F2FE !important; }
+        header.header-glass #header-identity-sch { color: #FFFFFF !important; }
+        header.header-glass #header-identity-guru { color: #E0F2FE !important; }
+        header.header-glass svg[data-lucide="home"] { color: #E0F2FE !important; }
+        header.header-glass > div:last-child > div:nth-child(2) {
+            background-color: rgba(255,255,255,0.32) !important;
+        }
+        header.header-glass .w-9.h-9 {
+            background: #004A67 !important;
+            border: 1px solid rgba(255,255,255,0.38);
+            color: #FFFFFF !important;
+            box-shadow: 0 4px 12px rgba(0,44,64,0.28) !important;
+        }
+        body.sidebar-open header.header-glass #page-title { color: #123B50 !important; }
+        body.sidebar-open header.header-glass #breadcrumb-active { color: #475569 !important; }
+        body.sidebar-open header.header-glass #header-identity-sch { color: #172033 !important; }
+        body.sidebar-open header.header-glass #header-identity-guru { color: #475569 !important; }
+        body.sidebar-open header.header-glass svg[data-lucide="home"] { color: #006B8F !important; }
+        body.sidebar-open header.header-glass > div:last-child > div:nth-child(2) {
+            background-color: #CBD5E1 !important;
+        }
+        body.sidebar-open header.header-glass .w-9.h-9 {
+            background: #006B8F !important;
+            border-color: #005C79 !important;
+            color: #FFFFFF !important;
+            box-shadow: 0 4px 12px rgba(0,92,121,0.2) !important;
+        }
+        header.header-glass #sidebar-toggle-fab {
+            background: #FFFFFF !important;
+            border-color: #D5EAF1 !important;
+            color: #005C79 !important;
+        }
+        header.header-glass #sidebar-toggle-fab:hover {
+            background: #E0F2FE !important;
+        }
+        header.header-glass #sidebar-toggle-fab:focus-visible {
+            outline: 3px solid #FDE68A;
+            outline-offset: 2px;
+        }
+
+        #main-scroll-area .page-section-header,
+        #main-scroll-area .page-section-hero {
+            background: linear-gradient(115deg, #075B7A 0%, #08779A 55%, #0B7295 100%) !important;
+            background-color: #075B7A !important;
+            border-color: rgba(255,255,255,0.34) !important;
+            box-shadow: 0 10px 28px rgba(4,52,73,0.18);
+        }
+        #main-scroll-area .page-section-header h3,
+        #main-scroll-area .page-section-hero h1,
+        #main-scroll-area .page-section-hero h2,
+        #main-scroll-area .page-section-header p,
+        #main-scroll-area .page-section-kicker,
+        #main-scroll-area .page-section-hero > .relative.z-10 p {
+            color: #FFFFFF !important;
+        }
+        #main-scroll-area .page-section-header > div:first-child > div:first-child {
+            background: #E0F2FE !important;
+            border-color: rgba(255,255,255,0.8) !important;
+            color: #005B78 !important;
+            box-shadow: 0 4px 12px rgba(0,44,64,0.18) !important;
+        }
+        #main-scroll-area .page-section-header > div:first-child > div:first-child svg {
+            color: #005B78 !important;
+        }
+        #main-scroll-area .page-section-header .btn-primary {
+            background: #E0F2FE !important;
+            border: 1px solid rgba(255,255,255,0.8) !important;
+            color: #005B78 !important;
+            box-shadow: 0 4px 14px rgba(0,44,64,0.2) !important;
+        }
+        #main-scroll-area .page-section-header .btn-primary:hover {
+            background: #FFFFFF !important;
+            color: #004A67 !important;
+        }
+        #main-scroll-area .page-section-hero > .relative.z-10 > button,
+        #main-scroll-area .page-section-hero > .relative.z-10 > button:hover {
+            background: #E0F2FE !important;
+            border: 1px solid rgba(255,255,255,0.8) !important;
+            color: #005B78 !important;
+            box-shadow: 0 4px 14px rgba(0,44,64,0.2) !important;
+        }
+        #main-scroll-area .page-section-hero > .relative.z-10 > button svg {
+            color: #005B78 !important;
+        }
+        #main-scroll-area .page-section-header-controls {
+            background: rgba(255,255,255,0.14) !important;
+            border-color: rgba(255,255,255,0.34) !important;
+        }
+        #main-scroll-area .page-section-header-control {
+            background: #E0F2FE !important;
+            border-color: rgba(255,255,255,0.85) !important;
+            color: #005B78 !important;
+        }
+        #main-scroll-area .page-section-header-control:hover {
+            background: #FFFFFF !important;
+            color: #004A67 !important;
+        }
+        #main-scroll-area .page-section-header #month-label,
+        #main-scroll-area .page-section-header #journal-date-label {
+            color: #FFFFFF !important;
+        }
+        #main-scroll-area .page-section-hero:not(.dashboard-welcome-banner) > .relative.z-10 > div:first-child > div:first-child {
+            background: #E0F2FE !important;
+            border-color: rgba(255,255,255,0.8) !important;
+            box-shadow: 0 4px 14px rgba(0,44,64,0.2) !important;
+        }
+        #main-scroll-area .page-section-hero:not(.dashboard-welcome-banner) > .relative.z-10 > div:first-child > div:first-child svg {
+            color: #005B78 !important;
+        }
+        #main-scroll-area .page-section-badge {
+            background: #E0F2FE !important;
+            border-color: rgba(255,255,255,0.8) !important;
+            color: #005B78 !important;
+        }
+        #main-scroll-area .page-section-badge span {
+            color: #005B78 !important;
+            opacity: 1 !important;
+        }
+        #main-scroll-area .dashboard-welcome-banner #dash-guru-nama,
+        #main-scroll-area .dashboard-welcome-banner #dash-guru-nip,
+        #main-scroll-area .dashboard-welcome-banner #dash-guru-kelas {
+            color: #FFFFFF !important;
+        }
+        #main-scroll-area .dashboard-welcome-banner #dash-guru-kelas {
+            background: rgba(255,255,255,0.16) !important;
+            border-color: rgba(255,255,255,0.42) !important;
+        }
+        #main-scroll-area .dashboard-welcome-banner #dash-guru-avatar svg {
+            color: #E0F2FE !important;
+        }
+        #main-scroll-area .dashboard-welcome-banner .inline-flex {
+            background: rgba(255,255,255,0.14) !important;
+            border-color: rgba(255,255,255,0.34) !important;
+        }
+        #main-scroll-area .dashboard-welcome-banner .inline-flex span {
+            color: #FFFFFF !important;
+        }
+        #main-scroll-area .dashboard-welcome-banner #dash-welcome > span {
+            background: none !important;
+            color: #FFFFFF !important;
+            -webkit-text-fill-color: #FFFFFF !important;
+        }
+        html[data-theme="light"] #main-scroll-area .page-section-header,
+        html[data-theme="light"] #main-scroll-area .page-section-hero {
+            background: linear-gradient(115deg, #075B7A 0%, #08779A 55%, #0B7295 100%) !important;
+            background-color: #075B7A !important;
+            border-color: rgba(255,255,255,0.34) !important;
+        }
+        html[data-theme="light"] #main-scroll-area #page-journal > .page-section-header,
+        html[data-theme="light"] #main-scroll-area #page-grades > .page-section-header {
+            background: linear-gradient(115deg, #075B7A 0%, #08779A 55%, #0B7295 100%) !important;
+            background-color: #075B7A !important;
+            border-color: rgba(255,255,255,0.34) !important;
+        }
+        html[data-theme="light"] #main-scroll-area .page-section-header h3,
+        html[data-theme="light"] #main-scroll-area .page-section-header p,
+        html[data-theme="light"] #main-scroll-area .page-section-hero h1,
+        html[data-theme="light"] #main-scroll-area .page-section-hero h2,
+        html[data-theme="light"] #main-scroll-area .page-section-hero p,
+        html[data-theme="light"] #main-scroll-area .page-section-kicker,
+        html[data-theme="light"] #main-scroll-area .page-section-header #month-label,
+        html[data-theme="light"] #main-scroll-area .page-section-header #journal-date-label,
+        html[data-theme="light"] #main-scroll-area .dashboard-welcome-banner #dash-guru-nama,
+        html[data-theme="light"] #main-scroll-area .dashboard-welcome-banner #dash-guru-nip,
+        html[data-theme="light"] #main-scroll-area .dashboard-welcome-banner #dash-guru-kelas,
+        html[data-theme="light"] #main-scroll-area .dashboard-welcome-banner .inline-flex span,
+        html[data-theme="light"] #main-scroll-area .dashboard-welcome-banner #dash-welcome > span {
+            color: #FFFFFF !important;
+            -webkit-text-fill-color: #FFFFFF !important;
+        }
+        html[data-theme="light"] #main-scroll-area .page-section-header-controls {
+            background: rgba(255,255,255,0.14) !important;
+            border-color: rgba(255,255,255,0.34) !important;
+        }
+        html[data-theme="light"] #main-scroll-area .page-section-header-control,
+        html[data-theme="light"] #main-scroll-area .page-section-header-control:hover {
+            background: #E0F2FE !important;
+            color: #005B78 !important;
+            border-color: rgba(255,255,255,0.85) !important;
+        }
+        html[data-theme="light"] #main-scroll-area .page-section-hero > .relative.z-10 > button,
+        html[data-theme="light"] #main-scroll-area .page-section-hero > .relative.z-10 > button:hover {
+            background: #E0F2FE !important;
+            border-color: rgba(255,255,255,0.8) !important;
+            color: #005B78 !important;
+            box-shadow: 0 4px 14px rgba(0,44,64,0.2) !important;
+        }
+        html[data-theme="light"] #main-scroll-area .page-section-hero > .relative.z-10 > button svg {
+            color: #005B78 !important;
+        }
+        html[data-theme="light"] #main-scroll-area .page-section-badge,
+        html[data-theme="light"] #main-scroll-area .page-section-badge span {
+            background: #E0F2FE !important;
+            border-color: rgba(255,255,255,0.8) !important;
+            color: #005B78 !important;
+            -webkit-text-fill-color: #005B78 !important;
+        }
+        html[data-theme="light"] #main-scroll-area .dashboard-welcome-banner .inline-flex {
+            background: rgba(255,255,255,0.14) !important;
+            border-color: rgba(255,255,255,0.34) !important;
+        }
+        html[data-theme="light"] #main-scroll-area .dashboard-welcome-banner #dash-guru-kelas {
+            background: rgba(255,255,255,0.16) !important;
+            border-color: rgba(255,255,255,0.42) !important;
+        }
+        html[data-theme="light"] #main-scroll-area .dashboard-welcome-banner #dash-guru-avatar svg {
+            color: #E0F2FE !important;
+        }
+
+        html[data-theme="light"] #opening-screen.entry-ready.entry-spread,
+        html[data-theme="light"] #opening-screen.entry-ready.entry-center.entry-spread,
+        html[data-theme="light"] #login-screen.entry-ready.entry-spread,
+        html[data-theme="light"] #login-screen.entry-ready.entry-spread.is-lit,
+        html[data-theme="light"] #login-screen.entry-ready.entry-center.entry-spread,
+        html[data-theme="light"] #login-screen.entry-ready.entry-center.entry-spread.is-lit {
+            top: 0 !important;
+            width: 50% !important;
+            height: 100% !important;
+            transform: none !important;
+            background: linear-gradient(145deg, #073b66 0%, #086d91 58%, #08a5b3 100%) !important;
+            background-image: linear-gradient(145deg, #073b66 0%, #086d91 58%, #08a5b3 100%) !important;
+            box-shadow: none !important;
+        }
+        html[data-theme="light"] #opening-screen.entry-ready.entry-spread,
+        html[data-theme="light"] #opening-screen.entry-ready.entry-center.entry-spread {
+            left: 0 !important;
+            right: auto !important;
+        }
+        html[data-theme="light"] #login-screen.entry-ready.entry-spread,
+        html[data-theme="light"] #login-screen.entry-ready.entry-spread.is-lit,
+        html[data-theme="light"] #login-screen.entry-ready.entry-center.entry-spread,
+        html[data-theme="light"] #login-screen.entry-ready.entry-center.entry-spread.is-lit {
+            left: 50% !important;
+            right: auto !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: clamp(16px, 4vw, 48px) !important;
+        }
+        html[data-theme="light"] #login-screen.entry-ready.entry-spread .login-stage,
+        html[data-theme="light"] #login-screen.entry-ready.entry-spread.is-lit .login-stage,
+        html[data-theme="light"] #login-screen.entry-ready.entry-spread .login-box,
+        html[data-theme="light"] #login-screen.entry-ready.entry-spread.is-lit .login-box {
+            width: min(100%, 430px) !important;
+            max-width: 100% !important;
+        }
+        html[data-theme="light"] #opening-screen.entry-ready.entry-spread .opening-content {
+            width: min(100%, 430px) !important;
+        }
+        @media (max-width: 768px) {
+            html[data-theme="light"] #opening-screen.entry-ready.entry-spread,
+            html[data-theme="light"] #opening-screen.entry-ready.entry-center.entry-spread {
+                left: 0 !important;
+                top: 0 !important;
+                width: 100% !important;
+                height: 50% !important;
+                padding: 14px 20px 18px !important;
+                align-items: center !important;
+                justify-content: flex-end !important;
+            }
+            html[data-theme="light"] #opening-screen.entry-ready.entry-spread .opening-content {
+                width: min(100%, 430px) !important;
+                align-items: center !important;
+                text-align: center !important;
+            }
+            html[data-theme="light"] #opening-screen.entry-ready.entry-spread .opening-logo {
+                width: 62px !important;
+                height: 62px !important;
+                margin: 0 0 14px !important;
+                border-radius: 18px !important;
+            }
+            html[data-theme="light"] #opening-screen.entry-ready.entry-spread .pulse-icon {
+                width: 100% !important;
+                height: 100% !important;
+                border-radius: 13px !important;
+            }
+            html[data-theme="light"] #opening-screen.entry-ready.entry-spread .opening-kicker {
+                font-size: 8px !important;
+                letter-spacing: 0.12em !important;
+            }
+            html[data-theme="light"] #opening-screen.entry-ready.entry-spread h1 {
+                font-size: clamp(1.5rem, 7vw, 2rem) !important;
+                line-height: 1.08 !important;
+                margin: 0 0 10px !important;
+            }
+            html[data-theme="light"] #opening-screen.entry-ready.entry-spread .opening-welcome {
+                max-width: 340px !important;
+                margin: 0 !important;
+                font-size: 11px !important;
+                line-height: 1.5 !important;
+                text-align: center !important;
+            }
+            html[data-theme="light"] #opening-screen.entry-ready.entry-spread .loading-container {
+                display: none !important;
+            }
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread,
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread.is-lit,
+            html[data-theme="light"] #login-screen.entry-ready.entry-center.entry-spread,
+            html[data-theme="light"] #login-screen.entry-ready.entry-center.entry-spread.is-lit {
+                left: 0 !important;
+                top: 50% !important;
+                width: 100% !important;
+                height: 50% !important;
+                padding: 14px 20px 16px !important;
+                align-items: center !important;
+                justify-content: flex-start !important;
+            }
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread .login-stage,
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread.is-lit .login-stage {
+                width: 100% !important;
+                max-width: 390px !important;
+                transform: translateY(-48px) !important;
+            }
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread .login-box,
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread.is-lit .login-box {
+                width: 100% !important;
+                max-width: 390px !important;
+                min-height: 0 !important;
+                border-radius: 20px !important;
+                box-shadow: 0 8px 22px rgba(15,23,42,0.16) !important;
+            }
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread .login-form-side,
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread.is-lit .login-form-side {
+                padding: 20px 22px 18px !important;
+            }
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread .login-form-side h3,
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread.is-lit .login-form-side h3 {
+                font-size: clamp(1.4rem, 6vw, 1.8rem) !important;
+                margin-bottom: 7px !important;
+            }
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread .login-form-side p,
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread.is-lit .login-form-side p {
+                font-size: 12px !important;
+                line-height: 1.45 !important;
+                margin-bottom: 16px !important;
+            }
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread .login-input-wrapper,
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread.is-lit .login-input-wrapper {
+                margin-bottom: 10px !important;
+            }
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread .login-input-wrapper input,
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread.is-lit .login-input-wrapper input {
+                min-width: 0 !important;
+                padding: 12px 10px 12px 36px !important;
+                font-size: 16px !important;
+            }
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread .login-input-wrapper i,
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread.is-lit .login-input-wrapper i {
+                left: 10px !important;
+                width: 16px !important;
+                height: 16px !important;
+            }
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread .login-form-side > button,
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread.is-lit .login-form-side > button {
+                width: 100% !important;
+                max-width: 200px !important;
+                padding: 13px 10px !important;
+                font-size: 11px !important;
+            }
+        }
+        #login-screen .login-box,
+        #login-screen.is-lit .login-box,
+        #login-screen .login-form-side {
+            background: transparent !important;
+            background-color: transparent !important;
+            border-color: transparent !important;
+            box-shadow: none !important;
+            min-height: 0 !important;
+        }
+        html[data-theme="light"] #login-screen .login-box,
+        html[data-theme="light"] #login-screen.is-lit .login-box {
+            background: transparent !important;
+            border-color: transparent !important;
+            box-shadow: none !important;
+        }
+        #login-screen .login-form-side h3 {
+            background: none !important;
+            color: #FFFFFF !important;
+            -webkit-text-fill-color: #FFFFFF !important;
+        }
+        #login-screen .login-form-side p {
+            color: #E0F2FE !important;
+            -webkit-text-fill-color: #E0F2FE !important;
+        }
+        #login-screen .login-form-side > button,
+        #login-screen .login-form-side > button:hover {
+            background: #004A67 !important;
+            background-color: #004A67 !important;
+            background-image: none !important;
+            color: #FFFFFF !important;
+            box-shadow: 0 8px 18px rgba(0,44,64,0.32) !important;
+        }
+        #login-screen .login-form-side > button:hover {
+            background: #00384D !important;
+            background-color: #00384D !important;
+        }
     </style>
 </head>
 <body class="h-full flex">
@@ -4600,7 +5076,7 @@
     </div>
 
     <!-- Add Overlay for Mobile -->
-    <div id="sidebar-overlay" aria-hidden="true" class="fixed inset-0 bg-slate-900/50 z-40 hidden md:hidden backdrop-blur-sm transition-opacity duration-300 ease-out opacity-0"></div>
+    <div id="sidebar-overlay" aria-hidden="true" class="fixed inset-0 bg-slate-900/50 z-40 hidden md:hidden backdrop-blur-sm transition-opacity duration-300 ease-out opacity-0 pointer-events-none"></div>
 
     <aside id="main-sidebar" class="hidden w-64 flex flex-col z-50 absolute inset-y-0 left-0 h-full sidebar-collapsed md:fixed" style="background:linear-gradient(180deg,#081b31 0%,#0d2444 38%,#0b1d36 100%);border-right:1px solid rgba(146,179,255,0.18);box-shadow:18px 0 40px rgba(7,17,32,0.42);transition:transform .28s ease, opacity .28s ease;">
         <!-- Logo -->
@@ -4725,7 +5201,7 @@
             <div id="page-dashboard" class="space-y-5 page-transition">
 
                 <!-- Hero Banner  foto guru + sapaan -->
-                <div class="relative overflow-hidden rounded-3xl p-7 md:p-10" style="background:linear-gradient(135deg,#0d1829 0%,#0a1628 50%,#0f1f3d 100%);border:1px solid rgba(0,212,255,0.15);">
+                <div class="page-section-hero dashboard-welcome-banner relative overflow-hidden rounded-3xl p-7 md:p-10" style="background:linear-gradient(135deg,#0d1829 0%,#0a1628 50%,#0f1f3d 100%);border:1px solid rgba(0,212,255,0.15);">
                     <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse at 70% 30%,rgba(0,212,255,0.1),transparent 55%),radial-gradient(ellipse at 10% 90%,rgba(124,58,237,0.08),transparent 50%);"></div>
                     <div class="absolute inset-0 pointer-events-none" style="background-image:linear-gradient(rgba(0,212,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.04) 1px,transparent 1px);background-size:40px 40px;"></div>
                     <div class="relative z-10 flex flex-col md:flex-row items-center md:items-start gap-7">
@@ -4805,30 +5281,6 @@
                                 <div id="dash-jadwal-hari" style="font-size:14px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;color:#E5E7EB;"></div>
                             </div>
                         </div>
-                        <div id="dash-jadwal-now-badge" style="display:none;align-items:center;gap:6px;padding:5px 12px;border-radius:100px;background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.3);color:#00D4FF;font-size:7px;font-weight:900;text-transform:uppercase;letter-spacing:.2em;">
-                            <span style="width:6px;height:6px;border-radius:50%;background:#00D4FF;box-shadow:0 0 8px #00D4FF;display:inline-block;animation:pulse 1s infinite;"></span>LIVE
-                        </div>
-                    </div>
-
-                    <!-- Active headline  hanya muncul saat jam berlaku -->
-                    <div id="dash-jadwal-active-block" style="display:none;position:relative;z-index:2;margin:0 14px 10px;border-radius:14px;overflow:hidden;background:linear-gradient(135deg,rgba(0,212,255,0.09),rgba(124,58,237,0.07));border:1px solid rgba(0,212,255,0.18);">
-                        <div style="position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(180deg,#00D4FF,#7C3AED);"></div>
-                        <div style="padding:12px 14px 10px 18px;">
-                            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;">
-                                <span style="width:5px;height:5px;border-radius:50%;background:#00D4FF;box-shadow:0 0 8px #00D4FF;display:inline-block;animation:pulse 1s infinite;flex-shrink:0;"></span>
-                                <span style="font-size:7px;font-weight:900;text-transform:uppercase;letter-spacing:.3em;color:rgba(0,212,255,0.55);">Sedang Berlangsung</span>
-                            </div>
-                            <div id="dash-jadwal-active-name" style="font-size:22px;font-weight:900;line-height:1.1;letter-spacing:-.02em;margin-bottom:4px;background:linear-gradient(90deg,#FDE68A,#FBBF24 55%,#F59E0B);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;"></div>
-                            <div id="dash-jadwal-active-jam" style="font-size:9px;font-weight:700;color:rgba(0,212,255,0.5);font-family:monospace;letter-spacing:.06em;margin-bottom:10px;"></div>
-                            <div style="height:3px;border-radius:100px;background:rgba(0,212,255,0.08);overflow:hidden;margin-bottom:4px;">
-                                <div id="dash-jadwal-progress" style="height:100%;width:0%;background:linear-gradient(90deg,#00D4FF,#7C3AED);border-radius:100px;transition:width .8s cubic-bezier(.4,0,.2,1);box-shadow:0 0 8px rgba(0,212,255,0.5);"></div>
-                            </div>
-                            <div style="display:flex;justify-content:space-between;align-items:center;">
-                                <span id="dash-jadwal-prog-start" style="font-size:7px;font-weight:700;color:rgba(0,212,255,0.3);font-family:monospace;"></span>
-                                <span id="dash-jadwal-prog-pct" style="font-size:8px;font-weight:900;color:rgba(0,212,255,0.6);font-family:monospace;"></span>
-                                <span id="dash-jadwal-prog-end" style="font-size:7px;font-weight:700;color:rgba(0,212,255,0.3);font-family:monospace;"></span>
-                            </div>
-                        </div>
                     </div>
 
                     <!-- Scroll Cards -->
@@ -4873,7 +5325,7 @@
             </div>
 
             <div id="page-students" class="hidden space-y-8 page-transition">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center bg-[rgba(15,23,42,0.8)] p-8 rounded-3xl border border-[rgba(0,212,255,0.12)] gap-6">
+                <div class="page-section-header flex flex-col md:flex-row justify-between items-start md:items-center bg-[rgba(15,23,42,0.8)] p-8 rounded-3xl border border-[rgba(0,212,255,0.12)] gap-6">
                     <div class="flex items-center gap-5">
                         <div class="w-14 h-14 bg-[#F8FAFC] rounded-2xl flex items-center justify-center text-[var(--primary)] shadow-inner border border-[var(--border)]">
                             <i data-lucide="users" class="w-7 h-7"></i>
@@ -4914,7 +5366,7 @@
             </div>
 
             <div id="page-journal" class="hidden space-y-8 page-transition">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center bg-[rgba(15,23,42,0.8)] p-8 rounded-3xl border border-[rgba(0,212,255,0.12)] gap-6">
+                <div class="page-section-header flex flex-col md:flex-row justify-between items-start md:items-center bg-[rgba(15,23,42,0.8)] p-8 rounded-3xl border border-[rgba(0,212,255,0.12)] gap-6">
                     <div class="flex items-center gap-5">
                         <div class="w-14 h-14 bg-[#F8FAFC] rounded-2xl flex items-center justify-center text-[var(--primary)] border border-[var(--border)]">
                             <i data-lucide="book-open" class="w-7 h-7"></i>
@@ -4924,10 +5376,10 @@
                             <p class="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em] mt-1">Laporan Kegiatan Belajar Mengajar</p>
                         </div>
                     </div>
-                    <div class="flex items-center gap-3 bg-[rgba(255,255,255,0.04)] p-2 rounded-2xl border border-[var(--border)]">
-                        <button onclick="prevJournal()" class="p-3 bg-[rgba(255,255,255,0.06)] text-[var(--text-main)] rounded-xl hover:bg-[var(--primary)] hover:text-white transition-all border border-[var(--border)] active:scale-90"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
+                    <div class="page-section-header-controls flex items-center gap-3 bg-[rgba(255,255,255,0.04)] p-2 rounded-2xl border border-[var(--border)]">
+                        <button onclick="prevJournal()" class="page-section-header-control p-3 bg-[rgba(255,255,255,0.06)] text-[var(--text-main)] rounded-xl hover:bg-[var(--primary)] hover:text-white transition-all border border-[var(--border)] active:scale-90"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
                         <span id="journal-date-label" class="font-black text-xs uppercase tracking-widest text-[var(--primary)] px-6 min-w-[220px] text-center">TANGGAL</span>
-                        <button onclick="nextJournal()" class="p-3 bg-[rgba(255,255,255,0.06)] text-[var(--text-main)] rounded-xl hover:bg-[var(--primary)] hover:text-white transition-all border border-[var(--border)] active:scale-90"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
+                        <button onclick="nextJournal()" class="page-section-header-control p-3 bg-[rgba(255,255,255,0.06)] text-[var(--text-main)] rounded-xl hover:bg-[var(--primary)] hover:text-white transition-all border border-[var(--border)] active:scale-90"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
                     </div>
                 </div>
 
@@ -4982,7 +5434,7 @@
             </div>
 
             <div id="page-attendance" class="hidden space-y-8 page-transition">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center bg-[rgba(15,23,42,0.8)] p-8 rounded-3xl border border-[rgba(0,212,255,0.12)] gap-6">
+                <div class="page-section-header flex flex-col md:flex-row justify-between items-start md:items-center bg-[rgba(15,23,42,0.8)] p-8 rounded-3xl border border-[rgba(0,212,255,0.12)] gap-6">
                     <div class="flex items-center gap-5">
                         <div class="w-14 h-14 bg-[#F8FAFC] rounded-2xl flex items-center justify-center text-[var(--primary)] border border-[var(--border)]">
                             <i data-lucide="calendar-check" class="w-7 h-7"></i>
@@ -4992,10 +5444,10 @@
                             <p class="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em] mt-1">Pencatatan Kehadiran Siswa Real-time</p>
                         </div>
                     </div>
-                    <div class="flex items-center gap-3 bg-[rgba(255,255,255,0.04)] p-2 rounded-2xl border border-[var(--border)]">
-                        <button onclick="changeMonth(-1)" class="p-3 bg-[rgba(255,255,255,0.06)] text-[var(--text-main)] rounded-xl hover:bg-[var(--primary)] hover:text-white transition-all border border-[var(--border)] active:scale-90"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
+                    <div class="page-section-header-controls flex items-center gap-3 bg-[rgba(255,255,255,0.04)] p-2 rounded-2xl border border-[var(--border)]">
+                        <button onclick="changeMonth(-1)" class="page-section-header-control p-3 bg-[rgba(255,255,255,0.06)] text-[var(--text-main)] rounded-xl hover:bg-[var(--primary)] hover:text-white transition-all border border-[var(--border)] active:scale-90"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
                         <span id="month-label" class="font-black text-xs uppercase tracking-widest text-[var(--primary)] px-6 min-w-[220px] text-center">BULAN</span>
-                        <button onclick="changeMonth(1)" class="p-3 bg-[rgba(255,255,255,0.06)] text-[var(--text-main)] rounded-xl hover:bg-[var(--primary)] hover:text-white transition-all border border-[var(--border)] active:scale-90"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
+                        <button onclick="changeMonth(1)" class="page-section-header-control p-3 bg-[rgba(255,255,255,0.06)] text-[var(--text-main)] rounded-xl hover:bg-[var(--primary)] hover:text-white transition-all border border-[var(--border)] active:scale-90"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
                     </div>
                 </div>
                 
@@ -5048,7 +5500,7 @@
             </div>
 
             <div id="page-grades" class="hidden space-y-8 page-transition">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center bg-[rgba(15,23,42,0.8)] p-8 rounded-3xl border border-[rgba(0,212,255,0.12)] gap-6">
+                <div class="page-section-header flex flex-col md:flex-row justify-between items-start md:items-center bg-[rgba(15,23,42,0.8)] p-8 rounded-3xl border border-[rgba(0,212,255,0.12)] gap-6">
                     <div class="flex items-center gap-5">
                         <div class="w-14 h-14 bg-[#F8FAFC] rounded-2xl flex items-center justify-center text-[var(--primary)] border border-[var(--border)]">
                             <i data-lucide="award" class="w-7 h-7"></i>
@@ -5065,7 +5517,7 @@
             <div id="page-schedule" class="hidden space-y-6 page-transition">
 
                 <!-- Header -->
-                <div class="relative overflow-hidden rounded-3xl p-8 md:p-10" style="background:linear-gradient(135deg,#0d1829 0%,#0a1628 50%,#0f1f3d 100%);border:1px solid rgba(0,212,255,0.15);">
+                <div class="page-section-hero relative overflow-hidden rounded-3xl p-8 md:p-10" style="background:linear-gradient(135deg,#0d1829 0%,#0a1628 50%,#0f1f3d 100%);border:1px solid rgba(0,212,255,0.15);">
                     <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse at 80% 40%,rgba(0,212,255,0.08),transparent 55%),radial-gradient(ellipse at 10% 80%,rgba(124,58,237,0.06),transparent 50%);"></div>
                     <div class="absolute inset-0 pointer-events-none" style="background-image:linear-gradient(rgba(0,212,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.03) 1px,transparent 1px);background-size:40px 40px;"></div>
                     <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
@@ -5074,7 +5526,7 @@
                                 <i data-lucide="clock" class="w-7 h-7" style="color:#00D4FF;"></i>
                             </div>
                             <div>
-                                <div class="text-[9px] font-black uppercase tracking-[.2em] mb-1" style="color:rgba(0,212,255,0.6);">Manajemen Waktu</div>
+                                <div class="page-section-kicker text-[9px] font-black uppercase tracking-[.2em] mb-1" style="color:rgba(0,212,255,0.6);">Manajemen Waktu</div>
                                 <h2 class="text-2xl font-black tracking-tight" style="color:#E5E7EB;">Jadwal Pelajaran</h2>
                                 <p class="text-[11px] mt-1" style="color:#9CA3AF;">Atur slot jam lalu isi mata pelajaran per hari</p>
                             </div>
@@ -5129,7 +5581,7 @@
             <div id="page-bahan-ajar" class="hidden space-y-6 page-transition">
                 <div class="document-frame">
                 <!-- Header -->
-                <div class="document-frame-header relative overflow-hidden rounded-3xl p-8" style="background:linear-gradient(135deg,#0d1829,#0a1628,#0f1f3d);border:1px solid rgba(0,212,255,0.15);">
+                <div class="page-section-hero document-frame-header relative overflow-hidden rounded-3xl p-8" style="background:linear-gradient(135deg,#0d1829,#0a1628,#0f1f3d);border:1px solid rgba(0,212,255,0.15);">
                     <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse at 80% 40%,rgba(0,212,255,0.08),transparent 55%);"></div>
                     <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                         <div class="flex items-center gap-5">
@@ -5137,7 +5589,7 @@
                                 <i data-lucide="book-marked" class="w-7 h-7" style="color:#00D4FF;"></i>
                             </div>
                             <div>
-                                <div class="text-[9px] font-black uppercase tracking-[.2em] mb-1" style="color:rgba(0,212,255,0.6);">Manajemen Konten</div>
+                                <div class="page-section-kicker text-[9px] font-black uppercase tracking-[.2em] mb-1" style="color:rgba(0,212,255,0.6);">Manajemen Konten</div>
                                 <h2 class="text-2xl font-black tracking-tight" style="color:#E5E7EB;">Bahan Ajar</h2>
                                 <p class="text-[11px] mt-1" style="color:#9CA3AF;">Upload dan kelola file PDF bahan ajar per mata pelajaran</p>
                             </div>
@@ -5287,7 +5739,7 @@
             <div id="page-modul-ajar" class="hidden space-y-6 page-transition">
                 <div class="document-frame">
                 <!-- Header -->
-                <div class="document-frame-header relative overflow-hidden rounded-3xl p-8" style="background:linear-gradient(135deg,#0d1829,#0a1628,#0f1f3d);border:1px solid rgba(124,58,237,0.2);">
+                <div class="page-section-hero document-frame-header relative overflow-hidden rounded-3xl p-8" style="background:linear-gradient(135deg,#0d1829,#0a1628,#0f1f3d);border:1px solid rgba(124,58,237,0.2);">
                     <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse at 80% 40%,rgba(124,58,237,0.08),transparent 55%);"></div>
                     <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                         <div class="flex items-center gap-5">
@@ -5295,7 +5747,7 @@
                                 <i data-lucide="book-open-check" class="w-7 h-7" style="color:#A855F7;"></i>
                             </div>
                             <div>
-                                <div class="text-[9px] font-black uppercase tracking-[.2em] mb-1" style="color:rgba(168,85,247,0.6);">Manajemen Konten</div>
+                                <div class="page-section-kicker text-[9px] font-black uppercase tracking-[.2em] mb-1" style="color:rgba(168,85,247,0.6);">Manajemen Konten</div>
                                 <h2 class="text-2xl font-black tracking-tight" style="color:#E5E7EB;">Modul Ajar</h2>
                                 <p class="text-[11px] mt-1" style="color:#9CA3AF;">Kelola modul ajar per mata pelajaran</p>
                             </div>
@@ -5315,14 +5767,14 @@
 
             <div id="page-capaian-pembelajaran" class="hidden space-y-6 page-transition">
                 <div class="document-frame">
-                <div class="document-frame-header relative overflow-hidden rounded-3xl p-8" style="background:#FFFFFF;border:1px solid #B8D7E0;box-shadow:0 8px 24px rgba(15,23,42,0.08);">
+                <div class="page-section-hero document-frame-header relative overflow-hidden rounded-3xl p-8" style="background:#FFFFFF;border:1px solid #B8D7E0;box-shadow:0 8px 24px rgba(15,23,42,0.08);">
                     <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                         <div class="flex items-center gap-5">
                             <div class="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0" style="background:#E0F2FE;border:1px solid #8CCCDC;color:#006B8F;">
                                 <i data-lucide="target" class="w-7 h-7"></i>
                             </div>
                             <div>
-                                <div class="text-[9px] font-black uppercase tracking-[.2em] mb-1" style="color:#006B8F;">Manajemen Kurikulum</div>
+                                <div class="page-section-kicker text-[9px] font-black uppercase tracking-[.2em] mb-1" style="color:#006B8F;">Manajemen Kurikulum</div>
                                 <h2 class="text-2xl font-black tracking-tight" style="color:#172033;">CP/ATP</h2>
                                 <p class="text-[11px] mt-1" style="color:#475569;">Upload dan kelola dokumen CP/ATP per mata pelajaran</p>
                             </div>
@@ -5341,14 +5793,14 @@
 
             <div id="page-prota-prosem" class="hidden space-y-6 page-transition">
                 <div class="document-frame">
-                <div class="document-frame-header relative overflow-hidden rounded-3xl p-8" style="background:linear-gradient(135deg,#F8FAFC 0%,#EEF2FF 100%);border:1px solid #C7D2FE;box-shadow:0 8px 24px rgba(15,23,42,0.08);">
+                <div class="page-section-hero document-frame-header relative overflow-hidden rounded-3xl p-8" style="background:linear-gradient(135deg,#F8FAFC 0%,#EEF2FF 100%);border:1px solid #C7D2FE;box-shadow:0 8px 24px rgba(15,23,42,0.08);">
                     <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                         <div class="flex items-center gap-5">
                             <div class="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0" style="background:#EEF2FF;border:1px solid #C7D2FE;color:#4338CA;">
                                 <i data-lucide="calendar-range" class="w-7 h-7"></i>
                             </div>
                             <div>
-                                <div class="text-[9px] font-black uppercase tracking-[.2em] mb-1" style="color:#4338CA;">Manajemen Kurikulum</div>
+                                <div class="page-section-kicker text-[9px] font-black uppercase tracking-[.2em] mb-1" style="color:#4338CA;">Manajemen Kurikulum</div>
                                 <h2 class="text-2xl font-black tracking-tight" style="color:#172033;">Prota / Prosem</h2>
                                 <p class="text-[11px] mt-1" style="color:#475569;">Upload dan kelola dokumen Prota serta Prosem per mata pelajaran</p>
                             </div>
@@ -5544,7 +5996,7 @@
             <div id="page-print" class="hidden space-y-6 page-transition">
 
   <!-- Hero Banner -->
-  <div class="relative overflow-hidden rounded-3xl p-8 md:p-10" style="background:linear-gradient(135deg,#0d1829 0%,#0a1628 40%,#0f1f3d 100%);border:1px solid rgba(0,212,255,0.15);">
+  <div class="page-section-hero relative overflow-hidden rounded-3xl p-8 md:p-10" style="background:linear-gradient(135deg,#0d1829 0%,#0a1628 40%,#0f1f3d 100%);border:1px solid rgba(0,212,255,0.15);">
     <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse at 80% 50%,rgba(0,212,255,0.08),transparent 60%),radial-gradient(ellipse at 20% 80%,rgba(124,58,237,0.06),transparent 50%);"></div>
     <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
       <div class="flex items-center gap-5">
@@ -5552,14 +6004,14 @@
           <i data-lucide="printer" class="w-8 h-8" style="color:#00D4FF;"></i>
         </div>
         <div>
-          <div class="text-[9px] font-black uppercase tracking-[.25em] mb-1" style="color:rgba(0,212,255,0.6);">Pusat Dokumen</div>
+          <div class="page-section-kicker text-[9px] font-black uppercase tracking-[.25em] mb-1" style="color:rgba(0,212,255,0.6);">Pusat Dokumen</div>
           <h2 class="text-2xl md:text-3xl font-black tracking-tight" style="color:#E5E7EB;">Cetak &amp; Ekspor</h2>
           <p class="text-[11px] mt-1" style="color:#9CA3AF;">Semua dokumen akademik dalam satu tempat</p>
         </div>
       </div>
       <div class="flex gap-3 flex-wrap">
-        <div class="px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-wider" style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);color:#00D4FF;"><span style="opacity:.6;">Format</span> PDF</div>
-        <div class="px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-wider" style="background:rgba(39,174,96,0.08);border:1px solid rgba(39,174,96,0.2);color:#27AE60;">&#9679; 6 Dokumen</div>
+        <div class="page-section-badge px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-wider" style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);color:#00D4FF;"><span style="opacity:.6;">Format</span> PDF</div>
+        <div class="page-section-badge px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-wider" style="background:rgba(39,174,96,0.08);border:1px solid rgba(39,174,96,0.2);color:#27AE60;">&#9679; 6 Dokumen</div>
       </div>
     </div>
   </div>
@@ -5715,7 +6167,7 @@
 
 </div>
 <div id="page-settings" class="hidden space-y-8 page-transition">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center bg-[rgba(15,23,42,0.8)] p-8 rounded-3xl border border-[rgba(0,212,255,0.12)] gap-6">
+                <div class="page-section-header flex flex-col md:flex-row justify-between items-start md:items-center bg-[rgba(15,23,42,0.8)] p-8 rounded-3xl border border-[rgba(0,212,255,0.12)] gap-6">
                     <div class="flex items-center gap-5">
                         <div class="w-14 h-14 bg-[#F8FAFC] rounded-2xl flex items-center justify-center text-[var(--primary)] border border-[var(--border)]">
                             <i data-lucide="settings" class="w-7 h-7"></i>
@@ -5875,17 +6327,19 @@
     <div id="toast-container"></div>
 
     <!-- Modal Confirm Custom -->
-    <div id="custom-confirm-overlay" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(15,23,42,0.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:24px;">
+    <div id="custom-confirm-overlay" role="presentation" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(15,23,42,0.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:24px;">
         <div id="custom-confirm-box" style="position:relative;width:min(100%,420px);margin:0 auto;border-radius:22px;overflow:hidden;background:rgba(15,23,42,0.96);border:1px solid rgba(148,163,184,0.18);box-shadow:0 24px 60px rgba(2,6,23,0.45);animation:fadeIn .25s ease;">
             <div style="padding:22px 22px 18px;">
                 <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:18px;">
-                    <div style="width:42px;height:42px;border-radius:12px;background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.32);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                    <div id="custom-confirm-icon" style="width:42px;height:42px;border-radius:12px;background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.32);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
                     </div>
                     <button id="custom-confirm-close" style="width:30px;height:30px;border-radius:10px;border:1px solid rgba(148,163,184,0.18);background:rgba(255,255,255,0.02);color:#94a3b8;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;line-height:1;">×</button>
                 </div>
 
-                <div id="custom-confirm-msg" style="font-size:18px;font-weight:800;color:#f8fafc;line-height:1.4;margin-bottom:22px;"></div>
+                <div id="custom-confirm-title" style="font-size:10px;font-weight:900;color:#00D4FF;letter-spacing:.16em;text-transform:uppercase;margin-bottom:8px;">Konfirmasi</div>
+                <div id="custom-confirm-msg" style="font-size:18px;font-weight:800;color:#f8fafc;line-height:1.4;margin-bottom:8px;"></div>
+                <div id="custom-confirm-detail" style="font-size:12px;line-height:1.55;margin-bottom:22px;"></div>
 
                 <div style="display:flex;gap:10px;justify-content:flex-end;">
                     <button id="custom-confirm-cancel" style="min-width:110px;padding:12px 18px;border-radius:12px;border:1px solid rgba(148,163,184,0.18);background:rgba(255,255,255,0.02);color:#cbd5e1;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;cursor:pointer;">Batal</button>
@@ -5972,15 +6426,30 @@
         applyTheme(selectedTheme);
 
         // -- CUSTOM CONFIRM MODAL ---------------------------------
-        function dlpkConfirm(msg, onOk, onCancel) {
+        function dlpkConfirm(msg, onOk, onCancel, options = {}) {
             const overlay   = document.getElementById('custom-confirm-overlay');
+            const box       = document.getElementById('custom-confirm-box');
+            const titleEl   = document.getElementById('custom-confirm-title');
             const msgEl     = document.getElementById('custom-confirm-msg');
+            const detailEl  = document.getElementById('custom-confirm-detail');
             const btnOk     = document.getElementById('custom-confirm-ok');
             const btnCancel = document.getElementById('custom-confirm-cancel');
             const btnClose  = document.getElementById('custom-confirm-close');
+            titleEl.innerText = options.title || 'Konfirmasi';
             msgEl.innerText = msg;
+            detailEl.innerText = options.detail || '';
+            detailEl.style.display = options.detail ? 'block' : 'none';
+            box.classList.toggle('confirm-attendance', options.variant === 'attendance');
+            btnOk.innerText = options.confirmLabel || 'Ya, Keluar';
             overlay.style.display = 'flex';
-            const close = () => { overlay.style.display = 'none'; btnOk.onclick = null; btnCancel.onclick = null; btnClose.onclick = null; };
+            const close = () => {
+                overlay.style.display = 'none';
+                box.classList.remove('confirm-attendance');
+                btnOk.innerText = 'Ya, Keluar';
+                btnOk.onclick = null;
+                btnCancel.onclick = null;
+                btnClose.onclick = null;
+            };
             btnOk.onclick     = () => { close(); if (onOk) onOk(); };
             btnCancel.onclick = () => { close(); if (onCancel) onCancel(); };
             btnClose.onclick  = () => { close(); if (onCancel) onCancel(); };
@@ -6142,11 +6611,11 @@
                         ? { top: '25vh', left: '0', width: '100%', height: '50vh' }
                         : { top: '0', left: '25%', width: '50%', height: '100%' };
                     const openingGeometry = mobileEntry
-                        ? { top: '0', left: '0', width: '100%', height: '50vh' }
-                        : { top: '0', left: '0', width: '52%', height: '100%' };
+                        ? { top: '0', left: '0', width: '100%', height: '50%' }
+                        : { top: '0', left: '0', width: '50%', height: '100%' };
                     const loginGeometry = mobileEntry
-                        ? { top: '50vh', left: '0', width: '100%', height: '50vh' }
-                        : { top: '0', left: '52%', width: '48%', height: '100%' };
+                        ? { top: '50%', left: '0', width: '100%', height: '50%' }
+                        : { top: '0', left: '50%', width: '50%', height: '100%' };
                     const setGeometry = (element, geometry) => Object.entries(geometry).forEach(([property, value]) => element.style.setProperty(property, value, 'important'));
                     const disableMotion = element => {
                         element.getAnimations().forEach(animation => animation.cancel());
@@ -6157,9 +6626,12 @@
                     disableMotion(loginScreen);
                     setGeometry(openingScreen, centerGeometry);
                     setGeometry(loginScreen, centerGeometry);
+                    openingScreen.style.setProperty('box-shadow', 'none', 'important');
+                    openingScreen.style.setProperty('background', 'transparent', 'important');
+                    loginScreen.style.setProperty('box-shadow', 'none', 'important');
+                    loginScreen.style.setProperty('background', 'transparent', 'important');
                     openingScreen.style.setProperty('z-index', '10000', 'important');
                     loginScreen.style.setProperty('z-index', '10001', 'important');
-                    loginScreen.style.setProperty('background', 'transparent', 'important');
                     loginScreen.style.setProperty('transition', 'none', 'important');
                     openingScreen.style.setProperty('transition', 'none', 'important');
                     void openingScreen.offsetWidth;
@@ -6172,9 +6644,14 @@
                         loginScreen.style.setProperty('transition', transition, 'important');
                         setGeometry(openingScreen, openingGeometry);
                         setGeometry(loginScreen, loginGeometry);
-                        loginScreen.style.setProperty('background', 'transparent', 'important');
+                        openingScreen.classList.remove('entry-center');
+                        loginScreen.classList.remove('entry-center');
+                        openingScreen.classList.add('entry-spread');
+                        loginScreen.classList.add('entry-spread');
                     }, 80);
-                    setTimeout(() => document.getElementById('login-password')?.focus(), 2100);
+                    if (!mobileEntry) {
+                        setTimeout(() => document.getElementById('login-password')?.focus(), 2100);
+                    }
                 }
                 lucide.createIcons();
             }, 1150);
@@ -6232,28 +6709,7 @@
         function logout() {
             dlpkConfirm('Apakah Anda yakin ingin keluar dari sistem?', function() {
                 sessionStorage.removeItem('dlpk_logged_in');
-                document.body.classList.remove('app-ready');
-
-                const sidebar = document.getElementById('main-sidebar');
-                const overlay = document.getElementById('sidebar-overlay');
-                if (sidebar) {
-                    sidebar.classList.add('sidebar-collapsed');
-                    sidebar.classList.remove('sidebar-expanded');
-                }
-                if (overlay) {
-                    overlay.classList.add('hidden');
-                    overlay.classList.add('opacity-0');
-                }
-
-                try {
-                    window.close();
-                } catch (e) {}
-
-                setTimeout(() => {
-                    if (!window.closed) {
-                        window.location.href = 'about:blank';
-                    }
-                }, 150);
+                window.location.reload();
             });
         }
 
@@ -6504,7 +6960,11 @@
                 if (overlay) {
                     overlay.classList.add('opacity-0');
                     overlay.style.pointerEvents = 'none';
-                    setTimeout(() => overlay.classList.add('hidden'), 280);
+                    setTimeout(() => {
+                        if (!sidebar.classList.contains('sidebar-expanded')) {
+                            overlay.classList.add('hidden');
+                        }
+                    }, 280);
                 }
             }
 
@@ -6520,11 +6980,17 @@
             sidebar.classList.add('sidebar-collapsed');
             sidebar.classList.add('-translate-x-full');
             sidebar.classList.remove('sidebar-expanded');
+            document.body.classList.add('sidebar-closed');
+            document.body.classList.remove('sidebar-open');
 
             if (overlay) {
                 overlay.classList.add('opacity-0');
                 overlay.style.pointerEvents = 'none';
-                setTimeout(() => overlay.classList.add('hidden'), 280);
+                setTimeout(() => {
+                    if (sidebar.classList.contains('sidebar-collapsed')) {
+                        overlay.classList.add('hidden');
+                    }
+                }, 280);
             }
 
             const btn = document.querySelector('header [onclick*="toggleSidebar"]');
@@ -6547,6 +7013,8 @@
                 sidebar.classList.remove('sidebar-collapsed');
                 sidebar.classList.remove('-translate-x-full');
                 sidebar.classList.add('sidebar-expanded');
+                document.body.classList.add('sidebar-open');
+                document.body.classList.remove('sidebar-closed');
                 if (overlay) {
                     overlay.classList.remove('hidden');
                     overlay.style.pointerEvents = 'auto';
@@ -6561,7 +7029,6 @@
 
         document.addEventListener('pointerdown', function (event) {
             const sidebar = document.getElementById('main-sidebar');
-            const overlay = document.getElementById('sidebar-overlay');
             const fab = document.getElementById('sidebar-toggle-fab');
             const headerButton = document.querySelector('header [onclick*="toggleSidebar"]');
 
@@ -6582,24 +7049,12 @@
             const clickedInsideSidebar = sidebar.contains(event.target);
             const clickedToggle = fab && fab.contains(event.target);
             const clickedHeaderButton = headerButton && headerButton.contains(event.target);
-            const clickedOverlay = overlay && overlay.contains(event.target);
 
-            if (!clickedInsideSidebar && !clickedToggle && !clickedHeaderButton && !clickedOverlay) {
+            if (!clickedInsideSidebar && !clickedToggle && !clickedHeaderButton) {
                 closeMobileSidebar();
             }
         });
 
-        const sidebarOverlay = document.getElementById('sidebar-overlay');
-        if (sidebarOverlay) {
-            sidebarOverlay.addEventListener('click', function () {
-                if (window.innerWidth < 768) {
-                    const sidebar = document.getElementById('main-sidebar');
-                    if (sidebar && !sidebar.classList.contains('sidebar-collapsed') && !sidebar.classList.contains('-translate-x-full')) {
-                        closeMobileSidebar();
-                    }
-                }
-            });
-        }
 
         let _switchingPage = false;
         function switchPage(p) {
@@ -6650,8 +7105,12 @@
             lucide.createIcons();
             
             const sidebar = document.getElementById('main-sidebar');
-            if (sidebar && !sidebar.classList.contains('-translate-x-full')) {
-                closeMobileSidebar();
+            if (sidebar && !sidebar.classList.contains('sidebar-collapsed')) {
+                if (window.innerWidth >= 768) {
+                    setDesktopSidebarState(false);
+                } else {
+                    closeMobileSidebar();
+                }
             }
         }
 
@@ -6889,8 +7348,13 @@
             const y = date.getFullYear(), m = date.getMonth() + 1, d = date.getDate();
             const monthKey = `${y}-${m.toString().padStart(2, '0')}`;
             const ketLibur = document.getElementById('quick-ket-libur').value;
-            
-            dlpkConfirm(`Setel semua siswa ${val === 'H' ? 'HADIR' : 'LIBUR'} pada tanggal ${d}/${m}/${y}?`, function() {
+            const monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+            const isMassPresent = val === 'H';
+            const confirmMessage = isMassPresent
+                ? `Tandai semua ${students.length} siswa sebagai hadir pada ${d} ${monthNames[m - 1]} ${y}?`
+                : `Tandai semua siswa sebagai libur pada ${d} ${monthNames[m - 1]} ${y}?`;
+
+            dlpkConfirm(confirmMessage, function() {
                 const updates = {};
                 students.forEach(s => {
                     updates[`attendance/${monthKey}/${s.name}/${d}`] = val;
@@ -6909,6 +7373,15 @@
                     document.getElementById('quick-ket-libur').value = "";
                     renderAbsen();
                 });
+            }, null, isMassPresent ? {
+                title: 'Konfirmasi Kehadiran',
+                detail: 'Status kehadiran yang sudah tercatat untuk tanggal tersebut akan diperbarui menjadi Hadir.',
+                confirmLabel: 'Ya, Tandai Hadir',
+                variant: 'attendance'
+            } : {
+                title: 'Konfirmasi Libur',
+                detail: ketLibur ? `Keterangan libur: ${ketLibur}.` : 'Status semua siswa pada tanggal tersebut akan diperbarui menjadi Libur.',
+                confirmLabel: 'Ya, Tandai Libur'
             });
         }
 
@@ -7396,12 +7869,6 @@
         });
 
         function renderDashJadwal() {
-            // Force hide headline dulu sebelum apapun
-            const _ab = document.getElementById('dash-jadwal-active-block');
-            if (_ab) _ab.classList.add('hidden');
-            const _nb = document.getElementById('dash-jadwal-now-badge');
-            if (_nb) _nb.classList.add('hidden');
-
             const hariNames = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
             const now = new Date();
             const hariIni = hariNames[now.getDay()];
@@ -7434,39 +7901,7 @@
             if (entries.length === 0) {
                 document.getElementById('dash-jadwal-list').innerHTML =
                     '<div style="padding:16px 0;text-align:center;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(0,212,255,0.2);">Tidak ada jadwal hari ini</div>';
-                document.getElementById('dash-jadwal-now-badge').classList.add('hidden');
-                document.getElementById('dash-jadwal-active-block').classList.add('hidden');
                 return;
-            }
-
-            // Cari yang sedang aktif  jamNow HARUS >= mulai DAN < selesai (strict)
-            let activeEntry = null;
-            entries.forEach(e => {
-                const s = parseJam(e.mulai), en = parseJam(e.selesai);
-                console.log('[JADWAL] slot:', e.mapel, '| mulai:', e.mulai, '=', s, '| selesai:', e.selesai, '=', en, '| jamNow:', jamNow, '| aktif:', s >= 0 && en >= 0 && jamNow >= s && jamNow < en);
-                if (s >= 0 && en > s && jamNow >= s && jamNow < en) activeEntry = e;
-            });
-
-            // Active headline  hanya tampil jika ada jam yang berlaku saat ini
-            const activeBlock = document.getElementById('dash-jadwal-active-block');
-            // Double-check: pastikan jamNow benar-benar dalam range slot aktif
-            const _s = activeEntry ? parseJam(activeEntry.mulai) : -1;
-            const _en = activeEntry ? parseJam(activeEntry.selesai) : -1;
-            const isReallyActive = activeEntry && _s >= 0 && _en > _s && jamNow >= _s && jamNow < _en;
-            if (isReallyActive) {
-                activeBlock.classList.remove('hidden');
-                document.getElementById('dash-jadwal-active-name').innerText = activeEntry.mapel;
-                document.getElementById('dash-jadwal-active-jam').innerText = '?  ' + activeEntry.mulai + '  ' + activeEntry.selesai;
-                document.getElementById('dash-jadwal-prog-start').innerText = activeEntry.mulai;
-                document.getElementById('dash-jadwal-prog-end').innerText = activeEntry.selesai;
-                const s = parseJam(activeEntry.mulai), en = parseJam(activeEntry.selesai);
-                const pct = Math.min(100, Math.max(0, Math.round(((jamNow - s) / (en - s)) * 100)));
-                document.getElementById('dash-jadwal-progress').style.width = pct + '%';
-                document.getElementById('dash-jadwal-prog-pct').innerText = pct + '%';
-                document.getElementById('dash-jadwal-now-badge').classList.remove('hidden');
-            } else {
-                activeBlock.classList.add('hidden');
-                document.getElementById('dash-jadwal-now-badge').classList.add('hidden');
             }
 
             const listEl = document.getElementById('dash-jadwal-list');
@@ -7480,7 +7915,7 @@
                 });
 
                 if (isNow) {
-                    return `<div style="display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:12px;background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.35);margin-bottom:5px;">
+                    return `<div class="dash-jadwal-current" style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;margin-bottom:6px;">
                         <!-- Indikator aktif -->
                         <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex-shrink:0;">
                             <div style="width:8px;height:8px;border-radius:50%;background:#00D4FF;box-shadow:0 0 10px #00D4FF;animation:pulse 1s infinite;"></div>
@@ -7488,14 +7923,14 @@
                         </div>
                         <!-- Jam -->
                         <div style="flex-shrink:0;min-width:80px;">
-                            <div style="font-size:10px;font-weight:900;color:#00D4FF;font-family:monospace;letter-spacing:.03em;">${jamStr}</div>
+                            <div class="dash-jadwal-current-time" style="font-size:10px;font-weight:900;color:#00D4FF;font-family:monospace;letter-spacing:.03em;">${jamStr}</div>
                         </div>
                         <!-- Mapel -->
                         <div style="flex:1;min-width:0;">
-                            <div style="font-size:16px;font-weight:900;color:#E5E7EB;line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${e.mapel}</div>
+                            <div class="dash-jadwal-current-name" style="font-size:16px;font-weight:900;color:#E5E7EB;line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${e.mapel}</div>
                         </div>
                         <!-- Badge -->
-                        <div style="flex-shrink:0;padding:3px 10px;border-radius:100px;background:rgba(0,212,255,0.15);border:1px solid rgba(0,212,255,0.4);font-size:8px;font-weight:900;color:#00D4FF;letter-spacing:.1em;text-transform:uppercase;">NOW</div>
+                        <div class="dash-jadwal-current-status" style="flex-shrink:0;padding:4px 10px;border-radius:100px;font-size:8px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;">SEDANG BERLANGSUNG</div>
                     </div>`;
                 }
 
