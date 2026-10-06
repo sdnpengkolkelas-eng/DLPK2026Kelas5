@@ -5034,6 +5034,30 @@
             background: #00384D !important;
             background-color: #00384D !important;
         }
+        @media (max-width: 768px) {
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread,
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread.is-lit {
+                top: 50vh !important;
+                right: auto !important;
+                bottom: auto !important;
+                left: 0 !important;
+                width: 100% !important;
+                height: 50vh !important;
+                align-items: center !important;
+            }
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread .login-stage,
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread.is-lit .login-stage {
+                width: min(100%, 390px) !important;
+                max-width: 100% !important;
+                margin-inline: auto !important;
+                align-self: center !important;
+            }
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread .login-box,
+            html[data-theme="light"] #login-screen.entry-ready.entry-spread.is-lit .login-box {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+        }
     </style>
 </head>
 <body class="h-full flex">
