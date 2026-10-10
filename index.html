@@ -25,6 +25,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
     <!-- Tambahan Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
     <style>
@@ -5154,15 +5155,20 @@
         <div class="login-stage">
             <div class="login-box">
                 <div class="login-form-side">
-                    <h3>Log In Guru</h3>
-                    <p>Masukkan password Anda untuk melanjutkan.</p>
+                    <h3>Login Pemilik</h3>
+                    <p>Masuk dengan email dan kata sandi akun Firebase Anda.</p>
+
+                    <div class="login-input-wrapper">
+                        <i data-lucide="mail" class="w-5 h-5"></i>
+                        <input type="email" id="login-email" placeholder="Email Firebase" autocomplete="username" onkeyup="if(event.key === 'Enter') attemptLogin()">
+                    </div>
 
                     <div class="login-input-wrapper">
                         <i data-lucide="lock" class="w-5 h-5"></i>
-                        <input type="password" id="login-password" placeholder="Password Sistem" onkeyup="if(event.key === 'Enter') attemptLogin()">
+                        <input type="password" id="login-password" placeholder="Kata sandi Firebase" autocomplete="current-password" onkeyup="if(event.key === 'Enter') attemptLogin()">
                     </div>
 
-                    <button onclick="attemptLogin()" class="w-[200px] self-center btn-primary py-3 text-xs rounded-xl shadow-lg shadow-[#00CEC9]/20 flex items-center justify-center gap-2">
+                    <button id="login-submit" onclick="attemptLogin()" class="w-[200px] self-center btn-primary py-3 text-xs rounded-xl shadow-lg shadow-[#00CEC9]/20 flex items-center justify-center gap-2">
                         <span>Masuk Sekarang</span>
                         <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                     </button>
@@ -6326,18 +6332,10 @@
                     <div class="glass-card p-8 space-y-8 lg:col-span-2">
                         <div class="flex items-center gap-3 pb-4 border-b border-[var(--border)]">
                             <div class="w-10 h-10 rounded-xl bg-[#F8FAFC] flex items-center justify-center text-[var(--primary)] border border-[var(--border)]"><i data-lucide="key" class="w-5 h-5"></i></div>
-                            <h4 class="text-xs font-black text-[var(--text-main)] uppercase tracking-widest">Keamanan & Akses</h4>
+                            <h4 class="text-xs font-black text-[var(--text-main)] uppercase tracking-widest">Keamanan Akun Firebase</h4>
                         </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest mb-2 block ml-1">Password Baru</label>
-                                <input type="password" id="set-password" placeholder="Masukkan password baru" class="modern-input font-bold text-[var(--text-main)]">
-                            </div>
-                            <div>
-                                <label class="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest mb-2 block ml-1">Konfirmasi Password</label>
-                                <input type="password" id="set-password-confirm" placeholder="Ulangi password baru" class="modern-input font-bold text-[var(--text-main)]">
-                            </div>
-                        </div>
+                        <p class="text-sm text-[var(--text-muted)]">Kata sandi login dikelola oleh Firebase Authentication, bukan disimpan di data aplikasi.</p>
+                        <button type="button" onclick="sendPasswordReset()" class="btn-primary px-5 py-3 rounded-xl text-xs font-bold">Kirim tautan atur ulang kata sandi</button>
                     </div>
                 </div>
             </div>
@@ -6574,6 +6572,35 @@
         };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
+        const firebaseAuth = firebase.auth();
+        const OWNER_UID = '6ew1ziovNoUHS98MU4ET6dwlftg1';
+        let firebaseAuthReady = false;
+        let loginEntryReady = false;
+        let firebaseDataLoaded = false;
+        const firebaseListenerDefinitions = [];
+        let activeFirebaseListeners = [];
+
+        function listenToFirebase(path, callback) {
+            firebaseListenerDefinitions.push({ path, callback });
+            if (activeFirebaseListeners.length) attachFirebaseListener({ path, callback });
+        }
+
+        function attachFirebaseListener(listener) {
+            const ref = db.ref(listener.path);
+            const onError = error => showToast(`Gagal memuat data (${listener.path}): ${error.message}`, 'error', 6000);
+            ref.on('value', listener.callback, onError);
+            activeFirebaseListeners.push({ ref, callback: listener.callback });
+        }
+
+        function startFirebaseListeners() {
+            if (!firebaseAuth.currentUser || firebaseAuth.currentUser.uid !== OWNER_UID || activeFirebaseListeners.length) return;
+            firebaseListenerDefinitions.forEach(attachFirebaseListener);
+        }
+
+        function stopFirebaseListeners() {
+            activeFirebaseListeners.forEach(({ ref, callback }) => ref.off('value', callback));
+            activeFirebaseListeners = [];
+        }
 
         // Modern Toast Notification System
         function showToast(message, type = 'success', duration = 4000) {
@@ -6621,7 +6648,6 @@
         let config = {
             guru: { nama: "Ibu Sari, S.Pd", nip: "19880712 201503 2 003", kelas: "Wali Kelas 5A" },
             sekolah: { nama: "SDN Harapan Bangsa", npsn: "20234567", alamat: "Jl. Pendidikan No. 12, Jakarta", tempat: "Pengkol", ks_nama: "Bp. Hartono, M.Pd", ks_nip: "19750101 200003 1 001", tahun: "2026/2027" },
-            auth: { password: "guru123" },
             shortcuts: [
                 { label: 'Ruang Belajar', url: 'https://wardana1944-lab.github.io/LMS-tugas-kelas-V/', iconUrl: 'https://wardana1944-lab.github.io/LMS-tugas-kelas-V/icon.png.ico?v=2', accent: '#00A9CC', tone: 'rgba(0,169,204,0.12)' },
                 { label: 'Portal Nilai', url: 'https://sdnpengkolkelas-eng.github.io/PORTAL-NILAI/', iconUrl: 'https://sdnpengkolkelas-eng.github.io/PORTAL-NILAI/logo.png', accent: '#159A5B', tone: 'rgba(21,154,91,0.12)' },
@@ -6674,7 +6700,7 @@
             loginLampPulling = false;
             if (lamp) lamp.classList.add('is-pulled');
             screen.classList.add('is-lit');
-            setTimeout(() => document.getElementById('login-password')?.focus(), 520);
+            setTimeout(() => document.getElementById('login-email')?.focus(), 520);
         }
 
         window.onload = () => {
@@ -6690,68 +6716,91 @@
                 }
             }, 150);
 
-            loadFirebaseData();
             setTimeout(() => {
-                // Reveal both entry panels after the logo splash completes.
-                if (sessionStorage.getItem('dlpk_logged_in') === '1') {
-                    masukDashboard();
-                } else {
-                    const loginScreen = document.getElementById('login-screen');
-                    const openingScreen = document.getElementById('opening-screen');
-                    loginScreen.classList.remove('hidden');
-                    openingScreen.classList.add('entry-ready', 'entry-center');
-                    loginScreen.classList.add('entry-ready', 'entry-center');
-                    loginScreen.setAttribute('aria-hidden', 'false');
-                    const mobileEntry = window.matchMedia('(max-width: 768px)').matches;
-                    const centerGeometry = mobileEntry
-                        ? { top: '25vh', left: '0', width: '100%', height: '50vh' }
-                        : { top: '0', left: '25%', width: '50%', height: '100%' };
-                    const openingGeometry = mobileEntry
-                        ? { top: '0', left: '0', width: '100%', height: '50%' }
-                        : { top: '0', left: '0', width: '50%', height: '100%' };
-                    const loginGeometry = mobileEntry
-                        ? { top: '50%', left: '0', width: '100%', height: '50%' }
-                        : { top: '0', left: '50%', width: '50%', height: '100%' };
-                    const setGeometry = (element, geometry) => Object.entries(geometry).forEach(([property, value]) => element.style.setProperty(property, value, 'important'));
-                    const disableMotion = element => {
-                        element.getAnimations().forEach(animation => animation.cancel());
-                        element.style.setProperty('transform', 'none', 'important');
-                        element.style.setProperty('animation', 'none', 'important');
-                    };
-                    disableMotion(openingScreen);
-                    disableMotion(loginScreen);
-                    setGeometry(openingScreen, centerGeometry);
-                    setGeometry(loginScreen, centerGeometry);
-                    openingScreen.style.setProperty('box-shadow', 'none', 'important');
-                    openingScreen.style.setProperty('background', 'transparent', 'important');
-                    loginScreen.style.setProperty('box-shadow', 'none', 'important');
-                    loginScreen.style.setProperty('background', 'transparent', 'important');
-                    openingScreen.style.setProperty('z-index', '10000', 'important');
-                    loginScreen.style.setProperty('z-index', '10001', 'important');
-                    loginScreen.style.setProperty('transition', 'none', 'important');
-                    openingScreen.style.setProperty('transition', 'none', 'important');
-                    void openingScreen.offsetWidth;
-                    void loginScreen.offsetWidth;
-                    setTimeout(() => {
-                        const duration = mobileEntry ? 1.7 : 1.9;
-                        const easing = 'cubic-bezier(0.22, 1, 0.36, 1)';
-                        const transition = `top ${duration}s ${easing}, left ${duration}s ${easing}, width ${duration}s ${easing}, height ${duration}s ${easing}`;
-                        openingScreen.style.setProperty('transition', transition, 'important');
-                        loginScreen.style.setProperty('transition', transition, 'important');
-                        setGeometry(openingScreen, openingGeometry);
-                        setGeometry(loginScreen, loginGeometry);
-                        openingScreen.classList.remove('entry-center');
-                        loginScreen.classList.remove('entry-center');
-                        openingScreen.classList.add('entry-spread');
-                        loginScreen.classList.add('entry-spread');
-                    }, 80);
-                    if (!mobileEntry) {
-                        setTimeout(() => document.getElementById('login-password')?.focus(), 2100);
-                    }
-                }
-                lucide.createIcons();
+                loginEntryReady = true;
+                if (firebaseAuthReady) showAuthenticatedEntry();
             }, 1150);
         };
+
+        function showLoginScreen() {
+            const loginScreen = document.getElementById('login-screen');
+            const openingScreen = document.getElementById('opening-screen');
+            loginScreen.classList.remove('hidden');
+            openingScreen.classList.add('entry-ready', 'entry-center');
+            loginScreen.classList.add('entry-ready', 'entry-center');
+            loginScreen.setAttribute('aria-hidden', 'false');
+            const mobileEntry = window.matchMedia('(max-width: 768px)').matches;
+            const centerGeometry = mobileEntry
+                ? { top: '25vh', left: '0', width: '100%', height: '50vh' }
+                : { top: '0', left: '25%', width: '50%', height: '100%' };
+            const openingGeometry = mobileEntry
+                ? { top: '0', left: '0', width: '100%', height: '50%' }
+                : { top: '0', left: '0', width: '50%', height: '100%' };
+            const loginGeometry = mobileEntry
+                ? { top: '50%', left: '0', width: '100%', height: '50%' }
+                : { top: '0', left: '50%', width: '50%', height: '100%' };
+            const setGeometry = (element, geometry) => Object.entries(geometry).forEach(([property, value]) => element.style.setProperty(property, value, 'important'));
+            const disableMotion = element => {
+                element.getAnimations().forEach(animation => animation.cancel());
+                element.style.setProperty('transform', 'none', 'important');
+                element.style.setProperty('animation', 'none', 'important');
+            };
+            disableMotion(openingScreen);
+            disableMotion(loginScreen);
+            setGeometry(openingScreen, centerGeometry);
+            setGeometry(loginScreen, centerGeometry);
+            openingScreen.style.setProperty('box-shadow', 'none', 'important');
+            openingScreen.style.setProperty('background', 'transparent', 'important');
+            loginScreen.style.setProperty('box-shadow', 'none', 'important');
+            loginScreen.style.setProperty('background', 'transparent', 'important');
+            openingScreen.style.setProperty('z-index', '10000', 'important');
+            loginScreen.style.setProperty('z-index', '10001', 'important');
+            loginScreen.style.setProperty('transition', 'none', 'important');
+            openingScreen.style.setProperty('transition', 'none', 'important');
+            void openingScreen.offsetWidth;
+            void loginScreen.offsetWidth;
+            setTimeout(() => {
+                const duration = mobileEntry ? 1.7 : 1.9;
+                const easing = 'cubic-bezier(0.22, 1, 0.36, 1)';
+                const transition = `top ${duration}s ${easing}, left ${duration}s ${easing}, width ${duration}s ${easing}, height ${duration}s ${easing}`;
+                openingScreen.style.setProperty('transition', transition, 'important');
+                loginScreen.style.setProperty('transition', transition, 'important');
+                setGeometry(openingScreen, openingGeometry);
+                setGeometry(loginScreen, loginGeometry);
+                openingScreen.classList.remove('entry-center');
+                loginScreen.classList.remove('entry-center');
+                openingScreen.classList.add('entry-spread');
+                loginScreen.classList.add('entry-spread');
+            }, 80);
+            if (!mobileEntry) setTimeout(() => document.getElementById('login-email')?.focus(), 2100);
+            lucide.createIcons();
+        }
+
+        function showAuthenticatedEntry() {
+            if (!loginEntryReady || !firebaseAuthReady) return;
+            const user = firebaseAuth.currentUser;
+            if (user && user.uid === OWNER_UID) {
+                loadFirebaseData();
+                masukDashboard();
+            } else {
+                showLoginScreen();
+            }
+        }
+
+        firebaseAuth.onAuthStateChanged(user => {
+            firebaseAuthReady = true;
+            if (user && user.uid !== OWNER_UID) {
+                stopFirebaseListeners();
+                firebaseAuth.signOut().then(() => {
+                    if (loginEntryReady) {
+                        showLoginScreen();
+                        showToast('Akun ini tidak diizinkan mengakses aplikasi.', 'error');
+                    }
+                }).catch(error => showToast(`Gagal keluar dari akun yang tidak diizinkan (${error.code || 'unknown'}).`, 'error'));
+                return;
+            }
+            if (loginEntryReady) showAuthenticatedEntry();
+        });
 
         function masukDashboard() {
             document.body.classList.add('app-ready');
@@ -6783,47 +6832,63 @@
             lucide.createIcons();
         }
 
-        function attemptLogin() {
-            const input = document.getElementById('login-password').value;
-            const correctPassword = (config.auth && config.auth.password) ? config.auth.password : "guru123";
-            const allowedPasswords = new Set([correctPassword, 'guru123', '11223']);
-
-            if (allowedPasswords.has(input)) {
-                sessionStorage.setItem('dlpk_logged_in', '1');
-                document.getElementById('login-screen').classList.add('hidden');
-                masukDashboard();
-                showToast('Login Berhasil', 'success');
-                document.getElementById('login-password').value = "";
-                lucide.createIcons();
-            } else {
-                showToast('Password Salah!', 'error');
-                document.getElementById('login-password').value = "";
-                document.getElementById('login-password').focus();
+        async function attemptLogin() {
+            const email = document.getElementById('login-email').value.trim();
+            const passwordInput = document.getElementById('login-password');
+            const button = document.getElementById('login-submit');
+            const password = passwordInput.value;
+            if (!email || !password) {
+                showToast('Masukkan email dan kata sandi Firebase Anda.', 'error');
+                return;
+            }
+            button.disabled = true;
+            try {
+                const credential = await firebaseAuth.signInWithEmailAndPassword(email, password);
+                if (credential.user.uid !== OWNER_UID) {
+                    await firebaseAuth.signOut();
+                    showToast('Akun ini tidak diizinkan mengakses aplikasi.', 'error');
+                    return;
+                }
+                passwordInput.value = '';
+                showToast('Login Firebase berhasil.', 'success');
+            } catch (error) {
+                const messages = {
+                    'auth/invalid-email': 'Format email tidak valid.',
+                    'auth/user-not-found': 'Akun Firebase tidak ditemukan.',
+                    'auth/wrong-password': 'Email atau kata sandi salah.',
+                    'auth/invalid-credential': 'Email atau kata sandi salah.',
+                    'auth/too-many-requests': 'Terlalu banyak percobaan. Coba lagi nanti.',
+                    'auth/network-request-failed': 'Koneksi internet bermasalah. Periksa koneksi Anda.'
+                };
+                showToast(messages[error.code] || `Login gagal (${error.code || 'unknown'}).`, 'error');
+                passwordInput.value = '';
+                passwordInput.focus();
+            } finally {
+                button.disabled = false;
             }
         }
 
         function logout() {
             dlpkConfirm('Apakah Anda yakin ingin keluar dari sistem?', function() {
-                sessionStorage.removeItem('dlpk_logged_in');
-                window.location.reload();
+                stopFirebaseListeners();
+                firebaseAuth.signOut().then(() => window.location.reload()).catch(error => {
+                    showToast(`Gagal keluar dari akun Firebase (${error.code || 'unknown'}).`, 'error');
+                });
             });
         }
 
         function loadFirebaseData() {
-            db.ref('journal').on('value', snap => {
+            if (firebaseDataLoaded) return;
+            firebaseDataLoaded = true;
+            listenToFirebase('journal', snap => {
                 journalData = snap.val() || {};
                 if(document.getElementById('page-journal').classList.contains('hidden') === false) renderJournalDay();
             });
-            db.ref('config').on('value', (snapshot) => {
+            listenToFirebase('config', (snapshot) => {
                 const c = snapshot.val();
                 if (c) {
                     config.guru = { ...config.guru, ...c.guru };
                     config.sekolah = { ...config.sekolah, ...c.sekolah };
-                    if (c.auth && c.auth.password) {
-                        config.auth.password = c.auth.password;
-                    } else {
-                        config.auth = { password: "guru123" };
-                    }
                     updateUIFromConfig();
                     if (c.guru && c.guru.foto) {
                         applyFotoGuru(c.guru.foto);
@@ -6831,14 +6896,14 @@
                 }
             });
 
-            db.ref('students').on('value', (snapshot) => {
+            listenToFirebase('students', (snapshot) => {
                 const s = snapshot.val();
                 if (s) students = Object.keys(s).map(k => ({...s[k], id: k}));
                 else students = [];
                 if (document.getElementById('page-students').classList.contains('hidden') === false) renderSiswa();
             });
 
-            db.ref('attendance').on('value', (snapshot) => {
+            listenToFirebase('attendance', (snapshot) => {
                 attendanceData = snapshot.val() || {};
                 const echoedWrites = Object.entries(attendanceSyncPending).every(([path, expected]) => {
                     const parts = path.split('/');
@@ -6852,16 +6917,17 @@
                 if (document.getElementById('page-attendance').classList.contains('hidden') === false) updateAbsenDOM();
             });
 
-            db.ref('grades').on('value', (snapshot) => {
+            listenToFirebase('grades', (snapshot) => {
                 gradesData = snapshot.val() || {};
                 if (document.getElementById('page-grades').classList.contains('hidden') === false) renderNilai();
             });
 
-            db.ref('gradeConfigs').on('value', (snapshot) => {
+            listenToFirebase('gradeConfigs', (snapshot) => {
                 const g = snapshot.val();
                 if (g) Object.assign(gradeConfigs, g);
                 if (document.getElementById('page-grades').classList.contains('hidden') === false) renderNilai();
             });
+            startFirebaseListeners();
         }
 
         function openShortcutModal(url, label) {
@@ -6961,6 +7027,19 @@
         }
 
         // -- FOTO GURU --
+        function sendPasswordReset() {
+            const user = firebaseAuth.currentUser;
+            if (!user || !user.email || user.uid !== OWNER_UID) {
+                showToast('Akun Firebase belum terdeteksi. Silakan login kembali.', 'error');
+                return;
+            }
+            firebaseAuth.sendPasswordResetEmail(user.email).then(() => {
+                showToast(`Tautan atur ulang dikirim ke ${user.email}.`, 'success');
+            }).catch(error => {
+                showToast(`Gagal mengirim tautan atur ulang (${error.code || 'unknown'}).`, 'error');
+            });
+        }
+
         function previewFotoGuru(input) {
             if (!input.files || !input.files[0]) return;
             const file = input.files[0];
@@ -6986,17 +7065,6 @@
         }
 
         function saveSettings() {
-            const newPassword = document.getElementById('set-password').value;
-            const confirmPassword = document.getElementById('set-password-confirm').value;
-
-            if (newPassword) {
-                if (newPassword !== confirmPassword) {
-                    showToast('Konfirmasi password tidak cocok!', 'error');
-                    return;
-                }
-                config.auth.password = newPassword;
-            }
-
             config.guru.nama = document.getElementById('set-guru-nama').value;
             config.guru.nip = document.getElementById('set-guru-nip').value;
             config.guru.kelas = document.getElementById('set-guru-kelas').value;
@@ -7951,14 +8019,14 @@
             }
         }
 
-        db.ref('scheduleSlots').on('value', snap => {
+        listenToFirebase('scheduleSlots', snap => {
             scheduleData = snap.val() || {};
             renderSlotList();
             if (document.getElementById('panel-grid') && !document.getElementById('panel-grid').classList.contains('hidden')) renderScheduleGrid();
             renderDashJadwal();
         });
 
-        db.ref('scheduleMapel').on('value', snap => {
+        listenToFirebase('scheduleMapel', snap => {
             scheduleMapel = snap.val() || {};
             if (document.getElementById('panel-grid') && !document.getElementById('panel-grid').classList.contains('hidden')) renderScheduleGrid();
             renderDashJadwal();
@@ -8369,7 +8437,7 @@
             });
         }
 
-        db.ref('bahanAjar').on('value', snap => {
+        listenToFirebase('bahanAjar', snap => {
             bahanAjarData = snap.val() || {};
             if (document.getElementById('page-bahan-ajar') && !document.getElementById('page-bahan-ajar').classList.contains('hidden')) {
                 renderBahanAjar();
@@ -8483,7 +8551,7 @@
             });
         }
 
-        db.ref('modulAjar').on('value', snap => {
+        listenToFirebase('modulAjar', snap => {
             modulAjarData = snap.val() || {};
             if (document.getElementById('page-modul-ajar') && !document.getElementById('page-modul-ajar').classList.contains('hidden')) {
                 renderModulAjar();
@@ -8583,7 +8651,7 @@
             });
         }
 
-        db.ref('capaianPembelajaran').on('value', snap => {
+        listenToFirebase('capaianPembelajaran', snap => {
             capaianPembelajaranData = snap.val() || {};
             if (document.getElementById('page-capaian-pembelajaran') && !document.getElementById('page-capaian-pembelajaran').classList.contains('hidden')) renderCapaianPembelajaran();
         });
@@ -8676,7 +8744,7 @@
             });
         }
 
-        db.ref('protaProsem').on('value', snap => {
+        listenToFirebase('protaProsem', snap => {
             protaProsemData = snap.val() || {};
             if (document.getElementById('page-prota-prosem') && !document.getElementById('page-prota-prosem').classList.contains('hidden')) renderProtaProsem();
         });
